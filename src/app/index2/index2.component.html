@@ -7,6 +7,57 @@
  &lt;!&ndash;<a [routerLink]="['/exercise']"> <div class="bigimag">Click</div></a>&ndash;&gt;
 </p>
 -->
+<style>
+.loderbody{
+position: relative;
+
+width:100%;
+height:100vh;
+}
+.loderbody_wrapper{
+
+text-align:center;
+
+height:100%;
+display: table;
+width: 100%;
+}
+
+.loderbody_wrapper span {
+vertical-align:middle;
+display: table-cell;
+}
+
+.loaderanimation {
+border: 16px solid #9b9a9a;
+border-radius: 50%;
+border-top: 16px solid #cc1559;
+width: 120px;
+height: 120px;
+-webkit-animation: spin 2s linear infinite;
+animation: spin 2s linear infinite; margin:0 auto;
+}
+
+@-webkit-keyframes spin {
+0% { -webkit-transform: rotate(0deg); }
+100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+</style>
+
+<div class="loderbody hide">
+    <div class="loderbody_wrapper">
+     <span>
+         <div class="loaderanimation"><img src="assets/images/favicon.png" alt=""></div>
+
+     </span>
+    </div>
+
+</div>
 
 
 <div class="homebannertop-wrapper">
@@ -32,7 +83,9 @@
 </div>
 <div class="mainwrapper">
     <div class="home-block1">
-        <a href="/party" class="" style="opacity: 1;">
+
+        <a [routerLink]="['/party']" class="" style="opacity: 1;">
+            <!--<a href="/party" class="" style="opacity: 1;">-->
             <div class="home-blok1left">
                 <img src="assets/images/hblck1-left.png" class="hblck1-leftimg" alt="#">
                 <img src="assets/images/hblck1-leftresponsive.png" class="hblck1-leftimgresponsive" alt="#">
@@ -41,7 +94,8 @@
                 <h4>are holding them all over the country. Are you in?</h4>
             </div>
         </a>
-        <a href="/fitness" class="" style="opacity: 1;">
+        <a [routerLink]="['/fitness']" class="" style="opacity: 1;">
+        <!--<a href="/fitness" class="" style="opacity: 1;">-->
             <div class="home-blok1right">
                 <img src="assets/images/hblck1-right.png" class="hblck1-rightimg" alt="#">
                 <img src="assets/images/hblck1-rightresponsive.png" class="hblck1-rightimgresponsive" alt="#">
@@ -66,11 +120,11 @@
         <div class="clear"></div>
     </div>
     <div class="himg-gellary">
-        <a href="/fit-lyfe" class="" style="opacity: 1;" target=""><img src="assets/images/himg-gellary1.png" alt="#"></a>
-        <a href="/beautiful" class="" style="opacity: 1;" target=""><img src="assets/images/himg-gellary2.png" alt="#"></a>
+        <!--<a href="/fit-lyfe"--><a [routerLink]="['/fitlyfe']" class="" style="opacity: 1;" target=""><img src="assets/images/himg-gellary1.png" alt="#"></a>
+        <!--<a href="/beautiful"--><a [routerLink]="['/beautiful']" class="" style="opacity: 1;" target=""><img src="assets/images/himg-gellary2.png" alt="#"></a>
         <a href="#" class="" style="opacity: 1;"><img src="assets/images/himg-gellary3.png" alt="#"></a>
-        <a href="/heart_cholesterol" class="" style="opacity: 1;" target=""><img src="assets/images/himg-gellary4.png" alt="#"></a>
-        <a href="/millennials" class="" style="opacity: 1;" target=""><img src="assets/images/himg-gellary5.png" alt="#"></a>
+        <!--<a href="/heart_cholesterol"--><a [routerLink]="['/heartcholesterol']" class="" style="opacity: 1;" target=""><img src="assets/images/himg-gellary4.png" alt="#"></a>
+        <!--<a href="/millennials"--><a [routerLink]="['/millennials']" class="" style="opacity: 1;" target=""><img src="assets/images/himg-gellary5.png" alt="#"></a>
         <a href="#" class="" style="opacity: 1;"><img src="assets/images/himg-gellary6.png" style="margin-right:0px;" alt="#"></a>
     </div>
     <div class="hbottom-wrapper">

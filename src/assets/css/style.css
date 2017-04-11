@@ -450,7 +450,7 @@ a:focus {
 
 .fitlyfe-bodywrapper .fitlyfe-block1right img{width:100%; height:100%; position:relative;}
 
-.fitlyfe-bodywrapper .fitlyfe-block1right .blocknote{padding:20px 0; background:#55385c; font-family:'IrisUPCBold-Regular'; font-weight:bold; font-size:50px; text-align:center; color:#fff; text-transform:uppercase; position:relative; bottom:145px; width:254px; opacity:0.8;}
+.fitlyfe-bodywrapper .fitlyfe-block1right .blocknote{padding:0px 0; background:#55385c; font-family:'IrisUPCBold-Regular'; font-weight:bold; font-size:50px; text-align:center; color:#fff; text-transform:uppercase; position:relative; bottom:145px; width:254px; opacity:0.8;} /*padding:20px 0; changed to 0px*/
 
 
 .fitlyfe-block2{width:100%; margin:35px auto; margin-top:10px;}
@@ -459,13 +459,13 @@ a:focus {
 
 .fitlyfe-block2 .fitlyfe-block2left .fitlyfe-block2leftimg{width:100%; height:100%; position:relative;}
 
-.fitlyfe-block2 .fitlyfe-block2left .blocknote{padding:20px 0; background:#55385c; font-family:'IrisUPCBold-Regular'; font-weight:bold; font-size:50px; text-align:center; color:#fff; text-transform:uppercase; position:relative; bottom:145px; width:308px; opacity:0.8;}
+.fitlyfe-block2 .fitlyfe-block2left .blocknote{padding:0px 0; background:#55385c; font-family:'IrisUPCBold-Regular'; font-weight:bold; font-size:50px; text-align:center; color:#fff; text-transform:uppercase; position:relative; bottom:145px; width:308px; opacity:0.8;}  /*padding:20px 0; changed to 0px*/
 
 .fitlyfe-block2 .fitlyfe-block2right{width:428px; float:left; border:3px solid #e9e9e9; height:564px;}
 
 .fitlyfe-block2 .fitlyfe-block2right .fitlyfe-block2rightimg{width:100%; height:100%; position:relative;}
 
-.fitlyfe-block2 .fitlyfe-block2right .blocknote{padding:20px 0; background:#55385c; font-family:'IrisUPCBold-Regular'; font-weight:bold; font-size:50px; text-align:center; color:#fff; text-transform:uppercase; position:relative; bottom:145px; width:308px; opacity:0.8;}
+.fitlyfe-block2 .fitlyfe-block2right .blocknote{padding:0px 0; background:#55385c; font-family:'IrisUPCBold-Regular'; font-weight:bold; font-size:50px; text-align:center; color:#fff; text-transform:uppercase; position:relative; bottom:145px; width:308px; opacity:0.8;} /*padding:20px 0; changed to 0px*/
 
 .fitlyfe-block3{width:100%; margin:20px 0;}
 
@@ -473,13 +473,13 @@ a:focus {
 
 .fitlyfe-block3 .fitlyfe-block3left .fitlyfe-block3leftimg{width:100%; height:100%; position:relative;}
 
-.fitlyfe-block3 .fitlyfe-block3left .blocknote{padding:20px 0; background:#55385c; font-family:'IrisUPCBold-Regular'; font-weight:bold; font-size:50px; text-align:center; color:#fff; text-transform:uppercase; position:relative; bottom:145px; width:308px; opacity:0.8;}
+.fitlyfe-block3 .fitlyfe-block3left .blocknote{padding:0px 0; background:#55385c; font-family:'IrisUPCBold-Regular'; font-weight:bold; font-size:50px; text-align:center; color:#fff; text-transform:uppercase; position:relative; bottom:145px; width:308px; opacity:0.8;}  /*padding:20px 0; changed to 0px*/
 
 .fitlyfe-block3 .fitlyfe-block3right{width:428px; float:left; border:3px solid #e9e9e9; height:292px;}
 
 .fitlyfe-block3 .fitlyfe-block3right .fitlyfe-block3rightimg{width:100%; height:100%; position:relative;}
 
-.fitlyfe-block3 .fitlyfe-block3right .blocknote{padding:20px 0; background:rgba(85, 56, 92, 0.8); font-family:'IrisUPCBold-Regular'; font-weight:bold; font-size:50px; text-align:center; color:#fff; text-transform:uppercase; position:relative; bottom:145px; width:308px;}
+.fitlyfe-block3 .fitlyfe-block3right .blocknote{padding:0px 0; background:rgba(85, 56, 92, 0.8); font-family:'IrisUPCBold-Regular'; font-weight:bold; font-size:50px; text-align:center; color:#fff; text-transform:uppercase; position:relative; bottom:145px; width:308px;}  /*padding:20px 0; changed to 0px*/
 
 /*--------------------------------------------------------------------------------------------------------------------------*/
 
@@ -2640,3 +2640,44 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f8fa', end
 
 
 /*----------------------------------------------------------------------end-heart_cholesterol------------------------------------------------------------------------*/
+
+
+.loderbody{
+	position: relative;
+
+	width:100%;
+	height:100vh;
+}
+.loderbody_wrapper{
+
+	text-align:center;
+
+	height:100%;
+	display: table;
+	width: 100%;
+}
+
+.loderbody_wrapper span {
+	vertical-align:middle;
+	display: table-cell;
+}
+
+.loaderanimation {
+	border: 16px solid #9b9a9a;
+	border-radius: 50%;
+	border-top: 16px solid #cc1559;
+	width: 120px;
+	height: 120px;
+	-webkit-animation: spin 2s linear infinite;
+	animation: spin 2s linear infinite; margin:0 auto;
+}
+
+@-webkit-keyframes spin {
+	0% { -webkit-transform: rotate(0deg); }
+	100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}

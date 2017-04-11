@@ -7,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Index2Component implements OnInit {
 
-  constructor() { }
+  constructor() {
+
+  }
 
   ngOnInit() {
   }

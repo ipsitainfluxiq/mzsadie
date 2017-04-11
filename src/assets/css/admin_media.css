@@ -1,0 +1,41 @@
+@media(max-width:1300px) {
+.dashboard_left{ width:21%; }
+
+  .dashboard_right{   width:76.5%; }
+  .dbblog{ width:23.5%; margin:0.5%; float:left; border-radius:5px;}
+  .dbblog .fa{ font-size:40px;  color:#fff;}
+}
+
+@media(max-width:1199px) {
+
+.dashboard_left{ width:100%; float:none; min-height:inherit; text-align:center;}
+.dashboard_left h2{ text-align:center;}
+.dashboard_wrappertop img{ width:140px; display:block; margin:0 auto;}
+  .dashboard_right{   width:90%; margin:0 auto; float:none; min-height:inherit; border:none; padding:10px 0;}
+  
+    .tablediv { overflow-x:auto; width:100%; margin:0 auto;}
+	
+	 .dbblog{ width:47%; margin:1%; float:left; border-radius:5px;}
+
+}
+
+@media(max-width:991px) {
+
+.login_bg{ height:auto; padding:100px 0;}
+
+.login_wrapper{ width:80%; padding-left:5%; padding-right:5%;}
+.login_formbox{ width:90%; margin:0 auto;}
+.login_formbox input[type="text"]{width:90%;}
+
+.dashboard1form{ width:96%;}
+
+.fpassword{ float:none; margin:10px auto;}
+.login_formbox .loginbtn{ float:none; margin:0 auto;}
+
+}
+
+
+
+@media(max-width:540px) {
+	 .dbblog{ width:90%; margin:0 auto; float:none; border-radius:5px; margin-bottom:15px;}
+}

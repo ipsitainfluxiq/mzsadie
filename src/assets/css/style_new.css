@@ -1,10 +1,10 @@
 @font-face {
 	font-family:'PoetsenOne-Regular';
-	src: url('system/themes/lyfeperformance/fonts/PoetsenOne-Regular_gdi.eot');
-	src: url('system/themes/lyfeperformance/fonts/PoetsenOne-Regular_gdi.eot?#iefix') format('embedded-opentype'),
-		url('system/themes/lyfeperformance/fonts/PoetsenOne-Regular_gdi.woff') format('woff'),
-		url('system/themes/lyfeperformance/fonts/PoetsenOne-Regular_gdi.ttf') format('truetype'),
-		url('system/themes/lyfeperformance/fonts/PoetsenOne-Regular_gdi.svg#PoetsenOne-Regular') format('svg');
+	src: url('/assets/fonts/PoetsenOne-Regular_gdi.eot');
+	src: url('/assets/fonts/PoetsenOne-Regular_gdi.eot?#iefix') format('embedded-opentype'),
+		url('/assets/fonts/PoetsenOne-Regular_gdi.woff') format('woff'),
+		url('/assets/fonts/PoetsenOne-Regular_gdi.ttf') format('truetype'),
+		url('/assets/fonts/PoetsenOne-Regular_gdi.svg#PoetsenOne-Regular') format('svg');
 	font-weight: 400;
 	font-style: normal;
 	font-stretch: normal;
@@ -14,11 +14,11 @@
 
 @font-face {
 	font-family:'DistantStroke-Regular';
-	src: url('system/themes/lyfeperformance/fonts/DistantStroke_gdi.eot');
-	src: url('system/themes/lyfeperformance/fonts/DistantStroke_gdi.eot?#iefix') format('embedded-opentype'),
-		url('system/themes/lyfeperformance/fonts/DistantStroke_gdi.woff') format('woff'),
-		url('system/themes/lyfeperformance/fonts/DistantStroke_gdi.ttf') format('truetype'),
-		url('system/themes/lyfeperformance/fonts/DistantStroke_gdi.svg#DistantStroke-Regular') format('svg');
+	src: url('/assets/fonts/DistantStroke_gdi.eot');
+	src: url('/assets/fonts/DistantStroke_gdi.eot?#iefix') format('embedded-opentype'),
+		url('/assets/fonts/DistantStroke_gdi.woff') format('woff'),
+		url('/assets/fonts/DistantStroke_gdi.ttf') format('truetype'),
+		url('/assets/fonts/DistantStroke_gdi.svg#DistantStroke-Regular') format('svg');
 	font-weight: 300;
 	font-style: normal;
 	font-stretch: normal;
@@ -27,11 +27,11 @@
 
 @font-face {
 	font-family:'Elbaris-Regular';
-	src: url('system/themes/lyfeperformance/fonts/Elbaris_gdi.eot');
-	src: url('system/themes/lyfeperformance/fonts/Elbaris_gdi.eot?#iefix') format('embedded-opentype'),
-		url('system/themes/lyfeperformance/fonts/Elbaris_gdi.woff') format('woff'),
-		url('system/themes/lyfeperformance/fonts/Elbaris_gdi.ttf') format('truetype'),
-		url('system/themes/lyfeperformance/fonts/Elbaris_gdi.svg#Elbaris-Regular') format('svg');
+	src: url('/assets/fonts/Elbaris_gdi.eot');
+	src: url('/assets/fonts/Elbaris_gdi.eot?#iefix') format('embedded-opentype'),
+		url('/assets/fonts/Elbaris_gdi.woff') format('woff'),
+		url('/assets/fonts/Elbaris_gdi.ttf') format('truetype'),
+		url('/assets/fonts/Elbaris_gdi.svg#Elbaris-Regular') format('svg');
 	font-weight: 400;
 	font-style: normal;
 	font-stretch: normal;
@@ -41,11 +41,11 @@
 
 @font-face {
 	font-family:'ArnoPro-SmText';
-	src: url('system/themes/lyfeperformance/fonts/ArnoPro-SmText_gdi.eot');
-	src: url('system/themes/lyfeperformance/fonts/ArnoPro-SmText_gdi.eot?#iefix') format('embedded-opentype'),
-		url('system/themes/lyfeperformance/fonts/ArnoPro-SmText_gdi.woff') format('woff'),
-		url('system/themes/lyfeperformance/fonts/ArnoPro-SmText_gdi.ttf') format('truetype'),
-		url('system/themes/lyfeperformance/fonts/ArnoPro-SmText_gdi.svg#ArnoPro-SmText') format('svg');
+	src: url('/assets/fonts/ArnoPro-SmText_gdi.eot');
+	src: url('/assets/fonts/ArnoPro-SmText_gdi.eot?#iefix') format('embedded-opentype'),
+		url('/assets/fonts/ArnoPro-SmText_gdi.woff') format('woff'),
+		url('/assets/fonts/ArnoPro-SmText_gdi.ttf') format('truetype'),
+		url('/assets/fonts/ArnoPro-SmText_gdi.svg#ArnoPro-SmText') format('svg');
 	font-weight: 400;
 	font-style: normal;
 	font-stretch: normal;
@@ -55,28 +55,28 @@
 
 
 
-.lyfehairhand-bodywrapper .lyfehairhand-bodyrightblock .lyfehairhand-bodyrightblock2 .lyfehairhand-bodyrightblockcon .exerciseblockheading{position:relative; background:url(system/themes/lyfeperformance/images/nmg_exercise.png) no-repeat center top; background-size:100%; text-align:center;  cursor:pointer; border:1px solid #f3f3f3;}
+.lyfehairhand-bodywrapper .lyfehairhand-bodyrightblock .lyfehairhand-bodyrightblock2 .lyfehairhand-bodyrightblockcon .exerciseblockheading{position:relative; background:url(/assets/images/nmg_exercise.png) no-repeat center top; background-size:100%; text-align:center;  cursor:pointer; border:1px solid #f3f3f3;}
 
 .lyfehairhand-bodywrapper .lyfehairhand-bodyrightblock .lyfehairhand-bodyrightblock2 .lyfehairhand-bodyrightblockcon .exerciseblockheading h1{font-family:'CenturySchoolbook-Regular'; font-size:40px; font-style:italic; color:#a1a9ae; text-transform:uppercase; line-height:110px; margin:0px; text-shadow:0px 6px 8px rgba(0, 0, 0, 0.3);}
 
 
-.lyfehairhand-bodywrapper .lyfehairhand-bodyrightblock .lyfehairhand-bodyrightblock2 .lyfehairhand-bodyrightblockcon .weightlossheading{position:relative; background:url(system/themes/lyfeperformance/images/nmg_weightloss.png) no-repeat center top; background-size:100%; text-align:center;  cursor:pointer; border:1px solid #f3f3f3;}
+.lyfehairhand-bodywrapper .lyfehairhand-bodyrightblock .lyfehairhand-bodyrightblock2 .lyfehairhand-bodyrightblockcon .weightlossheading{position:relative; background:url(/assets/images/nmg_weightloss.png) no-repeat center top; background-size:100%; text-align:center;  cursor:pointer; border:1px solid #f3f3f3;}
 
 .lyfehairhand-bodywrapper .lyfehairhand-bodyrightblock .lyfehairhand-bodyrightblock2 .lyfehairhand-bodyrightblockcon .weightlossheading h1{font-family:'CenturySchoolbook-Regular'; font-size:40px; font-style:italic; color:#65a4c2; text-transform:uppercase; line-height:110px; margin:0px; text-shadow:0px 6px 8px rgba(0, 0, 0, 0.3);}
 
 
 
-.lyfehairhand-bodywrapper .lyfehairhand-bodyrightblock .lyfehairhand-bodyrightblock2 .lyfehairhand-bodyrightblockcon .sleeptipsheading{position:relative; background:url(system/themes/lyfeperformance/images/nmg_sleeptips.png) no-repeat center top; background-size:100%; text-align:center;  cursor:pointer; border:1px solid #f3f3f3;}
+.lyfehairhand-bodywrapper .lyfehairhand-bodyrightblock .lyfehairhand-bodyrightblock2 .lyfehairhand-bodyrightblockcon .sleeptipsheading{position:relative; background:url(/assets/images/nmg_sleeptips.png) no-repeat center top; background-size:100%; text-align:center;  cursor:pointer; border:1px solid #f3f3f3;}
 
 .lyfehairhand-bodywrapper .lyfehairhand-bodyrightblock .lyfehairhand-bodyrightblock2 .lyfehairhand-bodyrightblockcon .sleeptipsheading h1{font-family:'CenturySchoolbook-Regular'; font-size:40px; font-style:italic; color:#f10076; text-transform:uppercase; line-height:110px; margin:0px; text-shadow:0px 6px 8px rgba(0, 0, 0, 0.3);}
 
 
-.lyfehairhand-bodywrapper .lyfehairhand-bodyrightblock .lyfehairhand-bodyrightblock2 .lyfehairhand-bodyrightblockcon .facialmasksheading{position:relative; background:url(system/themes/lyfeperformance/images/nmg_facialmasks.png) no-repeat center top; background-size:100%; text-align:center;  cursor:pointer; border:1px solid #f3f3f3;}
+.lyfehairhand-bodywrapper .lyfehairhand-bodyrightblock .lyfehairhand-bodyrightblock2 .lyfehairhand-bodyrightblockcon .facialmasksheading{position:relative; background:url(/assets/images/nmg_facialmasks.png) no-repeat center top; background-size:100%; text-align:center;  cursor:pointer; border:1px solid #f3f3f3;}
 
 .lyfehairhand-bodywrapper .lyfehairhand-bodyrightblock .lyfehairhand-bodyrightblock2 .lyfehairhand-bodyrightblockcon .facialmasksheading h1{font-family:'CenturySchoolbook-Regular'; font-size:40px; font-style:italic; color:#241f00; text-transform:uppercase; line-height:110px; margin:0px; text-shadow:0px 6px 8px rgba(0, 0, 0, 0.3);}
 
 
-.lyfehairhand-bodywrapper .lyfehairhand-bodyrightblock .lyfehairhand-bodyrightblock2 .lyfehairhand-bodyrightblockcon .eyesheading{position:relative; background:url(system/themes/lyfeperformance/images/nmg_eyes.png) no-repeat center top; background-size:100%; text-align:center;  cursor:pointer; border:1px solid #f3f3f3;}
+.lyfehairhand-bodywrapper .lyfehairhand-bodyrightblock .lyfehairhand-bodyrightblock2 .lyfehairhand-bodyrightblockcon .eyesheading{position:relative; background:url(/assets/images/nmg_eyes.png) no-repeat center top; background-size:100%; text-align:center;  cursor:pointer; border:1px solid #f3f3f3;}
 
 .lyfehairhand-bodywrapper .lyfehairhand-bodyrightblock .lyfehairhand-bodyrightblock2 .lyfehairhand-bodyrightblockcon .eyesheading h1{font-family:'CenturySchoolbook-Regular'; font-size:40px; font-style:italic; color:#020202; text-transform:uppercase; line-height:110px; margin:0px; text-shadow:0px 6px 8px rgba(0, 0, 0, 0.3);}
 
@@ -87,7 +87,7 @@
 
 .exerciseblock_wrapper .textpart1{ width:100%;}
 
-.exerciseblock_wrapper .textpart1{ background:url(system/themes/lyfeperformance/images/exercise_img1.png) no-repeat right top; }
+.exerciseblock_wrapper .textpart1{ background:url(/assets/images/exercise_img1.png) no-repeat right top; }
 
 .exerciseblock_wrapper  .textheading1{ background:#f02078; padding:14px; font-size:30px; color:#ffffff; font-family: 'MyriadPro-Regular'; display:inline-block;}
 
@@ -107,7 +107,7 @@ box-shadow: 0px 0px 5px 0px rgba(87,80,77,1);  padding:8px 15px; border-radius:0
 .exerciseblock_wrapper .textpart2  img{ width:100%;  font-size:16px; color:#3c3c3b; font-family: 'MyriadPro-Regular';}
 
 
-.textpart3{ background:url(system/themes/lyfeperformance/images/exercise_img3.png) no-repeat right top;}
+.textpart3{ background:url(/assets/images/exercise_img3.png) no-repeat right top;}
 
 
 .exerciseblock_wrapper .textpart3 .textblock3{  width:420px; margin:15px 20px; font-size:16px; color:#3c3c3b; font-family: 'MyriadPro-Regular';}
@@ -128,7 +128,7 @@ box-shadow: 0px 0px 5px 0px rgba(87,80,77,1);  padding:8px 15px; border-radius:0
     display: inline-block;
 }
 
-.weightloss_wrapper  .weightloss_con2{background:url(system/themes/lyfeperformance/images/weightlos_img1.png) no-repeat right top; padding-right:400px;}
+.weightloss_wrapper  .weightloss_con2{background:url(/assets/images/weightlos_img1.png) no-repeat right top; padding-right:400px;}
 
 .weightloss_wrapper  .weightloss_con2 h2{ display:inline-block; background:#f5ff5f; -webkit-box-shadow: 0px 0px 5px 0px rgba(87,80,77,1);
 -moz-box-shadow: 0px 0px 5px 0px rgba(87,80,77,1);
@@ -163,7 +163,7 @@ box-shadow: 0px 0px 5px 0px rgba(87,80,77,1);  padding:8px 15px; border-radius:0
 .weightloss_wrapper  .weightloss_con5 p{ padding:0; margin:15px 20px; font-size:16px!important; color:#3c3c3b!important; }
 
 
-.weightloss_wrapper  .weightloss_con6{background:url(system/themes/lyfeperformance/images/weightlos_img4.png) no-repeat right top; padding:0 590px 18px 0;}
+.weightloss_wrapper  .weightloss_con6{background:url(/assets/images/weightlos_img4.png) no-repeat right top; padding:0 590px 18px 0;}
 
 .weightloss_wrapper  .weightloss_con6 h2{ display:inline-block; background:#f5ff5f; -webkit-box-shadow: 0px 0px 5px 0px rgba(87,80,77,1);
 -moz-box-shadow: 0px 0px 5px 0px rgba(87,80,77,1);
@@ -208,7 +208,7 @@ box-shadow: 0px 0px 5px 0px rgba(87,80,77,1);  padding:8px 15px; border-radius:0
 
 
 
-.facialmasks_wrapper{background:#fef7cd url(system/themes/lyfeperformance/images/facialmasks_wrapperbg.png) no-repeat center top; background-size:100%; margin-bottom:25px; display:none;}
+.facialmasks_wrapper{background:#fef7cd url(/assets/images/facialmasks_wrapperbg.png) no-repeat center top; background-size:100%; margin-bottom:25px; display:none;}
 
 .facialmasks_wrapper h1{margin:0px; background:#f4557d; font-family: 'MyriadPro-Regular'; font-size: 24px; color: #fff; width: 436px; padding: 12px 0; text-align: center;}
 
@@ -233,7 +233,7 @@ box-shadow: 0px 0px 5px 0px rgba(87,80,77,1);  padding:8px 20px; border-radius:0
 
 .facialmasks_wrapper p span{margin-left:10px;}
 
-.facialmasks_wrapper .facialmasks_wrapper-honeyblock{background:#fef4bb url(system/themes/lyfeperformance/images/facialmasks_wrapperimg3.png) no-repeat right top;}
+.facialmasks_wrapper .facialmasks_wrapper-honeyblock{background:#fef4bb url(/assets/images/facialmasks_wrapperimg3.png) no-repeat right top;}
 
 .facialmasks_wrapper .facialmasks_wrapper-honeyblock .facialmasks_wrapper-honeyblockmddletxt{width:90%;}
 
@@ -246,7 +246,7 @@ box-shadow: 0px 0px 5px 0px rgba(87,80,77,1);  padding:8px 20px; border-radius:0
 .facialmasks_wrapper .facialmasks_wrapperimg4btm{margin-top:-64px;}
 
 
-.eyes_wrapper{background: url(system/themes/lyfeperformance/images/eyes_wrapperbg.png) no-repeat center top; background-size:100%; display:none;}
+.eyes_wrapper{background: url(/assets/images/eyes_wrapperbg.png) no-repeat center top; background-size:100%; display:none;}
 
 .eyes_wrapper > .container{width:100%;}
 
@@ -261,7 +261,7 @@ box-shadow: 0px 0px 5px 0px rgba(87,80,77,1);  padding:8px 20px; border-radius:0
 .eyes_wrapper p span{margin-left:10px;}
 
 
-.eyes_wrapper .eyes_wrapperbtm{background: url(system/themes/lyfeperformance/images/eyes_wrapperbtmbg.png) no-repeat center top; background-size:100%; margin-top:216px;}
+.eyes_wrapper .eyes_wrapperbtm{background: url(/assets/images/eyes_wrapperbtmbg.png) no-repeat center top; background-size:100%; margin-top:216px;}
 
 .eyes_wrapper .container > .row > .container{width:100%;}
 
@@ -282,7 +282,7 @@ box-shadow: 0px 0px 5px 0px rgba(87,80,77,1);  padding:8px 20px; border-radius:0
 
 
 
-.bridal_yoga_right_wrapper{background: url(system/themes/lyfeperformance/images/bridal_yogabigimg.png) no-repeat center top; background-size:100%; box-shadow:0px 0px 5px rgba(0, 0, 0, 0.2);}
+.bridal_yoga_right_wrapper{background: url(/assets/images/bridal_yogabigimg.png) no-repeat center top; background-size:100%; box-shadow:0px 0px 5px rgba(0, 0, 0, 0.2);}
 
 .bridal_yoga_right_wrapper > .container{width:100%; padding:0 25px;}
 
@@ -293,13 +293,13 @@ box-shadow: 0px 0px 5px 0px rgba(87,80,77,1);  padding:8px 20px; border-radius:0
 .bridal_yoga_right_wrapper p{font-family:'OpenSans-Regular'; font-size:16px; color:#171717; text-align:center; line-height:24px;}
 
 
-.bridal_yoga_right_wrapper .bridal_yoga-block1{background:url(system/themes/lyfeperformance/images/bridal_yoga-bodyblock1bg.png) no-repeat center top; background-size:100%;}
+.bridal_yoga_right_wrapper .bridal_yoga-block1{background:url(/assets/images/bridal_yoga-bodyblock1bg.png) no-repeat center top; background-size:100%;}
 
 .bridal_yoga_right_wrapper .bridal_yoga-block1 .bridal_yoga_text2{
-background:#f7fd7a url(system/themes/lyfeperformance/images/bridal_yoga_img3.png) no-repeat center bottom; background-size:100%; position:relative; padding:12px 32px 30px 32px; font-size:16px; color:#1c1c1c; line-height:24px; font-family:'OpenSans-Regular'; text-align:center; width:100%; margin:0 auto; margin-top:59px;  box-shadow:0px 0px 7px rgba(0, 0, 0, 0.6);}
+background:#f7fd7a url(/assets/images/bridal_yoga_img3.png) no-repeat center bottom; background-size:100%; position:relative; padding:12px 32px 30px 32px; font-size:16px; color:#1c1c1c; line-height:24px; font-family:'OpenSans-Regular'; text-align:center; width:100%; margin:0 auto; margin-top:59px;  box-shadow:0px 0px 7px rgba(0, 0, 0, 0.6);}
 
 
-.bridal_yoga_right_wrapper .bridal_yoga-block1 .bridal_yoga_text2 .bridal_yoga_headingtext{  background:url(system/themes/lyfeperformance/images/bridal_massage_img1.png) no-repeat center top; width:518px; height:82px; margin:0 auto; margin-top:-21px; margin-bottom:12px;}
+.bridal_yoga_right_wrapper .bridal_yoga-block1 .bridal_yoga_text2 .bridal_yoga_headingtext{  background:url(/assets/images/bridal_massage_img1.png) no-repeat center top; width:518px; height:82px; margin:0 auto; margin-top:-21px; margin-bottom:12px;}
  
  
  
@@ -333,10 +333,10 @@ background:#f7fd7a url(system/themes/lyfeperformance/images/bridal_yoga_img3.png
 .bridal_yoga_right_wrapper .bridal_yoga-block2{width:100%;}
 
 .bridal_yoga_right_wrapper .bridal_yoga-block2 .bridal_yoga_text2{
-background:#f7fd7a url(system/themes/lyfeperformance/images/bridal_yoga_img3.png) no-repeat center bottom; background-size:100%; position:relative; padding:12px 32px 45px 32px; font-size:16px; color:#1c1c1c; line-height:24px; font-family:'OpenSans-Regular'; text-align:center; width:100%; margin:0 auto; margin-top:30px;  box-shadow:0px 0px 7px rgba(0, 0, 0, 0.6);}
+background:#f7fd7a url(/assets/images/bridal_yoga_img3.png) no-repeat center bottom; background-size:100%; position:relative; padding:12px 32px 45px 32px; font-size:16px; color:#1c1c1c; line-height:24px; font-family:'OpenSans-Regular'; text-align:center; width:100%; margin:0 auto; margin-top:30px;  box-shadow:0px 0px 7px rgba(0, 0, 0, 0.6);}
 
 
-.bridal_yoga_right_wrapper .bridal_yoga-block2 .bridal_yoga_text2 .bridal_yoga_headingtext{  background:url(system/themes/lyfeperformance/images/bridal_massage_img1.png) no-repeat center top; width:518px; height:82px; margin:0 auto; margin-top:-21px; margin-bottom:12px;}
+.bridal_yoga_right_wrapper .bridal_yoga-block2 .bridal_yoga_text2 .bridal_yoga_headingtext{  background:url(/assets/images/bridal_massage_img1.png) no-repeat center top; width:518px; height:82px; margin:0 auto; margin-top:-21px; margin-bottom:12px;}
  
 .bridal_yoga_right_wrapper .bridal_yoga-block2 .bridal_yoga_text2 span{margin-bottom:15px; display:block;} 
  
@@ -344,10 +344,10 @@ background:#f7fd7a url(system/themes/lyfeperformance/images/bridal_yoga_img3.png
 .bridal_yoga_right_wrapper .bridal_yoga-block3{width:100%; margin-top:-77px;}
 
 .bridal_yoga_right_wrapper .bridal_yoga-block3 .bridal_yoga_text2{
-background:#f7fd7a url(system/themes/lyfeperformance/images/bridal_yoga_img3.png) no-repeat center bottom; background-size:100%; position:relative; padding:12px 32px 45px 32px; font-size:16px; color:#1c1c1c; line-height:24px; font-family:'OpenSans-Regular'; text-align:center; width:100%; margin:0 auto; margin-top:30px;  box-shadow:0px 0px 7px rgba(0, 0, 0, 0.6);}
+background:#f7fd7a url(/assets/images/bridal_yoga_img3.png) no-repeat center bottom; background-size:100%; position:relative; padding:12px 32px 45px 32px; font-size:16px; color:#1c1c1c; line-height:24px; font-family:'OpenSans-Regular'; text-align:center; width:100%; margin:0 auto; margin-top:30px;  box-shadow:0px 0px 7px rgba(0, 0, 0, 0.6);}
 
 
-.bridal_yoga_right_wrapper .bridal_yoga-block3 .bridal_yoga_text2 .bridal_yoga_headingtext{  background:url(system/themes/lyfeperformance/images/bridal_massage_img1.png) no-repeat center top; width:518px; height:82px; margin:0 auto; margin-top:-21px; margin-bottom:12px;}
+.bridal_yoga_right_wrapper .bridal_yoga-block3 .bridal_yoga_text2 .bridal_yoga_headingtext{  background:url(/assets/images/bridal_massage_img1.png) no-repeat center top; width:518px; height:82px; margin:0 auto; margin-top:-21px; margin-bottom:12px;}
  
 .bridal_yoga_right_wrapper .bridal_yoga-block3 .bridal_yoga_text2 span{margin-bottom:15px; display:block;} 
   
@@ -355,20 +355,20 @@ background:#f7fd7a url(system/themes/lyfeperformance/images/bridal_yoga_img3.png
 .bridal_yoga_right_wrapper .bridal_yoga-block4{width:100%;}
 
 .bridal_yoga_right_wrapper .bridal_yoga-block4 .bridal_yoga_text2{
-background:#f7fd7a url(system/themes/lyfeperformance/images/bridal_yoga_img3.png) no-repeat center bottom; background-size:100%; position:relative; padding:12px 32px 45px 32px; font-size:16px; color:#1c1c1c; line-height:24px; font-family:'OpenSans-Regular'; text-align:center; width:100%; margin:0 auto; margin-top:30px;  box-shadow:0px 0px 7px rgba(0, 0, 0, 0.6);}
+background:#f7fd7a url(/assets/images/bridal_yoga_img3.png) no-repeat center bottom; background-size:100%; position:relative; padding:12px 32px 45px 32px; font-size:16px; color:#1c1c1c; line-height:24px; font-family:'OpenSans-Regular'; text-align:center; width:100%; margin:0 auto; margin-top:30px;  box-shadow:0px 0px 7px rgba(0, 0, 0, 0.6);}
 
 
-.bridal_yoga_right_wrapper .bridal_yoga-block4 .bridal_yoga_text2 .bridal_yoga_headingtext{  background:url(system/themes/lyfeperformance/images/bridal_massage_img1.png) no-repeat center top; width:518px; height:82px; margin:0 auto; margin-top:-21px; margin-bottom:12px;}
+.bridal_yoga_right_wrapper .bridal_yoga-block4 .bridal_yoga_text2 .bridal_yoga_headingtext{  background:url(/assets/images/bridal_massage_img1.png) no-repeat center top; width:518px; height:82px; margin:0 auto; margin-top:-21px; margin-bottom:12px;}
  
 .bridal_yoga_right_wrapper .bridal_yoga-block4 .bridal_yoga_text2 span{margin-bottom:15px; display:block;} 
 
 
 
-.bridal_yoga-bodymddlbg {background:url(system/themes/lyfeperformance/images/bridal_yoga-bodymddlbg.png) no-repeat center top 198px; background-size:100%; padding-bottom:326px;}
+.bridal_yoga-bodymddlbg {background:url(/assets/images/bridal_yoga-bodymddlbg.png) no-repeat center top 198px; background-size:100%; padding-bottom:326px;}
 
 .bridal_yoga-bodymddlbg > .container{padding:0 25px;}
 
-.bridal_yoga-bodybtmbg{background:url(system/themes/lyfeperformance/images/bridal_yoga-bodybtmbg.png) no-repeat center top 12px; background-size:100%; padding-bottom:242px;}
+.bridal_yoga-bodybtmbg{background:url(/assets/images/bridal_yoga-bodybtmbg.png) no-repeat center top 12px; background-size:100%; padding-bottom:242px;}
 
 .bridal_yoga-bodybtmbg > .container{padding:0 25px;}
 
@@ -383,11 +383,11 @@ background:#f7fd7a url(system/themes/lyfeperformance/images/bridal_yoga_img3.png
 
 .stress_body .stressbg3{ width:100%;}
 
-.stress_wrapper1{ width:100%; position:relative; background:url(system/themes/lyfeperformance/images/stressbg1.png) no-repeat center top; height:560px;}
+.stress_wrapper1{ width:100%; position:relative; background:url(/assets/images/stressbg1.png) no-repeat center top; height:560px;}
 
 .stress_wrapper1 .stressbg2{ display:none;}
 
-.stress_wrapper1 .stress_heading1{ background:url(system/themes/lyfeperformance/images/stressheading1.png) no-repeat center top; width:518px; height:82px; display:block;  text-align:center; color:#929292; font-size:30px; font-family:'OpenSans-Regular'; padding:10px 0 0 0; position:absolute; left:192px; top:-9px; text-transform:capitalize;}
+.stress_wrapper1 .stress_heading1{ background:url(/assets/images/stressheading1.png) no-repeat center top; width:518px; height:82px; display:block;  text-align:center; color:#929292; font-size:30px; font-family:'OpenSans-Regular'; padding:10px 0 0 0; position:absolute; left:192px; top:-9px; text-transform:capitalize;}
 
 
 .stress_wrapper1 .stress_textcon1{ width:500px; margin:100px 0 0 30px; font-size:16px; color:#e3e3e3; font-family:'OpenSans-Regular'; line-height:24px;}
@@ -400,7 +400,7 @@ background:#f7fd7a url(system/themes/lyfeperformance/images/bridal_yoga_img3.png
 
 .stress_wrapper2{ background:#e6e6e2; width:90%; margin:0 auto; padding:2%;  box-shadow: 0 0 2px 0 rgba(136, 136, 136, 1); font-size:16px; color:#000000;  font-family:'OpenSans-Regular'; line-height:24px;}
 
-.stress_wrapper3{background:url(system/themes/lyfeperformance/images/stressbg9.png) no-repeat center bottom; padding:0px 0px 40px 0px; font-size:16px!important; color:#000000!important; font-family:'OpenSans-Regular'; line-height:24px;}
+.stress_wrapper3{background:url(/assets/images/stressbg9.png) no-repeat center bottom; padding:0px 0px 40px 0px; font-size:16px!important; color:#000000!important; font-family:'OpenSans-Regular'; line-height:24px;}
 
 .stress_wrapper3 p{ padding:24px 24px 0 25px!important; font-size:16px!important;  color:#000000!important;}
 
@@ -421,27 +421,27 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2c2b2b', end
 .stress_wrapper3 .stress_imgcon3 img{ width:100%; margin:0 auto;}
 
 
-.stress_wrapper3 .stress_imgcon3 .stress_heading4{ background:url(system/themes/lyfeperformance/images/stressheading4.png) no-repeat left top; width:238px; height:65px; position:absolute; right:30px; top:2px; font-family:'CenturyGothic-Regular'; text-transform:uppercase; font-size:30px; color:#ffffff; text-align:center; line-height:55px;}
+.stress_wrapper3 .stress_imgcon3 .stress_heading4{ background:url(/assets/images/stressheading4.png) no-repeat left top; width:238px; height:65px; position:absolute; right:30px; top:2px; font-family:'CenturyGothic-Regular'; text-transform:uppercase; font-size:30px; color:#ffffff; text-align:center; line-height:55px;}
 
 
-.stress_wrapper3 .wrapper3_text3{  background:url(system/themes/lyfeperformance/images/stressbg8.png) no-repeat left top; width:429px; height:515px; float:right;position:relative; margin-right:24px;} 
+.stress_wrapper3 .wrapper3_text3{  background:url(/assets/images/stressbg8.png) no-repeat left top; width:429px; height:515px; float:right;position:relative; margin-right:24px;} 
 
-.stress_wrapper3 .wrapper3_text3 .stress_heading3{ background:url(system/themes/lyfeperformance/images/stressheading3.png) no-repeat left top; width:372px; height:56px; top:18px; position:absolute;  font-family:'OpenSans-Semibold'; font-size:24px; color:#ffffff!important; text-shadow:0 0 1px #000; text-shadow:0 0 1px;  padding:11px 0 0 20px;  }
+.stress_wrapper3 .wrapper3_text3 .stress_heading3{ background:url(/assets/images/stressheading3.png) no-repeat left top; width:372px; height:56px; top:18px; position:absolute;  font-family:'OpenSans-Semibold'; font-size:24px; color:#ffffff!important; text-shadow:0 0 1px #000; text-shadow:0 0 1px;  padding:11px 0 0 20px;  }
 
 .stress_wrapper3 .wrapper3_text3  p{ padding-top:80px!important;}
 
-.stress_wrapper4{ background:url(system/themes/lyfeperformance/images/stressbg6.png) no-repeat right bottom; padding:0 510px 20px 0; font-size:16px; color:#000000;  font-family:'OpenSans-Regular'; line-height:24px;}
+.stress_wrapper4{ background:url(/assets/images/stressbg6.png) no-repeat right bottom; padding:0 510px 20px 0; font-size:16px; color:#000000;  font-family:'OpenSans-Regular'; line-height:24px;}
 
 .stress_wrapper4 span{ color:#ec0541;}
 
 
-.stress_wrapper4  .stress_heading5{ background:url(system/themes/lyfeperformance/images/stressheading2.png) no-repeat left top; width:288px; height:61px;  font-family:'OpenSans-Semibold'; text-transform:uppercase; font-size:24px; color:#000; text-align:center; line-height:48px; margin-bottom:10px;}
+.stress_wrapper4  .stress_heading5{ background:url(/assets/images/stressheading2.png) no-repeat left top; width:288px; height:61px;  font-family:'OpenSans-Semibold'; text-transform:uppercase; font-size:24px; color:#000; text-align:center; line-height:48px; margin-bottom:10px;}
 
 .stress_wrapper4 .stress_textcon5{ padding-left:24px;}
 
 
 
-.perfect_body{ background:url(system/themes/lyfeperformance/images/perfect_posture_bg.png) no-repeat center top; background-size:cover; position:relative;
+.perfect_body{ background:url(/assets/images/perfect_posture_bg.png) no-repeat center top; background-size:cover; position:relative;
     box-shadow: 0 0 2px 0 rgba(136, 136, 136, 1); padding-bottom:10px; padding-top:22px;}
 	
 	
@@ -457,36 +457,36 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2c2b2b', end
  .perfect_block2{ width:510px; padding:0 0 0 0; margin:0 0 0 16px;  font-size:14px!important; color:#232323!important;  font-family:'OpenSans-Regular'!important; line-height:24px!important;}
  
  
-  .perfect_block2 .perfect_listdiv1{ background:url(system/themes/lyfeperformance/images/perfect_posture_img8.png) no-repeat left top;  padding:26px 0 0 85px; margin:20px 0 0 16px;}
+  .perfect_block2 .perfect_listdiv1{ background:url(/assets/images/perfect_posture_img8.png) no-repeat left top;  padding:26px 0 0 85px; margin:20px 0 0 16px;}
   
     .perfect_block2 .perfect_listdiv1 ul{ margin:0; padding:0;}
  
-     .perfect_block2 .perfect_listdiv1 ul li{ margin:0 0 2px 0; padding:0 0 0 15px; list-style:none; background:url(system/themes/lyfeperformance/images/perfect_posture_img11.png) no-repeat left 7px;} 
+     .perfect_block2 .perfect_listdiv1 ul li{ margin:0 0 2px 0; padding:0 0 0 15px; list-style:none; background:url(/assets/images/perfect_posture_img11.png) no-repeat left 7px;} 
 	 .perfect_posture_img5{ display:block; max-width:100%;}
 	 
 	 
-	 .perfect_block3{ width:100%; background:url(system/themes/lyfeperformance/images/perfect_posture_img3.png) no-repeat left center; margin-top:48px; padding:110px 40px 40px 450px;  font-size:14px!important; color:#232323!important;  c line-height:24px!important;}
+	 .perfect_block3{ width:100%; background:url(/assets/images/perfect_posture_img3.png) no-repeat left center; margin-top:48px; padding:110px 40px 40px 450px;  font-size:14px!important; color:#232323!important;  c line-height:24px!important;}
 	 
 	 	 .perfect_posture_img6{ display:block; max-width:100%;}
 	 
 	 
 	 
-	 .perfect_block3 .perfect_listdiv2{ background:url(system/themes/lyfeperformance/images/perfect_posture_img9.png) no-repeat right top;  padding:26px 85px 0 0; margin:20px 10px 0 0;}
+	 .perfect_block3 .perfect_listdiv2{ background:url(/assets/images/perfect_posture_img9.png) no-repeat right top;  padding:26px 85px 0 0; margin:20px 10px 0 0;}
   
     .perfect_block3 .perfect_listdiv2 ul{ margin:0; padding:0;}
  
-     .perfect_block3 .perfect_listdiv2 ul li{ margin:0 0 2px 0; padding:0 0 0 15px; list-style:none; background:url(system/themes/lyfeperformance/images/perfect_posture_img11.png) no-repeat left 7px;} 
+     .perfect_block3 .perfect_listdiv2 ul li{ margin:0 0 2px 0; padding:0 0 0 15px; list-style:none; background:url(/assets/images/perfect_posture_img11.png) no-repeat left 7px;} 
 	 
 	 .perfect_block4{ width:880px; margin:0 auto; font-size:14px!important; color:#232323!important;  font-family:'OpenSans-Regular'!important; line-height:24px!important;}
 	 
 	  .perfect_posture_img7{ display:block; max-width:100%;}
 	 
 	 
-	  .perfect_block4 .perfect_listdiv3{ background:url(system/themes/lyfeperformance/images/perfect_posture_img10.png) no-repeat left top;  padding:26px 0 0 85px; margin:20px 10px 0 0;}
+	  .perfect_block4 .perfect_listdiv3{ background:url(/assets/images/perfect_posture_img10.png) no-repeat left top;  padding:26px 0 0 85px; margin:20px 10px 0 0;}
   
     .perfect_block4 .perfect_listdiv3 ul{ margin:0; padding:0;}
  
-     .perfect_block4 .perfect_listdiv3 ul li{ margin:0 0 2px 0; padding:0 0 0 15px; list-style:none; background:url(system/themes/lyfeperformance/images/perfect_posture_img11.png) no-repeat left 7px;} 
+     .perfect_block4 .perfect_listdiv3 ul li{ margin:0 0 2px 0; padding:0 0 0 15px; list-style:none; background:url(/assets/images/perfect_posture_img11.png) no-repeat left 7px;} 
 	 
 	 
 	 perfect_posture_img4{ display:block; max-width:100%; margin-top:30px;}
@@ -501,7 +501,7 @@ background: linear-gradient(to bottom, rgba(255,202,0,1) 0%, rgba(255,163,0,1) 1
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffca00', endColorstr='#ffa300', GradientType=0 ); border: solid 5px #fff;     box-shadow: 0 0 2px 0 rgba(136, 136, 136, 1); width:94%; margin:25px auto; padding:20px 50px; font-family:'OpenSans-Semibold'; color:#fff; text-align:center; font-style:italic; border-radius:60px; font-size:24px; }
 
 
-.blood_pressure_wrapper{ background:url(system/themes/lyfeperformance/images/blood_pressurebg.png) no-repeat left top; background-size:cover;   box-shadow: 0 0 2px 0 rgba(136, 136, 136, 1);} 
+.blood_pressure_wrapper{ background:url(/assets/images/blood_pressurebg.png) no-repeat left top; background-size:cover;   box-shadow: 0 0 2px 0 rgba(136, 136, 136, 1);} 
 	 
 	 
 .blood_pressure_block1{ padding:35px; padding-bottom:0px;}	 
@@ -509,7 +509,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffca00', end
 .blood_pressure_block1 .blood_pressure1{ display:block; max-width:100%; margin-bottom:25px;}
 
 
-.blood_pressure_text1{background:url(system/themes/lyfeperformance/images/blood_pressure2.png) no-repeat right bottom; padding:0 490px 110px 0; font-size:18px; color:#2a2929; line-height:24px; font-family:'OpenSans-Regular'!important;}
+.blood_pressure_text1{background:url(/assets/images/blood_pressure2.png) no-repeat right bottom; padding:0 490px 110px 0; font-size:18px; color:#2a2929; line-height:24px; font-family:'OpenSans-Regular'!important;}
  
  
  .blood_pressure4{ display:block; margin:0 auto; margin-top:-110px; width:90%;}
@@ -518,7 +518,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffca00', end
   
   .scents_relaxation_body{ background:#fffcf7; background-size:cover;   box-shadow: 0 0 2px 0 rgba(136, 136, 136, 1);} 
   
-  .scents_relaxation_block1{ background:url(system/themes/lyfeperformance/images/scents_relaxationbg1.png) no-repeat right top; background-size:100%; overflow:hidden;}
+  .scents_relaxation_block1{ background:url(/assets/images/scents_relaxationbg1.png) no-repeat right top; background-size:100%; overflow:hidden;}
   
     .scents_relaxation_block1 h2{ background:#f6ff00; display:inline-block; padding:26px 140px 26px 26px; margin:22px; 	font-family:'ArnoPro-SmText'; color:#202020; font-size:36px; line-height:36px; text-transform:uppercase; }
   
@@ -526,7 +526,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffca00', end
   
    .scents_relaxation_text1 span{ color:#d30101;}
    
-   .scents_relaxation_text2{background:url(system/themes/lyfeperformance/images/scents_relaxation3.png) no-repeat left center; height:380px; padding:20px 0 0 300px;}
+   .scents_relaxation_text2{background:url(/assets/images/scents_relaxation3.png) no-repeat left center; height:380px; padding:20px 0 0 300px;}
    
       .scents_relaxation_text2 th{ background:#d83494; padding:16px; text-align:center; font-size:18px; color:#ffffff; font-family:'OpenSans-Bold';}
 	  
@@ -553,7 +553,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffca00', end
 .scents_relaxation_text3{ text-align:center; padding:10px;}
 
 
-.blood_pressure_text1{background:url(system/themes/lyfeperformance/images/blood_pressure2.png) no-repeat center bottom; background-size:300px; padding:0 0 330px 0; font-size:18px; color:#2a2929; line-height:24px; font-family:'OpenSans-Regular'!important; text-align:left;}
+.blood_pressure_text1{background:url(/assets/images/blood_pressure2.png) no-repeat center bottom; background-size:300px; padding:0 0 330px 0; font-size:18px; color:#2a2929; line-height:24px; font-family:'OpenSans-Regular'!important; text-align:left;}
  
  
  .blood_pressure4{ display:block; margin:0 auto; margin-top:0px; width:90%;}
@@ -572,7 +572,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffca00', end
 	
 	.perfect_block2{ width:100%; margin:0px auto; padding:5%;}
 
-.perfect_block3{ width:100%; margin:0px auto; padding:5%;  background:url(system/themes/lyfeperformance/images/perfect_posture_img3.png) no-repeat top center; background-size:300px; padding-top:410px;}
+.perfect_block3{ width:100%; margin:0px auto; padding:5%;  background:url(/assets/images/perfect_posture_img3.png) no-repeat top center; background-size:300px; padding-top:410px;}
 
 	.perfect_block4{ width:100%; margin:0px auto; padding:5%;}
 	
@@ -783,7 +783,7 @@ background: -webkit-linear-gradient(#66d9fc, #0396c3);
 
 @media screen and (max-width:400px){
 
-.blood_pressure_text1{background:url(system/themes/lyfeperformance/images/blood_pressure2.png) no-repeat center bottom; background-size:200px; padding:0 0 220px 0; font-size:18px; color:#2a2929; line-height:24px; font-family:'OpenSans-Regular'!important; text-align:left;}
+.blood_pressure_text1{background:url(/assets/images/blood_pressure2.png) no-repeat center bottom; background-size:200px; padding:0 0 220px 0; font-size:18px; color:#2a2929; line-height:24px; font-family:'OpenSans-Regular'!important; text-align:left;}
  
 }
 

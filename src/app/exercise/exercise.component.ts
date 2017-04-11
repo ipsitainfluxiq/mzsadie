@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+declare var $:any;
 @Component({
   selector: 'app-exercise',
   templateUrl: './exercise.component.html',
@@ -7,7 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ExerciseComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+    $('.lyfehairhandhead').click(function(){
+
+      $('.lyfehairhandcontent').hide();
+      $(this).next().show(3000);
+    });
+  }
 
   ngOnInit() {
   }
