@@ -1,3 +1,7 @@
+
+import { CookieService } from 'angular2-cookie/services/cookies.service';
+import { ReactiveFormsModule } from '@angular/forms';
+//import {DatePickerModule} from "ng2-datepicker/lib-dist/ng2-datepicker.module";
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -30,6 +34,23 @@ import { AdvanceAbsComponent } from './advance-abs/advance-abs.component';
 import { StressManagementComponent } from './stress-management/stress-management.component';
 import { PerfectPostureComponent } from './perfect-posture/perfect-posture.component';
 import { ScentsRelaxationComponent } from './scents-relaxation/scents-relaxation.component';
+import { AdminHeaderComponent } from './admin-header/admin-header.component';
+import { AdminLeftsidebarComponent } from './admin-leftsidebar/admin-leftsidebar.component';
+import { AdminTestformComponent } from './admin-testform/admin-testform.component';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { AdminDashboard1Component } from './admin-dashboard1/admin-dashboard1.component';
+import { AdminTableComponent } from './admin-table/admin-table.component';
+import { AddadminComponent } from './addadmin/addadmin.component';
+import { LoginComponent } from './login/login.component';
+import { AdminlistComponent } from './adminlist/adminlist.component';
+import { EditadminComponent } from './editadmin/editadmin.component';
+import { UsersearchPipe } from './usersearch.pipe';
+import { AdminprofileComponent } from './adminprofile/adminprofile.component';
+import { UpdateprofileComponent } from './updateprofile/updateprofile.component';
+import { ChangepasswordComponent } from './changepassword/changepassword.component';
+import { LogoutComponent } from './logout/logout.component';
+//import { FilteredlistPipe } from './filteredlist.pipe';
 
 @NgModule({
   declarations: [
@@ -58,14 +79,34 @@ import { ScentsRelaxationComponent } from './scents-relaxation/scents-relaxation
     StressManagementComponent,
     PerfectPostureComponent,
     ScentsRelaxationComponent,
+    AdminHeaderComponent,
+    AdminLeftsidebarComponent,
+    AdminTestformComponent,
+    AdminLoginComponent,
+    AdminDashboardComponent,
+    AdminDashboard1Component,
+    AdminTableComponent,
+    AddadminComponent,
+    LoginComponent,
+    AdminlistComponent,
+    EditadminComponent,
+    UsersearchPipe,
+    AdminprofileComponent,
+    UpdateprofileComponent,
+    ChangepasswordComponent,
+    LogoutComponent,
+   // FilteredlistPipe
   ],
   imports: [
+
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
+    //DatePickerModule,
     HttpModule,
     routing
   ],
-  providers: [appRoutingProviders],
+  providers: [appRoutingProviders,CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

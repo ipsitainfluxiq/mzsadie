@@ -17,5 +17,15 @@ export class ExerciseComponent implements OnInit {
 
   ngOnInit() {
   }
+ /* ngAfterViewInit(){
+    console.log("after vw");
+  }*/
+  ngAfterViewChecked(){
+    $('.lyfehairhandhead').click(function(){
+
+      $('.lyfehairhandcontent').hide();
+      $(this).next().show(1000);
+    });
+  }
 
 }
