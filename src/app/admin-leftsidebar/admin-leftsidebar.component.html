@@ -1,0 +1,15 @@
+<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 dashboard_left">
+  <h2>Welcome <span>User Name</span> </h2>
+  <ul>
+    <li><a (click)="logout()">Log out</a></li>
+    <!--<li><a href="javascript:void(0)"> Log out </a></li>-->
+    <li><a href="javascript:void(0)">Main</a></li>
+    <li><a href="javascript:void(0)">Statement</a></li>
+    <li><a href="javascript:void(0)">Pay bills and invoices</a></li>
+    <li><a href="javascript:void(0)">International payment</a></li>
+    <li><a href="javascript:void(0)">Transfer money</a></li>
+    <li><a href="javascript:void(0)">Direct debit</a></li>
+    <li><a [routerLink]="['/adminprofile']">Account details</a></li>
+    <li><a [routerLink]="['/changepassword']">Change password</a></li>
+  </ul>
+</div>

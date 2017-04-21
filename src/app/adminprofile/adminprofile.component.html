@@ -1,0 +1,38 @@
+
+<div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 dashboard_right">
+  <div class="dashboard_right_wrapper">
+    <div class="dashboard1_div1 table-responsive">
+
+      <div class="tablediv">
+
+        <table *ngIf="admindetails">
+          <tr>
+            <td>Name: </td>
+            <td>{{admindetails.firstname}} {{admindetails.lastname}}</td>
+          </tr>
+          <tr>
+            <td>Email: </td>
+            <td>{{admindetails.email}}</td>
+          </tr>
+          <tr>
+            <td>Address: </td>
+            <td>{{admindetails.address}} {{admindetails.city}} {{admindetails.state}} {{admindetails.zip}}</td>
+          </tr>
+          <tr>
+            <td>Phone: </td>
+            <td>{{admindetails.phone}}</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><a [routerLink]="['/updateprofile']">Update Profile</a></td>
+            <!--<td><input type="button" value="Update Profile" ></td>-->
+          </tr>
+        </table>
+
+      </div>
+
+
+
+    </div>
+  </div>
+</div>

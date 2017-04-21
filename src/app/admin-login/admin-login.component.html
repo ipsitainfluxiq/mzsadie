@@ -1,0 +1,36 @@
+<div class="container-fluid login_bg">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td valign="middle"><div class="login_wrapper"> <img src="assets/images/logo.png" style="display:block; margin:0 auto; max-width:100%;">
+        <h2> Login to private area </h2>
+        <h3>Enter into your account</h3>
+        <div class="login_formbox">
+          <form role="form" novalidate [formGroup]="dataForm" (ngSubmit)="dosubmit(dataForm.value)">
+            <div class="help-block" *ngIf="is_error">{{error_msg}}</div>
+            <div class="error_class2" *ngIf="is_error">{{is_error}}</div>
+
+
+           <!-- <div *ngIf=is_error!=0>{{is_error}}</div>-->
+            <div class="form-group" ngClass="{{haserrorcls('email')}}">
+              <label>Login:</label>
+              <input type="email" [formControl]="dataForm.controls['email']">
+              <div class="help-block" ngClass="{{showerrorcls('email')}}">Email is required</div>
+            </div>
+            <div class="form-group" ngClass="{{haserrorcls('password')}}">
+              <label>Password:</label>
+              <input type="password" [formControl]="dataForm.controls['password']">
+              <div class="help-block" ngClass="{{showerrorcls('password','required')}}">Password is required</div>
+            </div>
+
+            <input type="submit" value="login" class="loginbtn">
+
+            <div class="clearfix"></div>
+          </form>
+
+
+
+        </div>
+      </div></td>
+    </tr>
+  </table>
+</div>

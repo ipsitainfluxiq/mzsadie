@@ -1,0 +1,141 @@
+<!--
+<p>
+  blood-pressure works!
+</p>
+-->
+<div class="container-fluid heart_cholesterol">
+  <div class="row">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-5 col-md-3 col-sm-3 col-xs-3 lyfehairhandbannertopcon">
+          <h1>Life<span>Performance</span></h1>
+          <h2>heart<span>Health</span></h2>
+          <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+        <p class="pull-right lyfehairhandbannertopconright">look at me</p>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="clearfix"></div>
+<div class="container heart_cholesterol-bodywrapper">
+  <div class="row">
+    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12 lyfehairhand-bodyleftblock">
+      <!--<a href="/heart_health">--><a [routerLink]="['/hearthealth']"><img src="assets/images/cholesterol1.png" alt="#"></a>
+      <!--<a href="/heart_cholesterol">--><a [routerLink]="['/heartcholesterol']"><img src="assets/images/cholesterol2.png" alt="#"></a>
+      <!--<a href="/blood_pressure">--><a [routerLink]="['/bloodpressure']"><img src="assets/images/cholesterol3.png" alt="#"></a>
+      <a href="#"><img src="assets/images/cholesterol4.png" alt="#"></a>
+      <a href="#"><img src="assets/images/cholesterol5.png" alt="#"></a>
+    </div>
+    <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
+
+      <div class="blood_pressure_wrapper">
+
+        <div class="blood_pressure_block1">
+
+          <img src="assets/images/blood_pressure1.png" alt="#" class="blood_pressure1">
+
+          <div class="blood_pressure_text1">
+            Epic Life introduces Blood Pressure Control,
+            an all-natural, blood pressure control supplement that contains some of the most important vitamins, herbs and berries known for their supportive function in promoting heart health and wellness. Blood Pressure Control supplements have proven to have positive effects in maintaining healthy blood pressure levels.<br>
+            <br>
+
+
+            Today, millions of people are aware that they can become involved in lowering their own blood pressure. By maintaining a healthy weight, being physically active, and eating a low sodium diet, you can take positive steps to help lower blood pressure naturally. Additionally, when your diet is not always perfect, supplements can be a great help. Natural blood pressure
+            supplements like Epic Life Blood Pressure Control have shown to have positive effects in maintaining healthy blood pressure levels.
+
+
+
+          </div>
+
+
+        </div>
+
+        <img src="assets/images/blood_pressure4.png" alt="#" class="blood_pressure4">
+
+        <img src="assets/images/blood_pressure3.png" alt="#" class="blood_pressure3">
+
+
+      </div>
+
+
+
+
+
+
+
+    </div>
+  </div>
+</div>
+
+
+<div class="clearfix"></div>
+
+<script>
+    $(document).ready(function(){
+      /* 
+       $( "#lyfehairhand-bodyrightblockcon1" ).click(function() {
+       $( "#lyfehairhand-bodyrightblockcon1content" ).toggle( ).delay( 3000 );
+       });
+
+       $( "#lyfehairhand-bodyrightblockcon2" ).click(function() {
+       $( "#lyfehairhand-bodyrightblockcon2content" ).toggle( ).delay( 3000 );
+       });
+
+       $( "#lyfehairhand-bodyrightblockcon3" ).click(function() {
+       $( "#lyfehairhand-bodyrightblockcon3content" ).toggle( ).delay( 3000 );
+       });
+
+       $( "#lyfehairhand-bodyrightblockcon4" ).click(function() {
+       $( "#lyfehairhand-bodyrightblockcon4content" ).toggle( ).delay( 3000 );
+       });
+
+       $( "#lyfehairhand-bodyrightblockcon5" ).click(function() {
+       $( "#lyfehairhand-bodyrightblockcon5content" ).toggle( ).delay( 3000 );
+       });
+
+       $( "#lyfehairhand-bodyrightblockcon6" ).click(function() {
+       $( "#lyfehairhand-bodyrightblockcon6content" ).toggle( ).delay( 3000 );
+       });
+
+       $( "#lyfehairhand-bodyrightblockcon7" ).click(function() {
+       $( "#lyfehairhand-bodyrightblockcon7content" ).toggle( ).delay( 3000 );
+       });
+
+       */
+
+      /*$('.lyfehairhandhead').click(function(){
+       if($(this).next('.lyfehairhandcontent').is(':hidden')){
+       $('.lyfehairhandcontent').slideUp();
+       $(this).next('.lyfehairhandcontent').slideDown();
+       }else{
+       $(this).next('.lyfehairhandcontent').slideUp();
+       }
+
+       $('html,body').animate({scrollTop:$(this).offset().top},'slow');
+
+       });*/
+
+        $('.lyfehairhandhead').click(function(){
+            var curhead = $(this);
+            if($(this).next('.lyfehairhandcontent').is(':hidden')){
+                $('.lyfehairhandcontent').slideUp();
+                $(this).next('.lyfehairhandcontent').slideDown('slow',function(){
+                    $('html,body').animate({scrollTop:curhead.offset().top},'slow');
+                });
+
+            }else{
+                $(this).next('.lyfehairhandcontent').slideUp('slow',function(){
+                    $('html,body').animate({scrollTop:curhead.offset().top},'slow');
+                });
+            }
+        });
+
+
+    });
+
+
+
+</script>					
