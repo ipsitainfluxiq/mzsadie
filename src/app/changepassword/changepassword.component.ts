@@ -17,7 +17,7 @@ export class ChangepasswordComponent implements OnInit {
   private admindata:CookieService;
   public admindetails:any;
   private passmatchvalidate;
-public is_error;
+  public is_error;
 
 
   constructor(fb: FormBuilder,private _http: Http,private router: Router,admindata:CookieService) {

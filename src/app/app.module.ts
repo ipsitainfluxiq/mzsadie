@@ -50,6 +50,9 @@ import { AdminprofileComponent } from './adminprofile/adminprofile.component';
 import { UpdateprofileComponent } from './updateprofile/updateprofile.component';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
 import { LogoutComponent } from './logout/logout.component';
+import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.component';
+import { AccesscodeComponent } from './accesscode/accesscode.component';
+import { NewpasswordComponent } from './newpassword/newpassword.component';
 //import { FilteredlistPipe } from './filteredlist.pipe';
 
 @NgModule({
@@ -95,6 +98,9 @@ import { LogoutComponent } from './logout/logout.component';
     UpdateprofileComponent,
     ChangepasswordComponent,
     LogoutComponent,
+    ForgetpasswordComponent,
+    AccesscodeComponent,
+    NewpasswordComponent,
    // FilteredlistPipe
   ],
   imports: [

@@ -10,7 +10,7 @@ var port = process.env.PORT || 3001;
 var http = require('http').Server(app);
 
 
-
+var mailer = require("nodemailer");
 
 
 var bodyParser = require('body-parser');
@@ -150,27 +150,26 @@ app.get('/addperson', function (req, resp) {
 });
 
 
-/*
-app.post('/updateprofile',function(req,resp){
-    var collection = db.collection('users');
 
+app.post('/newpassword', function (req, resp) {
+
+  var collection = db.collection('users');
+    var crypto = require('crypto');
+    var secret = req.body.password;
+    var hash = crypto.createHmac('sha256', secret)
+        .update('password')
+        .digest('hex');
+//console.log("hello");
     var data = {
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        phone: req.body.phone,
-        address: req.body.address,
-        city: req.body.city,
-        state: req.body.state,
-        zip: req.body.zip
+        password: hash
     }
-
-    var o_id = new mongodb.ObjectID(req.body.id);
-
-    collection.update({_id:o_id}, {$set: data}, true, true);
-
-    resp.send(JSON.stringify({'status':'success'}));
+    collection.update({email:req.body.email}, {$set: data}, true, true);
+    resp.send(JSON.stringify({'status': 'success', 'msg': ''}));
 });
-*/
+
+
+
+
 
 app.post('/changepassword', function (req, resp) {
     var cryptoold = require('crypto');
@@ -207,9 +206,84 @@ app.post('/changepassword', function (req, resp) {
         }
     });
 });
+/*--------------------------------------check mail--------------------------------------------*/
+app.get('/testemail4',function(req,resp){
+    var smtpTransport = mailer.createTransport("SMTP", {
+        service: "Gmail",
+        auth: {
+            user: "itplcc40@gmail.com",
+            pass: "DevelP7@"
+        }
+    });
+
+    var mail = {
+        from: "Admin <ipsitaghosal1@gmail.com>",
+        to: 'ipsita.influxiq@gmail.com',
+        subject: 'password change',
+        //text: "Node.js New world for me",
+        html: 'Password has been changed'
+    }
+
+    smtpTransport.sendMail(mail, function (error, response) {
+        // resp.send((response.message));
+        console.log('send');
+        smtpTransport.close();
+    });
+});
+/*--------------------------------------check mail--------------------------------------------*/
+
+app.post('/forgetpassword', function (req, resp) {
+
+    var collection = db.collection('users');
+    //console.log(req.body.email);
+    collection.find({ email:req.body.email }).toArray(function(err, items) {
+
+        if(items.length>0){
+            var randomstring = require("randomstring");
+            var generatedcode=randomstring.generate();
+
+            //console.log(generatedcode);
+            var data = {
+                accesscode: generatedcode,
+            }
+
+            collection.update({ email:req.body.email}, {$set: data}, true, true);
 
 
+            var smtpTransport = mailer.createTransport("SMTP", {
+                service: "Gmail",
+                auth: {
+                    user: "itplcc40@gmail.com",
+                    pass: "DevelP7@"
+                }
+            });
 
+            var mail = {
+                from: "Admin <ipsitaghosal1@gmail.com>",
+                to: req.body.email,
+                //to: 'ipsita.influxiq@gmail.com',
+                subject: 'Access code',
+
+                html: 'Access code is given -->  '+generatedcode
+            }
+
+            smtpTransport.sendMail(mail, function (error, response) {
+                // resp.send((response.message));
+                console.log('send');
+                smtpTransport.close();
+            });
+            resp.send(JSON.stringify({'status':'success','msg':req.body.email}));
+        }
+
+
+        if(items.length==0){
+            resp.send(JSON.stringify({'status':'error','msg':'Emailid invalid...'}));
+            return;
+        }
+
+    });
+
+    });
 
 
 app.post('/adminlogin', function (req, resp) {
@@ -248,11 +322,7 @@ app.post('/adminlogin', function (req, resp) {
                 resp.send(JSON.stringify({'status':'success','msg':items[0]}));   //sending the items[0] through msg variable
                 return;
             }
-
-
     });
-
-
 
 });
 
@@ -337,6 +407,34 @@ app.post('/admindetails',function(req,resp){
    // resp.send(JSON.stringify({'status':'error','id':0}));
 
 });
+
+app.post('/accesscodecheck', function (req, resp) {
+    var collection = db.collection('users');
+
+    console.log(req.body.email);
+    console.log(req.body.accesscode);
+    //console.log('SG4t67LpAGndf71V6EhiZrQuCI3mfZIE');
+
+
+    collection.find({ email:req.body.email, accesscode:req.body.accesscode}).toArray(function(err, items) {
+        console.log(items.length);
+        if(items.length>0) {
+            resp.send(JSON.stringify({'status': 'success', 'msg': ''}));
+
+        }
+
+        if(items.length==0){
+            resp.send(JSON.stringify({'status':'error','msg':'Wrong access code'}));
+            return;
+        }
+
+    });
+
+});
+
+
+
+
 app.post('/editadmin',function(req,resp){
     var collection = db.collection('users');
 
@@ -380,6 +478,9 @@ app.post('/updateprofile',function(req,resp){
 
 
 
+
+
+
 /*app.post('/admindell',function(req,resp){
     var collection = db.collection('users');
 
@@ -403,6 +504,10 @@ app.post('/updateprofile',function(req,resp){
 
 });*/
 
+
+
+
+
 app.post('/userstatcng',function(req,resp){
     var collection = db.collection('users');
 
@@ -412,6 +517,11 @@ app.post('/userstatcng',function(req,resp){
 
     resp.send(JSON.stringify({'status':'success'}));
 });
+
+
+
+
+
 
 
 /*---------------------------------END--------------------------------------------*/

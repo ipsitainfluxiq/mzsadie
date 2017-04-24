@@ -44,6 +44,9 @@ import {AdminprofileComponent} from "./adminprofile/adminprofile.component";
 import {UpdateprofileComponent} from "./updateprofile/updateprofile.component";
 import {ChangepasswordComponent} from "./changepassword/changepassword.component";
 import {LogoutComponent} from "./logout/logout.component";
+import {ForgetpasswordComponent} from "./forgetpassword/forgetpassword.component";
+import {AccesscodeComponent} from "./accesscode/accesscode.component";
+import {NewpasswordComponent} from "./newpassword/newpassword.component";
 
 const appRoutes: Routes = [
     // { path: '/**',component: AppComponent},
@@ -88,6 +91,9 @@ const appRoutes: Routes = [
     { path: 'updateprofile', component: UpdateprofileComponent},
     { path: 'changepassword', component: ChangepasswordComponent},
     { path: 'logout', component: LogoutComponent},
+    { path: 'forgetpassword', component: ForgetpasswordComponent},
+    { path: 'accesscode', component: AccesscodeComponent},
+    { path: 'newpassword', component: NewpasswordComponent},
 
    // { path: 'content', component: ContentComponent,outlet:'content'},
 ];

@@ -47,7 +47,7 @@ export class AdminLoginComponent implements OnInit {
     return '';
   }
 
-  showerrorcls(cntrlname,type='reuired'){
+  showerrorcls(cntrlname,type='required'){
     if(!this.dataForm.controls[cntrlname].valid && this.isSubmit)
       return '';
 
@@ -66,6 +66,8 @@ export class AdminLoginComponent implements OnInit {
     this.isSubmit = true;
 
     if(this.dataForm.valid){
+
+
       var link = 'http://influxiq.com:3001/adminlogin';
       var data = {email: formval.email,password: formval.password};
 
@@ -84,12 +86,15 @@ export class AdminLoginComponent implements OnInit {
 
               this.is_error=result.msg;
 
-              this.router.navigate(['/admin_login']);
+              this.router.navigate(['/admin_login(header:admin_header)']);
             }
 
           }, error => {
             console.log("Oooops!");
           });
+
+
+
     }
   }
 
