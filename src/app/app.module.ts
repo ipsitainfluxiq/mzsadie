@@ -2,6 +2,9 @@
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 import { ReactiveFormsModule } from '@angular/forms';
 //import {DatePickerModule} from "ng2-datepicker/lib-dist/ng2-datepicker.module";
+//import { CKEditorComponent } from '../../node_modules/cke';
+// /import { CKEditorModule } from  '../../node_modules/ng2';
+import { CKEditorModule } from 'ng2-ckeditor';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -53,7 +56,11 @@ import { LogoutComponent } from './logout/logout.component';
 import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.component';
 import { AccesscodeComponent } from './accesscode/accesscode.component';
 import { NewpasswordComponent } from './newpassword/newpassword.component';
+import { AddacesComponent } from './addaces/addaces.component';
+import { AceslistComponent } from './aceslist/aceslist.component';
+import { EditacesComponent } from './editaces/editaces.component';
 //import { FilteredlistPipe } from './filteredlist.pipe';
+
 
 @NgModule({
   declarations: [
@@ -101,6 +108,9 @@ import { NewpasswordComponent } from './newpassword/newpassword.component';
     ForgetpasswordComponent,
     AccesscodeComponent,
     NewpasswordComponent,
+    AddacesComponent,
+    AceslistComponent,
+    EditacesComponent,
    // FilteredlistPipe
   ],
   imports: [
@@ -110,6 +120,7 @@ import { NewpasswordComponent } from './newpassword/newpassword.component';
     ReactiveFormsModule,
     //DatePickerModule,
     HttpModule,
+    CKEditorModule,
     routing
   ],
   providers: [appRoutingProviders,CookieService],

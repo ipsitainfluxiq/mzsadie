@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 declare var $:any;
-
+declare var tinymce: any;
 @Component({
   selector: 'app-root',
   //template: '<router-outlet name="header"></router-outlet><router-outlet></router-outlet><router-outlet name="footer"></router-outlet>',
@@ -55,6 +55,23 @@ export class AppComponent {
       $('.lyfehairhandcontent').hide();
       $(this).next().show(1000);
     });
+  /*  tinymce.init({
+      force_p_newlines : false,
+      force_br_newlines : true,
+      forced_root_block : '',
+      selector: 'textarea#compose-textarea',
+      height: 500,
+      //width:100%,
+      menubar: false,
+      plugins: [
+        'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+        'searchreplace wordcount visualblocks visualchars code fullscreen',
+        'insertdatetime media nonbreaking save table contextmenu directionality',
+        'emoticons template paste textcolor colorpicker textpattern imagetools code toc'
+      ],
+      toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor link | code'
+    });*/
   }
+
 }
 

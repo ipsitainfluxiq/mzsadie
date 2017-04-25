@@ -47,6 +47,9 @@ import {LogoutComponent} from "./logout/logout.component";
 import {ForgetpasswordComponent} from "./forgetpassword/forgetpassword.component";
 import {AccesscodeComponent} from "./accesscode/accesscode.component";
 import {NewpasswordComponent} from "./newpassword/newpassword.component";
+import {AddacesComponent} from "./addaces/addaces.component";
+import {AceslistComponent} from "./aceslist/aceslist.component";
+import {EditacesComponent} from "./editaces/editaces.component";
 
 const appRoutes: Routes = [
     // { path: '/**',component: AppComponent},
@@ -94,6 +97,9 @@ const appRoutes: Routes = [
     { path: 'forgetpassword', component: ForgetpasswordComponent},
     { path: 'accesscode', component: AccesscodeComponent},
     { path: 'newpassword', component: NewpasswordComponent},
+    { path: 'addaces', component: AddacesComponent},
+    { path: 'aceslist', component: AceslistComponent},
+    { path: 'editaces/:id', component: EditacesComponent},
 
    // { path: 'content', component: ContentComponent,outlet:'content'},
 ];

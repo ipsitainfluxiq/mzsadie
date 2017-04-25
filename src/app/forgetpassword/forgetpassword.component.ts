@@ -10,7 +10,7 @@ import {CookieService} from 'angular2-cookie/core';
 })
 
 export class ForgetpasswordComponent implements OnInit {
-  private dataForm: FormGroup;
+  public dataForm: FormGroup;
   private fb;
   private isemailvalidate;
   private isSubmit;

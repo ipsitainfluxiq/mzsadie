@@ -294,8 +294,14 @@ app.post('/adminlogin', function (req, resp) {
         .digest('hex');
     var collection = db.collection('users');
     //console.log(req.body.email+'====='+hash);
-
     collection.find({ email:req.body.email }).toArray(function(err, items){
+
+
+
+        console.log(items[0]); //admin_login details shown here
+
+
+
 
             if(items.length==0){
                 resp.send(JSON.stringify({'status':'error','msg':'Username invalid...'}));
@@ -374,7 +380,7 @@ app.get('/adminlist',function (req,resp) {
 
     var collection = db.collection('users');
 
-    collection.find().toArray(function(err, items) {
+    collection.find({type: 1}).toArray(function(err, items) {
 
         if (err) {
             console.log(err);
@@ -553,6 +559,7 @@ app.post('/adddealer', function (req, resp) {
 });
 
 
+
 app.post('/updatedealer',function (req,resp) {
 
     var collection = db.collection('dealers');
@@ -569,6 +576,7 @@ app.post('/updatedealer',function (req,resp) {
     });
 
 });
+
 
 
 
@@ -827,6 +835,11 @@ app.post('/updatecustomer',function (req,resp) {
     });
 
 });
+
+
+
+
+
 //let link = this.serverUrl+'adminlist';
 
 app.get('/listexpert', function (req, resp) {
@@ -852,6 +865,126 @@ app.get('/listdealers', function (req, resp) {
     });
 
 });
+
+/*-----------------------------------Aces_Work_Start---------------------------------*/
+
+app.post('/addaces',function(req,resp){
+    console.log("Hello");
+    var collection = db.collection('users');
+
+    var crypto = require('crypto');
+
+    var secret = req.body.password;
+    var hash = crypto.createHmac('sha256', secret)
+        .update('password')
+        .digest('hex');
+
+    collection.insert([{
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        password: hash,
+        bio: req.body.bio,
+       // image: req.body.image,
+        //added_time: Math.floor(Date.now() / 1000),
+        type:2 //1=>admin, 0=>user, 2=>aces
+    }], function (err, result) {
+        if (err) {
+            console.log('error'+err);
+            resp.send(JSON.stringify({'id':0}));
+        } else {
+            console.log(result);
+            resp.send(JSON.stringify({'id':result.ops[0]._id}));
+        }
+        //console.log("Hi");
+    });
+
+});
+
+
+app.get('/aceslist',function (req,resp) {
+
+    var collection = db.collection('users');
+
+    collection.find({type: 2}).toArray(function(err, items) {
+
+        if (err) {
+            console.log(err);
+            resp.send(JSON.stringify({'res':[]}));
+        } else {
+            resp.send(JSON.stringify({'res':items}));
+        }
+
+    });
+
+});
+
+
+app.post('/editaces',function(req,resp){
+    var collection = db.collection('users');
+
+    var data = {
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        bio: req.body.bio
+    }
+
+    var o_id = new mongodb.ObjectID(req.body.id);
+
+    collection.update({_id:o_id}, {$set: data}, true, true);
+
+    resp.send(JSON.stringify({'status':'success'}));
+});
+
+
+app.post('/acesdetails',function(req,resp){
+//console.log("admindetails from server.js called");
+    var resitem = {};
+
+    var collection = db.collection('users');
+
+    var o_id = new mongodb.ObjectID(req.body._id);
+
+    collection.find({_id:o_id}).toArray(function(err, items) {
+
+        if (err) {
+            resp.send(JSON.stringify({'status':'error','id':0}));
+        } else {
+            resitem = items[0];
+
+            resp.send(JSON.stringify({'status':'success','item':resitem}));
+        }
+    });
+    // resp.send(JSON.stringify({'status':'error','id':0}));
+
+});
+
+
+app.post('/deleteaces', function (req, resp) {
+
+    var o_id = new mongodb.ObjectID(req.body.id);
+
+    var collection = db.collection('users');
+    collection.deleteOne({_id: o_id}, function(err, results) {
+        if (err){
+            resp.send("failed");
+            throw err;
+        }
+        else {
+            resp.send("success");
+            //   db.close();
+        }
+    });
+
+
+
+});
+/*-----------------------------------Aces_Work_End---------------------------------*/
+
+
+
+
+
 /*app.post('/usercheck',function(req,resp){
     var collection=db.collection('dealers');
     var crypto = require('crypto');

@@ -9,7 +9,7 @@ import {CookieService} from 'angular2-cookie/core';
   styleUrls: ['./accesscode.component.css']
 })
 export class AccesscodeComponent implements OnInit {
-  private dataForm: FormGroup;
+    public dataForm: FormGroup;
   private fb;
   private isSubmit;
   private userdata: CookieService;

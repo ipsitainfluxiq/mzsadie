@@ -9,7 +9,7 @@ import {CookieService} from 'angular2-cookie/core';
   styleUrls: ['./newpassword.component.css']
 })
 export class NewpasswordComponent implements OnInit {
-  private dataForm:FormGroup;
+  public dataForm:FormGroup;
   private fb;
   private isSubmit;
   private passmatchvalidate;
