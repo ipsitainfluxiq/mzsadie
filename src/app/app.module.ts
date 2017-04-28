@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 //import {DatePickerModule} from "ng2-datepicker/lib-dist/ng2-datepicker.module";
 //import { CKEditorComponent } from '../../node_modules/cke';
 // /import { CKEditorModule } from  '../../node_modules/ng2';
+import { Ng2UploaderModule } from 'ng2-uploader';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -59,6 +60,9 @@ import { NewpasswordComponent } from './newpassword/newpassword.component';
 import { AddacesComponent } from './addaces/addaces.component';
 import { AceslistComponent } from './aceslist/aceslist.component';
 import { EditacesComponent } from './editaces/editaces.component';
+import { CropimageComponent } from './cropimage/cropimage.component';
+
+
 //import { FilteredlistPipe } from './filteredlist.pipe';
 
 
@@ -111,16 +115,18 @@ import { EditacesComponent } from './editaces/editaces.component';
     AddacesComponent,
     AceslistComponent,
     EditacesComponent,
+    CropimageComponent,
    // FilteredlistPipe
   ],
   imports: [
 
-    BrowserModule,
+      BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     //DatePickerModule,
     HttpModule,
     CKEditorModule,
+    Ng2UploaderModule,
     routing
   ],
   providers: [appRoutingProviders,CookieService],

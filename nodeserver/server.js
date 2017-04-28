@@ -23,9 +23,10 @@ var datetimestamp='';
 var filename='';
 var storage = multer.diskStorage({ //multers disk storage settings
     destination: function (req, file, cb) {
-        cb(null, './uploads/');
+        cb(null, '../uploads/');
     },
     filename: function (req, file, cb) {
+        //console.log(cb);
 
         console.log(file.originalname);
         filename=file.originalname.split('.')[0].replace(/ /g,'') + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1];
@@ -33,6 +34,7 @@ var storage = multer.diskStorage({ //multers disk storage settings
         cb(null, filename);
     }
 });
+
 
 
 var EventEmitter = require('events').EventEmitter;
@@ -66,14 +68,18 @@ app.use(function(req, res, next) { //allow cross origin requests
 app.post('/uploads', function(req, res) {
     datetimestamp = Date.now();
     upload(req,res,function(err){
+        console.log(1);
+        console.log(err);
+        console.log(filename);
 
         if(err){
             res.json({error_code:1,err_desc:err});
             return;
         }
 
-
         res.json({error_code:0,filename:filename});
+
+
     });
 });
 
@@ -869,7 +875,7 @@ app.get('/listdealers', function (req, resp) {
 /*-----------------------------------Aces_Work_Start---------------------------------*/
 
 app.post('/addaces',function(req,resp){
-    console.log("Hello");
+    //console.log("Hello");
     var collection = db.collection('users');
 
     var crypto = require('crypto');
@@ -885,7 +891,8 @@ app.post('/addaces',function(req,resp){
         email: req.body.email,
         password: hash,
         bio: req.body.bio,
-       // image: req.body.image,
+        image: req.body.image,
+        vivacityurl: req.body.vivacityurl,
         //added_time: Math.floor(Date.now() / 1000),
         type:2 //1=>admin, 0=>user, 2=>aces
     }], function (err, result) {
@@ -902,6 +909,23 @@ app.post('/addaces',function(req,resp){
 });
 
 
+app.post('/editaces',function(req,resp){
+    var collection = db.collection('users');
+
+    var data = {
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        bio: req.body.bio,
+        image:req.body.image,
+        vivacityurl:req.body.vivacityurl,
+    }
+
+    var o_id = new mongodb.ObjectID(req.body.id);
+
+    collection.update({_id:o_id}, {$set: data}, true, true);
+
+    resp.send(JSON.stringify({'status':'success'}));
+});
 app.get('/aceslist',function (req,resp) {
 
     var collection = db.collection('users');
@@ -918,24 +942,6 @@ app.get('/aceslist',function (req,resp) {
     });
 
 });
-
-
-app.post('/editaces',function(req,resp){
-    var collection = db.collection('users');
-
-    var data = {
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        bio: req.body.bio
-    }
-
-    var o_id = new mongodb.ObjectID(req.body.id);
-
-    collection.update({_id:o_id}, {$set: data}, true, true);
-
-    resp.send(JSON.stringify({'status':'success'}));
-});
-
 
 app.post('/acesdetails',function(req,resp){
 //console.log("admindetails from server.js called");
@@ -977,8 +983,30 @@ app.post('/deleteaces', function (req, resp) {
     });
 
 
+});
+
+app.post('/deleteimage', function (req, resp) {
+    //console.log(data);
+    if (req.body.id != ''){
+        var o_id = new mongodb.ObjectID(req.body.id);
+    var collection = db.collection('users');
+
+    var data = {
+        image: ''
+    }
+
+    collection.update({_id: o_id}, {$set: data}, true, true);
+}
+
+    var fs = require('fs');
+    var filePath = "/home/influxiq/public_html/projects/mzsadie/uploads/" +req.body.image; // Path set //
+    fs.unlinkSync(filePath);
+    resp.send(JSON.stringify({'status': 'success', 'msg': ''}));
+
 
 });
+
+
 /*-----------------------------------Aces_Work_End---------------------------------*/
 
 

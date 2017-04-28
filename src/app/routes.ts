@@ -50,6 +50,7 @@ import {NewpasswordComponent} from "./newpassword/newpassword.component";
 import {AddacesComponent} from "./addaces/addaces.component";
 import {AceslistComponent} from "./aceslist/aceslist.component";
 import {EditacesComponent} from "./editaces/editaces.component";
+import {CropimageComponent} from "./cropimage/cropimage.component";
 
 const appRoutes: Routes = [
     // { path: '/**',component: AppComponent},
@@ -100,6 +101,7 @@ const appRoutes: Routes = [
     { path: 'addaces', component: AddacesComponent},
     { path: 'aceslist', component: AceslistComponent},
     { path: 'editaces/:id', component: EditacesComponent},
+    { path: 'cropimage', component: CropimageComponent},
 
    // { path: 'content', component: ContentComponent,outlet:'content'},
 ];
