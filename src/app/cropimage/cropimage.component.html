@@ -1,0 +1,45 @@
+<p>
+  cropimage works!
+</p>
+
+<!--<img src="../../assets/images/banner2.png" style="height: 500px;width: 600px" class="myimg" />-->
+
+<div id="demo" class="cropbox">
+
+  <!-- Crop area -->
+  <div class="workarea-cropbox">
+    <div class="bg-cropbox">
+      <img class="image-cropbox">
+      <div class="membrane-cropbox"></div>
+    </div>
+    <div class="frame-cropbox">
+      <div class="resize-cropbox"></div>
+    </div>
+  </div>
+
+  <!-- Crop buttons -->
+  <div class="btn-group">
+      <span class="btn btn-primary btn-file">
+          <i class="glyphicon glyphicon-folder-open"></i>
+          Browse <input type="file" accept="image/*">
+      </span>
+    <button type="button" class="btn btn-success btn-crop">
+      <i class="glyphicon glyphicon-scissors"></i> Crop
+    </button>
+    <button type="button" class="btn btn-warning btn-reset">
+      <i class="glyphicon glyphicon-repeat"></i> Reset
+    </button>
+  </div>
+
+  <!-- Cropped image -->
+  <div class="cropped panel panel-default">
+    <div class="panel-heading"><h3 class="panel-title">Result of cropping</h3></div>
+    <div class="panel-body">...</div>
+  </div>
+
+  <!-- Info of cropping -->
+  <div class="form-group">
+    <label>Info of cropping</label>
+    <textarea class="data form-control" rows="5"></textarea>
+  </div>
+</div>

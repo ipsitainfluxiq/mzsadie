@@ -1,0 +1,68 @@
+<div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 dashboard_right">
+  <div class="dashboard_right_wrapper">
+    <div class="dashboard1_div1 ">
+      <h4> Edit Aces</h4>
+      <div class="dashboard1form">
+        <form role="form" novalidate [formGroup]="dataForm" (ngSubmit)="dosubmit(dataForm.value)">
+
+          <div class="form-group"  ngClass="{{haserrorcls('firstname')}}">
+            <label>First Name</label>
+            <input type="text" class="form-control" placeholder="First Name" [formControl]="dataForm.controls['firstname']">
+            <div class="help-block" ngClass="{{showerrorcls('firstname')}}">First Name is required</div>
+          </div>
+          <div class="form-group" ngClass="{{haserrorcls('lastname')}}">
+            <label>Last Name</label>
+            <input type="text" class="form-control" placeholder="Last Name" [formControl]="dataForm.controls['lastname']">
+            <div class="help-block" ngClass="{{showerrorcls('lastname')}}">Last Name is required</div>
+          </div>
+          <div class="form-group"  ngClass="{{haserrorcls('email')}}">
+            <label>Email</label>
+            <input type="email" class="form-control" placeholder="Email" [formControl]="dataForm.controls['email']" readonly>
+            <div class="help-block" ngClass="{{showerrorcls('email')}}">Email is required</div>
+            <div class="help-block" ngClass="{{showerrorcls('email','validemail')}}">Enter valid email id</div>
+          </div>
+          <div class="form-group" ngClass="{{haserrorcls('bio')}}">
+            <label>Biography</label>
+            <ckeditor
+                    [formControl]="dataForm.controls['bio']"
+                    [config]="{uiColor: '#99000'}"
+                    debounce="500">
+            </ckeditor>
+            <div class="help-block" ngClass="{{showerrorcls('bio')}}">Biography is required</div>
+          </div>
+
+          <div class="form-group" ngClass="{{haserrorcls('image')}}">
+            <label>Image</label>
+            <input type="hidden" class="form-control" [formControl]="dataForm.controls['image']">
+            <!--<div class="help-block" ngClass="{{showerrorcls('image')}}">Image is required</div>-->
+          </div>
+          <div class="col-md-12">
+            <div class="browsefileblock">
+              <div *ngIf="is_error!=1"> <!--   no_image=1   -->
+                <div *ngIf="progress">
+                  Uploading: {{ progress }}%
+                </div>
+              <img src="{{imgsrc}}"/>
+              <input type="button" value="Delete" (click)="deleteimage()">
+              </div>
+              <input type="file" ngFileSelect [options]="basicOptions" (onUpload)="handleUpload($event)">
+              <span class="input-sm">The maximum dimensions are 800x800 pixels</span>
+              <!--<div><img src="http://mzsadie.influxiq.com/uploads/{{image}}" /></div>-->
+<!--              <div *ngIf="uploadedfilesrc" class="browsefileblockimg hide">
+                <img src="{{uploadedfilesrc}}" >
+              </div>-->
+            </div>
+          </div>
+          <div class="form-group" ngClass="{{haserrorcls('vivacityurl')}}">
+            <label>Vivacity Url</label>
+            <input type="text" class="form-control" placeholder="Vivacity Url"  [formControl]="dataForm.controls['vivacityurl']">
+            <div class="help-block" ngClass="{{showerrorcls('vivacityurl')}}">Vivacity Url is required</div>
+          </div>
+
+          <input type="submit" value="Save" class="loginbtn2">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
