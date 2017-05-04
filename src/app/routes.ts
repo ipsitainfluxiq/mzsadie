@@ -51,6 +51,9 @@ import {AddacesComponent} from "./addaces/addaces.component";
 import {AceslistComponent} from "./aceslist/aceslist.component";
 import {EditacesComponent} from "./editaces/editaces.component";
 import {CropimageComponent} from "./cropimage/cropimage.component";
+import {EmailverifyComponent} from "./emailverify/emailverify.component";
+import {ResetpasswordComponent} from "./resetpassword/resetpassword.component";
+import {HighlightComponent} from "./highlight/highlight.component";
 
 const appRoutes: Routes = [
     // { path: '/**',component: AppComponent},
@@ -102,6 +105,9 @@ const appRoutes: Routes = [
     { path: 'aceslist', component: AceslistComponent},
     { path: 'editaces/:id', component: EditacesComponent},
     { path: 'cropimage', component: CropimageComponent},
+    { path: 'emailverify/:id', component: EmailverifyComponent},
+    { path: 'resetpassword/:id', component: ResetpasswordComponent},
+    { path: 'highlight', component: HighlightComponent},
 
    // { path: 'content', component: ContentComponent,outlet:'content'},
 ];

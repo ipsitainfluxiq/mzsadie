@@ -174,7 +174,34 @@ app.post('/newpassword', function (req, resp) {
 });
 
 
+app.post('/resetpassword', function (req, resp) {
+    var collection = db.collection('users');
+    var crypto = require('crypto');
+    var secret = req.body.password;
+    var hash = crypto.createHmac('sha256', secret)
+        .update('password')
+        .digest('hex');
+//console.log("hello");
+    var data = {
+        password: hash
+    }
+    console.log(data);
+    var o_id = new mongodb.ObjectID(req.body.userid);
+    console.log(req.body.userid);
+    collection.find({_id: o_id}).toArray(function (err, items) {
+        console.log(items.length);
+        if(items.length==0) {
+            resp.send(JSON.stringify({'status': 'error', 'msg': ''}));
+            return;
+            // console.log(1);
+        }
+        else{
+            collection.update({_id: o_id}, {$set: data}, true, true);
+            resp.send(JSON.stringify({'status': 'success', 'msg': 'Password updated..'}));
+        }
+    });
 
+});
 
 
 app.post('/changepassword', function (req, resp) {
@@ -238,6 +265,8 @@ app.get('/testemail4',function(req,resp){
 });
 /*--------------------------------------check mail--------------------------------------------*/
 
+
+
 app.post('/forgetpassword', function (req, resp) {
 
     var collection = db.collection('users');
@@ -291,7 +320,45 @@ app.post('/forgetpassword', function (req, resp) {
 
     });
 
+app.post('/emailverify',function(req,resp){
 
+    var crypto = require('crypto');
+
+    var collection = db.collection('users');
+
+    var o_id = new mongodb.ObjectID(req.body.id);
+
+    collection.update({_id:o_id}, {$set: {status:1}}, true, true);
+
+    collection.find({_id:o_id}).toArray(function(err, items) {
+
+        if (err) {
+            resp.send(JSON.stringify({'status':'error','id':0}));
+        } else {
+
+            resitem = items[0];
+
+
+            var time = Date.now();
+
+            var hash = crypto.createHmac('sha256',time.toString() )
+                .update('password')
+                .digest('hex');
+
+            var o_id = new mongodb.ObjectID(resitem._id);
+            db.collection('users').update({_id:o_id}, {$set: {password:hash}}, true, true);
+
+           // mailsend('useractivate',resitem.email,{});
+
+            resp.send(JSON.stringify({'status':'success','id':resitem._id,'password':hash,'time':time}));
+        }
+    });
+
+
+});
+
+
+//-------------------------------------------------------END------------------------------------------------
 app.post('/adminlogin', function (req, resp) {
     var crypto = require('crypto');
     var secret = req.body.password;
@@ -341,19 +408,17 @@ app.post('/adminlogin', function (req, resp) {
 
 
 app.post('/addadmin',function(req,resp){
-
-
     var collection = db.collection('users');
 
     var crypto = require('crypto');
 
-    var secret = req.body.password;
+console.log("hello,this is the answer");
+console.log(req.body);
+
+     var secret = req.body.password;
     var hash = crypto.createHmac('sha256', secret)
         .update('password')
         .digest('hex');
-
-    //resp.send(req.body);
-    //return;
 
     collection.insert([{
         firstname: req.body.firstname,
@@ -374,10 +439,63 @@ app.post('/addadmin',function(req,resp){
             console.log('error'+err);
             resp.send(JSON.stringify({'status':'error','id':0}));
         } else {
+
+
+            //console.log(req.body.id);
+            var smtpTransport = mailer.createTransport("SMTP", {
+                service: "Gmail",
+                auth: {
+                    user: "itplcc40@gmail.com",
+                    pass: "DevelP7@"
+                }
+            });
+            var link='http://localhost:4200/#/emailverify/'+result.ops[0]._id;
+            var mail = {
+                from: "Admin <ipsitaghosal1@gmail.com>",
+                to: req.body.email,
+                //to: 'ipsita.influxiq@gmail.com',
+                subject: 'Welcome to Epiclyf',
+
+
+                html: '<P>Below is your login information – Login Link: http://localhost:4200/#/admin_login</p><p>Please click on the link below to activate your account.</p><a href="'+link+'">Click Here</a>'
+            }
+
+            smtpTransport.sendMail(mail, function (error, response) {
+                // resp.send((response.message));
+                console.log('send');
+                smtpTransport.close();
+            });
+
+           /* '/editadmin',item._id*/
             console.log(result);
             resp.send(JSON.stringify({'status':'success','id':result.ops[0]._id}));
         }
     });
+/*
+
+ var smtpTransport = mailer.createTransport("SMTP", {
+ service: "Gmail",
+ auth: {
+ user: "itplcc40@gmail.com",
+ pass: "DevelP7@"
+ }
+ });
+
+ var mail = {
+ from: "Admin <ipsitaghosal1@gmail.com>",
+ to: req.body.email,
+ //to: 'ipsita.influxiq@gmail.com',
+ subject: 'Access code',
+
+ html: 'Access code is given -->  '+generatedcode
+ }
+
+ smtpTransport.sendMail(mail, function (error, response) {
+ // resp.send((response.message));
+ console.log('send');
+ smtpTransport.close();
+ });
+*/
 
 
 });
@@ -446,10 +564,10 @@ app.post('/accesscodecheck', function (req, resp) {
 
 
 
-
 app.post('/editadmin',function(req,resp){
     var collection = db.collection('users');
-
+    //console.log("serverjs");
+//console.log(req.body.id);
     var data = {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
@@ -926,6 +1044,7 @@ app.post('/editaces',function(req,resp){
 
     resp.send(JSON.stringify({'status':'success'}));
 });
+
 app.get('/aceslist',function (req,resp) {
 
     var collection = db.collection('users');

@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl,FormBuilder} from '@angular/forms';    //To add form import these
 import {Http} from "@angular/http";
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import {Editadmin} from "../editadmin.service";
 
 @Component({
   selector: 'app-editadmin',
   templateUrl: './editadmin.component.html',
-  styleUrls: ['./editadmin.component.css']
+  styleUrls: ['./editadmin.component.css'],
+  providers: [Editadmin]
 })
 export class EditadminComponent implements OnInit {
   public dataForm:FormGroup;
@@ -15,7 +17,7 @@ export class EditadminComponent implements OnInit {
   private isSubmit;
    id:number;
 
-  constructor(fb: FormBuilder,private _http: Http,private router: Router, private route: ActivatedRoute) {
+  constructor(fb: FormBuilder,private _http: Http,private router: Router, private route: ActivatedRoute, private _editadmin: Editadmin) {
     this.fb = fb;
   }
   ngOnInit() {
@@ -61,7 +63,6 @@ export class EditadminComponent implements OnInit {
   getUserdetails(){
     var link = 'http://influxiq.com:3001/admindetails';
     var data = {_id : this.id};
-//console.log(data);
 
     this._http.post(link, data)
         .subscribe(res => {
@@ -91,9 +92,17 @@ export class EditadminComponent implements OnInit {
   }
 
   dosubmit(formval){
+    //console.log(this.id);
     this.isSubmit = true;
+    //console.log(this.dataForm);
     if(this.dataForm.valid){
-    var link= 'http://influxiq.com:3001/editadmin';
+      this._editadmin.editValue(this.dataForm,this.id).subscribe(res => {
+        //console.log(res);
+        this.router.navigate(['/adminlist']);
+      }, error => {
+        console.log("Oooops!");
+      });
+    /*var link= 'http://influxiq.com:3001/editadmin';
     var data = {id: this.id,firstname: formval.firstname,lastname: formval.lastname,email: formval.email,password: formval.password,phone: formval.phone,address: formval.address,city: formval.city,state: formval.state,zip: formval.zip};
     console.log(data);
       this._http.post(link, data)
@@ -101,7 +110,7 @@ export class EditadminComponent implements OnInit {
             this.router.navigate(['/adminlist']);
           }, error => {
             console.log("Oooops!");
-          });
+          });*/
   }
 
 

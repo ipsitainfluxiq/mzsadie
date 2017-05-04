@@ -196,14 +196,15 @@ export class AddacesComponent implements OnInit {
     if (cntrlname == 'vivacityurl' && this.isSubmit) {
       if (this.dataForm.controls[cntrlname].valid) {
       var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
+
       if (!regex.test(cntrlname)) {
         //alert("Please enter valid URL.");
-
+console.log("test failed");
         return '';
 
       } else {
         this.isvivacity = true;
-
+//console.log("True1");
         return 'hide';
       }
     } else {
@@ -228,7 +229,7 @@ export class AddacesComponent implements OnInit {
       this.isemailvalidate = true;
     }
 //console.log(this.dataForm.valid);
-console.log(this.isvivacity);
+//console.log(this.isvivacity);
     this.isSubmit = true;
     if (this.dataForm.valid && this.isemailvalidate && this.passmatchvalidate && this.isvivacity) {
       //console.log("inside dataform");

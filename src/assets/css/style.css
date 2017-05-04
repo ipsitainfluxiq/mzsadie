@@ -2813,3 +2813,37 @@ ul.kbsociallists li:last-child{
 	margin-right: 0px !important;
 }
 
+
+
+.caret-down {
+	width: 0;
+	height: 0;
+	border-left: 4px solid rgba(0, 0, 0, 0);
+	border-right: 4px solid rgba(0, 0, 0, 0);
+	border-top: 4px solid;
+	display: inline-block;
+	margin-left: 4px;
+	vertical-align: middle;
+	cursor:pointer;
+}
+.caret-up{
+	width: 0;
+	height: 0;
+	border-left: 4px solid rgba(0, 0, 0, 0);
+	border-right: 4px solid rgba(0, 0, 0, 0);
+	border-bottom: 4px solid;
+	display: inline-block;
+	margin-left: 4px;
+	vertical-align: middle;
+	cursor:pointer;
+}
+
+.caret-up-down{
+	background: url(../images/caretupdown.png) no-repeat;
+	width: 8px;
+	height: 10px;
+	vertical-align: middle;
+	display: inline-block;
+	margin-left: 4px;
+	cursor:pointer;
+}

@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl,FormBuilder} from '@angular/forms';    //To add form import these
 import {Http} from "@angular/http";
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import {Addadmin} from "../addadmin.service";
 @Component({
   selector: 'app-addadmin',
   templateUrl: './addadmin.component.html',
-  styleUrls: ['./addadmin.component.css']
+  styleUrls: ['./addadmin.component.css'],
+    providers: [Addadmin]
 })
 export class AddadminComponent implements OnInit {
     public dataForm: FormGroup;
@@ -15,12 +17,13 @@ export class AddadminComponent implements OnInit {
     private isemailvalidate;
     private passmatchvalidate;
 
-    constructor(fb: FormBuilder, private _http: Http, private router: Router) {
+    constructor(fb: FormBuilder, private _http: Http, private router: Router, private _addadmin: Addadmin) {
         this.fb = fb;
     }
 
 
     ngOnInit() {
+
         this.isSubmit = false;
         this.isemailvalidate = false;
         this.passmatchvalidate = false;
@@ -125,9 +128,23 @@ export class AddadminComponent implements OnInit {
         }
 
         this.isSubmit = true;
+
         if (this.dataForm.valid && this.isemailvalidate && this.passmatchvalidate) {
-            var link = 'http://influxiq.com:3001/addadmin';
-            var data = {
+            //console.log(this.dataForm);
+           // this._addadmin.postUser(this.dataForm).subscribe(data => this.dataForm = data);
+
+
+            this._addadmin.postUser(this.dataForm).subscribe(res => {
+                console.log(res);
+                 this.router.navigate(['/adminlist']);
+            }, error => {
+                console.log("Oooops!");
+            });
+
+
+/*
+          var link = 'http://influxiq.com:3001/addadmin';
+          var data = {
                 firstname: formval.firstname,
                 lastname: formval.lastname,
                 email: formval.email,
@@ -143,7 +160,7 @@ export class AddadminComponent implements OnInit {
                     this.router.navigate(['/adminlist']);
                 }, error => {
                     console.log("Oooops!");
-                });
+                });*/
         }
     }
 

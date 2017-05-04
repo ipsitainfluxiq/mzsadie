@@ -3,7 +3,6 @@
     <div class="dashboard1_div1 table-responsive">
       <h4>Admin List</h4>
 
-
       <div style=" padding-bottom: 10px; width: 100%;">
 
         <div class="adminserchdiv">
@@ -21,15 +20,17 @@
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
           <tr>
             <th>#</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Added On</th>
-            <th>Status</th>
+            <th>Name <b [ngClass]="getSortClass('firstname')" (click)="manageSorting('firstname')" ></b></th>
+            <th>Email<b [ngClass]="getSortClass('email')" (click)="manageSorting('email')" ></b></th>
+            <th>Phone<b [ngClass]="getSortClass('phone')" (click)="manageSorting('phone')" ></b></th>
+            <th>Added On <b [ngClass]="getSortClass('added_time')" (click)="manageSorting('added_time')" ></b></th>
+            <th>Status<b [ngClass]="getSortClass('status')" (click)="manageSorting('status')" ></b></th>
             <th>Action</th>
             <!--<th>id</th>-->
           </tr>
-          <tr *ngFor="let item of datalist | usersearch:listFilter.value; let i = index">
+
+          <tr *ngFor="let item of datalist | orderBy:orderbyquery:orderbytype |usersearch:listFilter.value; let i = index">
+            <!--*ngFor= "let item of datalist | filter:query | orderBy:orderbyquery:orderbytype|paginate: { itemsPerPage: 10, currentPage: p };trackBy:item?._id">-->
             <td>{{i+1}}</td>
             <td>{{item.firstname}} {{item.lastname}}</td>
             <td>{{item.email}}</td>
@@ -44,8 +45,8 @@
               <!--<a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" (click)="delConfirm(item._id)" *ngIf="superAdmin == 1 || item.supradmin==0">Delete</a>-->
             </td>
            <!-- <td>{{item._id}}</td>-->
-
           </tr>
+
         </table>
       </div>
     </div>

@@ -32,10 +32,13 @@ export class AppComponent {
         console.info(this.router.url);
         console.info(curUrlTree);
         console.info(curUrlTree.queryParams);
+        //console.log("test");
+        console.info(this.router.url);
         console.info(curUrlTree.root);
         console.info(curUrlTree.root.children);
         console.info(curUrlTree.root.children.header);
         console.info(curUrlTree.root.children.footer);
+        if(this.router.url.indexOf("admin_login")==-1 )
         if(typeof (curUrlTree.root.children.header)=='undefined' || typeof (curUrlTree.root.children.footer)=='undefined'){
           this.router.navigateByUrl(this.router.url+'(header:header//footer:footer)');
 
@@ -55,22 +58,6 @@ export class AppComponent {
       $('.lyfehairhandcontent').hide();
       $(this).next().show(1000);
     });
-  /*  tinymce.init({
-      force_p_newlines : false,
-      force_br_newlines : true,
-      forced_root_block : '',
-      selector: 'textarea#compose-textarea',
-      height: 500,
-      //width:100%,
-      menubar: false,
-      plugins: [
-        'advlist autolink lists link image charmap print preview hr anchor pagebreak',
-        'searchreplace wordcount visualblocks visualchars code fullscreen',
-        'insertdatetime media nonbreaking save table contextmenu directionality',
-        'emoticons template paste textcolor colorpicker textpattern imagetools code toc'
-      ],
-      toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor link | code'
-    });*/
   }
 
 }

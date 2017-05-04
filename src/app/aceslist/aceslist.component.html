@@ -5,7 +5,9 @@
 
 
       <div style=" padding-bottom: 10px; width: 100%;">
-
+        <div class="adminserchdiv">
+          <label>Search :</label><input type="text" #listFilter (keyup)="0">
+        </div>
         <a [routerLink]="['/addaces']" class="adadminlink">Add Aces</a>
 
         <div class="clearfix"></div>
@@ -16,15 +18,14 @@
           <tr>
             <th>#</th>
             <th></th>
-            <th>Name</th>
-            <th>Email</th>
+            <th>Name<b [ngClass]="getSortClass('firstname')" (click)="manageSorting('firstname')" ></b></th>
+            <th>Email<b [ngClass]="getSortClass('email')" (click)="manageSorting('email')" ></b></th>
             <th>Biography</th>
-            <!--<th>Image</th>-->
             <th>Action</th>
           </tr>
           <!--<tr *ngFor="let item of datalist | usersearch:listFilter.value; let i = index">-->
-          <tr *ngFor="let item of datalist; let i = index">
-            <td>{{i+1}}</td>
+          <tr *ngFor="let item of datalist| orderBy:orderbyquery:orderbytype|usersearch:listFilter.value ; let i = index">
+            <td id={{item._id}}>{{i+1}}</td>
             <td><img width="60px" height="60px" src="http://mzsadie.influxiq.com/uploads/{{item.image}}" ></td>
             <td>{{item.firstname}} {{item.lastname}}</td>
             <td>{{item.email}}</td>

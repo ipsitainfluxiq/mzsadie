@@ -10,8 +10,12 @@ import {CookieService} from 'angular2-cookie/core';
 export class AdminLeftsidebarComponent implements OnInit {
 
   coockieData:CookieService;
+public userdata2;
+public name;
   constructor(userdetails:CookieService,private _http: Http,private router: Router,admindata:CookieService) {
     this.coockieData=userdetails;
+     this.userdata2 = userdetails.getObject('userdetails');
+    this.name= this.userdata2.firstname+" "+this.userdata2.lastname;
   }
 
   ngOnInit() {

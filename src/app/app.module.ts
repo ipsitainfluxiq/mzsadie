@@ -1,16 +1,11 @@
-
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 import { ReactiveFormsModule } from '@angular/forms';
-//import {DatePickerModule} from "ng2-datepicker/lib-dist/ng2-datepicker.module";
-//import { CKEditorComponent } from '../../node_modules/cke';
-// /import { CKEditorModule } from  '../../node_modules/ng2';
 import { Ng2UploaderModule } from 'ng2-uploader';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-
 import { AppComponent } from './app.component';
 import { Index2Component } from './index2/index2.component';
 import {appRoutingProviders, routing} from "./routes";
@@ -18,7 +13,6 @@ import { AboutComponent } from './about/about.component';
 import { ExerciseComponent } from './exercise/exercise.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-//import {ContentComponent} from "./content/content.component";
 import { PartyComponent } from './party/party.component';
 import { FitLyfeComponent } from './fit-lyfe/fit-lyfe.component';
 import { HomeBeautyRemediesComponent } from './home-beauty-remedies/home-beauty-remedies.component';
@@ -49,7 +43,6 @@ import { AddadminComponent } from './addadmin/addadmin.component';
 import { LoginComponent } from './login/login.component';
 import { AdminlistComponent } from './adminlist/adminlist.component';
 import { EditadminComponent } from './editadmin/editadmin.component';
-import { UsersearchPipe } from './usersearch.pipe';
 import { AdminprofileComponent } from './adminprofile/adminprofile.component';
 import { UpdateprofileComponent } from './updateprofile/updateprofile.component';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
@@ -61,10 +54,16 @@ import { AddacesComponent } from './addaces/addaces.component';
 import { AceslistComponent } from './aceslist/aceslist.component';
 import { EditacesComponent } from './editaces/editaces.component';
 import { CropimageComponent } from './cropimage/cropimage.component';
-
-
-//import { FilteredlistPipe } from './filteredlist.pipe';
-
+import { UsersearchPipe } from './usersearch.pipe';
+import { OrderBy } from './orderby';
+import { Adminlist } from './adminlist';
+import { ExampleService } from './example.service';
+import { Accesslist } from './aceslist.service';
+import { Editadmin } from './editadmin.service';
+import { Addadmin } from './addadmin.service';
+import { EmailverifyComponent } from './emailverify/emailverify.component';
+import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
+import { HighlightComponent } from './highlight/highlight.component';
 
 @NgModule({
   declarations: [
@@ -117,6 +116,12 @@ import { CropimageComponent } from './cropimage/cropimage.component';
     EditacesComponent,
     CropimageComponent,
    // FilteredlistPipe
+    OrderBy,
+   EmailverifyComponent,
+   ResetpasswordComponent,
+   HighlightComponent,
+    //ExampleService,
+
   ],
   imports: [
 

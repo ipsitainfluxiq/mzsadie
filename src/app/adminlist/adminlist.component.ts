@@ -1,28 +1,45 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, Validators, FormControl,FormBuilder} from '@angular/forms';
 import {Http} from "@angular/http";
+import {Adminlist} from "../adminlist";
 import { Router, ActivatedRoute, Params } from '@angular/router';
+declare var $:any;
 @Component({
   selector: 'app-adminlist',
   templateUrl: './adminlist.component.html',
-  styleUrls: ['./adminlist.component.css']
+  styleUrls: ['./adminlist.component.css'],
+    providers: [Adminlist],
 })
 export class AdminlistComponent implements OnInit {
-  public datalist;
-  public id;
+    public dataForm: FormGroup;
+    private fb;
+    public datalist;
+    public id;
+    public superAdmin;
+    orderbyquery:any;
+    orderbytype:any;
+    constructor(fb: FormBuilder ,private _http: Http,private _adminlist: Adminlist) {
+        this.orderbyquery='firstname';
+        this.orderbytype=1;
+    }
+    profile = {};
+    ngOnInit() {
+        this._adminlist.getUser().subscribe(res => {
+            this.datalist = res;
+            console.log(this.datalist.length);
+        }, error => {
+            console.log("Oooops!");
+        });
+        //this.getAdminList();
+        setTimeout(function () {
+            console.log(this.datalist);
+        })
+    }
 
-
-  public superAdmin;
-  constructor(private _http: Http,) {}
-
-  ngOnInit() {
-    this.getAdminList();
-  }
-  getAdminList(){
-      var link ='http://influxiq.com:3001/adminlist';
-    var data = {};
-
-
-    this._http.get(link)
+    getAdminList(){
+        var link ='http://influxiq.com:3001/adminlist';
+        var data = {};
+        /* this._http.get(link)
         .subscribe(res => {
           var result = res.json();
           console.log(result.item);
@@ -30,34 +47,54 @@ export class AdminlistComponent implements OnInit {
           //console.log(this.datalist);
         }, error => {
           console.log("Oooops!");
-        });
-  }
-  delConfirm(id){
-    this.id = id;
-    //console.log(this.id);
-  }
+        });*/
+    }
+    delConfirm(id){
+        this.id = id;
+        //console.log(this.id);
+    }
 
 
-  admindel(){
+    admindel(){
+       console.log(this.datalist.length);
+        this._adminlist.DeleteUser(this.id).subscribe(); //Call deleteuser function of adminlist service and send the id
+        $('#'+this.id).parent().remove();
+        //this._adminlist.getUser().subscribe(data => this.datalist = data);
+        /*setTimeout(() => {
+            this._adminlist.getUser().subscribe(res => {
+                this.datalist = res;
+                console.log(this.datalist.length);
+            }, error => {
+                console.log("Oooops!");
+            });
 
-      var link ='http://influxiq.com:3001/deleteadmin';
-      var data = {id:this.id};
+        },2000);*/
 
 
-      this._http.post(link, data)
-          .subscribe(res => {
-              //var result = res.json();
-              var result = res;
 
 
-              console.log('Data Deleted');
-              //console.log(result);
-              //console.log(this.datalist);
-              this.getAdminList();
-          }, error => {
-              console.log("Oooops!");
-          });
-  }
+
+
+
+
+
+       /* var link ='http://influxiq.com:3001/deleteadmin';
+        var data = {id:this.id};
+        this._http.post(link, data)
+            .subscribe(res => {
+                //var result = res.json();
+                var result = res;
+
+
+                console.log('Data Deleted');
+                //console.log(result);
+                //console.log(this.datalist);
+               // this.getAdminList();
+               // this.datalist;
+            }, error => {
+                console.log("Oooops!");
+            });*/
+    }
 
 
     statuscng(item){
@@ -72,6 +109,33 @@ export class AdminlistComponent implements OnInit {
             }, error => {
                 console.log("Oooops!");
             });
+    }
+    getSortClass(value:any){
+        //console.log(value);
+        if(this.orderbyquery==value && this.orderbytype==-1) {
+            //console.log('caret-up');
+            return 'caret-up'
+        }
+
+        if(this.orderbyquery==value && this.orderbytype==1) {
+            //console.log('caret-up');
+            return 'caret-down'
+        }
+        return 'caret-up-down'
+    }
+    manageSorting(value:any){
+        console.log(value);
+        if(this.orderbyquery==value && this.orderbytype==-1) {
+            this.orderbytype=1;
+            return;
+        }
+        if(this.orderbyquery==value && this.orderbytype==1) {
+            this.orderbytype=-1;
+            return;
+        }
+
+        this.orderbyquery=value;
+        this.orderbytype=1;
     }
 
 }

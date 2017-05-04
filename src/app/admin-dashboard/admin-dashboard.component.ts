@@ -33,8 +33,6 @@ export class AdminDashboardComponent implements OnInit {
       this.router.navigateByUrl('/admin_login');
     } else {
       this.userid = userdata2._id;
-      //console.log("Same id will be shown here:-");
-      //console.log(this.userid);
       this.getUserDetails();
     }
 
