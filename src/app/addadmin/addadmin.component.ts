@@ -118,7 +118,6 @@ export class AddadminComponent implements OnInit {
 
 
     dosubmit(formval) {
-
         if (this.dataForm.controls['password'].value == this.dataForm.controls['confpassword'].value) {
             this.passmatchvalidate = true;
         }
@@ -138,7 +137,7 @@ export class AddadminComponent implements OnInit {
                 console.log(res);
                  this.router.navigate(['/adminlist']);
             }, error => {
-                console.log("Oooops!");
+                console.log("Ouooops!");
             });
 
 

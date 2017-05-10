@@ -1,0 +1,30 @@
+<div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 dashboard_right">
+  <div class="dashboard_right_wrapper">
+    <div class="dashboard1_div1 table-responsive">
+      <h4>URL List</h4>
+      <div class="tablediv">
+        <button (click)="exportcsv()">CLick</button>
+        <div>Total REsults:{{filtereddatalist.length}}</div>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <th>#</th>
+            <th>URL</th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Location</th>
+            <th>Address</th>
+          </tr>
+
+          <tr *ngFor="let item of filtereddatalist; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{item.url}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.Phone}}</td>
+            <td>{{item.Location}}</td>
+            <td>{{item.Address}}{{item.City}}{{item.State}}{{item.Zip}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

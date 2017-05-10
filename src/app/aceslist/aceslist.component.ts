@@ -34,11 +34,11 @@ export class AceslistComponent implements OnInit {
       })
   }
 
-  getAcesList(){
+/*  getAcesList(){
     var link ='http://influxiq.com:3001/aceslist';
     var data = {};
 
-/*    this._http.get(link)
+    this._http.get(link)
         .subscribe(res => {
           var result = res.json();
           //console.log(result.item);
@@ -46,8 +46,8 @@ export class AceslistComponent implements OnInit {
           //console.log(this.datalist);
         }, error => {
           console.log("Oooops!");
-        });*/
-  }
+        });
+  }*/
 
   delConfirm(id){
     this.id = id;

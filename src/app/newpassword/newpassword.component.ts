@@ -104,7 +104,7 @@ export class NewpasswordComponent implements OnInit {
             if(result.status=='success') {
               //console.log(this.coockieData);
              // this.coockieData.removeAll();
-              this.router.navigate(['/admin_login']);
+              this.router.navigate(['/login']);
             }
             else{
 

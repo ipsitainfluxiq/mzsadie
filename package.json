@@ -26,6 +26,7 @@
     "multer": "1.1.0",
     "ng2-img-cropper": "^0.7.5",
     "ng2-uploader": "^1.6.2",
+    "request": "^2.81.0",
     "rxjs": "^5.1.0",
     "zone.js": "^0.8.4"
   },
@@ -48,5 +49,17 @@
     "tslint": "~4.5.0",
     "typescript": "~2.2.0",
     "@types/ckeditor": "0.0.33"
-  }
+  },
+  "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0.",
+  "main": "karma.conf.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ipsitainfluxiq/mzsadie.git"
+  },
+  "keywords": [],
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/ipsitainfluxiq/mzsadie/issues"
+  },
+  "homepage": "https://github.com/ipsitainfluxiq/mzsadie#readme"
 }

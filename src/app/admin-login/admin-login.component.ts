@@ -86,7 +86,7 @@ export class AdminLoginComponent implements OnInit {
 
               this.is_error=result.msg;
 
-              this.router.navigate(['/admin_login(header:admin_header)']);
+              this.router.navigate(['/adminlogin(header:admin_header)']);
             }
 
           }, error => {

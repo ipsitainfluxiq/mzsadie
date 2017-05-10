@@ -54,6 +54,11 @@ import {CropimageComponent} from "./cropimage/cropimage.component";
 import {EmailverifyComponent} from "./emailverify/emailverify.component";
 import {ResetpasswordComponent} from "./resetpassword/resetpassword.component";
 import {HighlightComponent} from "./highlight/highlight.component";
+import {UrlcallComponent} from "./urlcall/urlcall.component";
+import {AddemployeeComponent} from "./addemployee/addemployee.component";
+import {EmployeelistComponent} from "./employeelist/employeelist.component";
+import {EditemployeeComponent} from "./editemployee/editemployee.component";
+import {EmployeedashboardComponent} from "./employeedashboard/employeedashboard.component";
 
 const appRoutes: Routes = [
     // { path: '/**',component: AppComponent},
@@ -108,6 +113,11 @@ const appRoutes: Routes = [
     { path: 'emailverify/:id', component: EmailverifyComponent},
     { path: 'resetpassword/:id', component: ResetpasswordComponent},
     { path: 'highlight', component: HighlightComponent},
+    { path: 'urlcall', component: UrlcallComponent},
+    { path: 'addemployee', component: AddemployeeComponent},
+    { path: 'employeelist', component: EmployeelistComponent},
+    { path: 'editemployee/:id', component: EditemployeeComponent},
+    { path: 'employeedashboard', component: EmployeedashboardComponent},
 
    // { path: 'content', component: ContentComponent,outlet:'content'},
 ];

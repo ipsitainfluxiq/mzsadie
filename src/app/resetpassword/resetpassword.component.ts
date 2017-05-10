@@ -150,12 +150,13 @@ console.log(data);
           .subscribe(res => {
             //console.log("Hi");
             var result = res.json();
-            //console.log(result.status);
+            console.log(result);
+            console.log("Resultresetpass");
             if(result.status == 'error'){
               this.error_msg = result.msg;
             }else{
             setTimeout(() => {
-              this.router.navigate(['/admin_login']);
+              this.router.navigate(['/login']);
 
               },2000);
 

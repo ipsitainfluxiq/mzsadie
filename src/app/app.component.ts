@@ -38,7 +38,7 @@ export class AppComponent {
         console.info(curUrlTree.root.children);
         console.info(curUrlTree.root.children.header);
         console.info(curUrlTree.root.children.footer);
-        if(this.router.url.indexOf("admin_login")==-1 )
+        if(this.router.url.indexOf("login")==-1 )
         if(typeof (curUrlTree.root.children.header)=='undefined' || typeof (curUrlTree.root.children.footer)=='undefined'){
           this.router.navigateByUrl(this.router.url+'(header:header//footer:footer)');
 

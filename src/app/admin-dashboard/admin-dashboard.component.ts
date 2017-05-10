@@ -30,7 +30,7 @@ export class AdminDashboardComponent implements OnInit {
     //console.log(userdata2);
 
     if (typeof (userdata2) == 'undefined') {
-      this.router.navigateByUrl('/admin_login');
+      this.router.navigateByUrl('/login');
     } else {
       this.userid = userdata2._id;
       this.getUserDetails();

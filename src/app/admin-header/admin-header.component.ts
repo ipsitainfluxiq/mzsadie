@@ -28,7 +28,7 @@ export class AdminHeaderComponent implements OnInit {
       if(typeof(this.userDetails)=='undefined'){
         console.log("inside");
         console.log(this.userDetails);
-        this.router.navigateByUrl('/admin_login');
+        this.router.navigateByUrl('/login');
         return;
       }
     },100);

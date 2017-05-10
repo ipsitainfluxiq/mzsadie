@@ -25,6 +25,7 @@ export class Addadmin{
             state:  dataForm.value.state,
             zip:  dataForm.value.zip
         };
+        console.log("addadminservice");
         //console.log(data);
         return this.http.post(link, data)
             .map((res:Response) => res.json());

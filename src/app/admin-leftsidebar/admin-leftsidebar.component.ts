@@ -24,7 +24,7 @@ public name;
   {
 
     this.coockieData.removeAll();
-    this.router.navigateByUrl('/admin_login');
+    this.router.navigateByUrl('/login');
 
 
 

@@ -27,7 +27,7 @@ export class ChangepasswordComponent implements OnInit {
     admindata2= admindata.getObject('userdetails');
 
     if (typeof (admindata2) == 'undefined') {
-      this.router.navigateByUrl('/admin_login');
+      this.router.navigateByUrl('/login');
     } else {
       this.adminid = admindata2._id;
       console.log(this.adminid);

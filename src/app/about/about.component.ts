@@ -4,7 +4,7 @@ import {ExampleService } from '../example.service';
 
 @Component({
   selector: 'app-about',
-  templateUrl: './about.component.html',
+ // templateUrl: './about.component.html',
   styleUrls: ['./about.component.css'],
   providers: [ExampleService],
   // template:'<h1>{{a}}</h1>',

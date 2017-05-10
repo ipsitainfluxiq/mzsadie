@@ -5,11 +5,9 @@
 var express = require('express');
 var app = express();
 var port = process.env.PORT || 3001;
-
-
+var request = require('request');
+var cheerio = require('cheerio');
 var http = require('http').Server(app);
-
-
 var mailer = require("nodemailer");
 
 
@@ -85,7 +83,6 @@ app.post('/uploads', function(req, res) {
 
 var mongodb = require('mongodb');
 var db;
-//var url = 'mongodb://localhost:27017/probidbackend';
 var url = 'mongodb://localhost:27017/mzsadie';
 
 var MongoClient = mongodb.MongoClient;
@@ -120,7 +117,7 @@ app.get('/addexpertarea', function (req, resp) {
 });
 
 
-/*-----------------------------------START------------------------------------------*/
+/*-----------------------------------EXAMPLES_START------------------------------------------*/
 app.get('/test', function (req, resp) {
 
     value1 = {title: 'today',description: '5435', priority: 6,status: 0};
@@ -156,269 +153,193 @@ app.get('/addperson', function (req, resp) {
 });
 
 
+app.post('/adddealer', function (req, resp) {
 
-app.post('/newpassword', function (req, resp) {
-
-  var collection = db.collection('users');
     var crypto = require('crypto');
+
     var secret = req.body.password;
     var hash = crypto.createHmac('sha256', secret)
         .update('password')
         .digest('hex');
-//console.log("hello");
-    var data = {
-        password: hash
-    }
-    collection.update({email:req.body.email}, {$set: data}, true, true);
-    resp.send(JSON.stringify({'status': 'success', 'msg': ''}));
-});
 
+    value1 = {fname: req.body.fname,lname: req.body.fname, phone: req.body.phone,zip: req.body.zip,username:req.body.username,password:hash,is_lead:1};
 
-app.post('/resetpassword', function (req, resp) {
-    var collection = db.collection('users');
-    var crypto = require('crypto');
-    var secret = req.body.password;
-    var hash = crypto.createHmac('sha256', secret)
-        .update('password')
-        .digest('hex');
-//console.log("hello");
-    var data = {
-        password: hash
-    }
-    console.log(data);
-    var o_id = new mongodb.ObjectID(req.body.userid);
-    console.log(req.body.userid);
-    collection.find({_id: o_id}).toArray(function (err, items) {
-        console.log(items.length);
-        if(items.length==0) {
-            resp.send(JSON.stringify({'status': 'error', 'msg': ''}));
-            return;
-            // console.log(1);
-        }
-        else{
-            collection.update({_id: o_id}, {$set: data}, true, true);
-            resp.send(JSON.stringify({'status': 'success', 'msg': 'Password updated..'}));
+    var collection = db.collection('dealers');
+
+    collection.insert([value1], function (err, result) {
+        if (err) {
+            resp.send(err);
+        } else {
+            resp.send('Inserted %d documents into the "users" collection. The documents inserted with "_id" are:', result.length, result);
+
         }
     });
 
 });
 
 
-app.post('/changepassword', function (req, resp) {
-    var cryptoold = require('crypto');
-    var secretold = req.body.oldpassword;
-    var hashold = cryptoold.createHmac('sha256', secretold)
-        .update('password')
-        .digest('hex');
 
+app.post('/updatedealer',function (req,resp) {
 
-    var cryptonew = require('crypto');
-    var secretnew = req.body.password;
-    var hashnew = cryptonew.createHmac('sha256', secretnew)
-        .update('password')
-        .digest('hex');
-    var data = {
-        password: hashnew
-    }
-
-  var collection = db.collection('users');
-    var o_id = new mongodb.ObjectID(req.body.id);
-
-    collection.find({_id: o_id, password: hashold}).toArray(function (err, items) {
-       // console.log(items.length);
-
-        if(items.length==0) {
-            resp.send(JSON.stringify({'status': 'error', 'msg': 'Old password doesnot match'}));
-            return;
-           // console.log(1);
+    var collection = db.collection('dealers');
+    collection.update({username: req.body.username}, {$set: {address:req.body.address,state:req.body.state,city:req.body.city,fname:req.body.fname,lname:req.body.lname,phone:req.body.phone,zip:req.body.zip}},function(err, results) {
+        if (err){
+            resp.send("failed");
+            throw err;
         }
         else {
+            resp.send("success");
+            //db.close();
 
-            collection.update({_id: o_id}, {$set: data}, true, true);
-            resp.send(JSON.stringify({'status': 'success', 'msg': 'Password updated..'}));
         }
     });
+
 });
-/*--------------------------------------check mail--------------------------------------------*/
-app.get('/testemail4',function(req,resp){
-    var smtpTransport = mailer.createTransport("SMTP", {
-        service: "Gmail",
-        auth: {
-            user: "itplcc40@gmail.com",
-            pass: "DevelP7@"
-        }
+
+app.get('/testlist', function (req, resp) {
+
+
+    var collection = db.collection('test');
+
+    collection.find().toArray(function(err, items) {
+
+        resp.send(JSON.stringify(items));
     });
 
-    var mail = {
-        from: "Admin <ipsitaghosal1@gmail.com>",
-        to: 'ipsita.influxiq@gmail.com',
-        subject: 'password change',
-        //text: "Node.js New world for me",
-        html: 'Password has been changed'
-    }
-
-    smtpTransport.sendMail(mail, function (error, response) {
-        // resp.send((response.message));
-        console.log('send');
-        smtpTransport.close();
-    });
 });
-/*--------------------------------------check mail--------------------------------------------*/
+app.get('/show', function (req, resp) {
 
 
+    var collection = db.collection('person');
 
-app.post('/forgetpassword', function (req, resp) {
+    collection.find().toArray(function(err, items) {
 
-    var collection = db.collection('users');
-    //console.log(req.body.email);
-    collection.find({ email:req.body.email }).toArray(function(err, items) {
-
-        if(items.length>0){
-            var randomstring = require("randomstring");
-            var generatedcode=randomstring.generate();
-
-            //console.log(generatedcode);
-            var data = {
-                accesscode: generatedcode,
-            }
-
-            collection.update({ email:req.body.email}, {$set: data}, true, true);
-
-
-            var smtpTransport = mailer.createTransport("SMTP", {
-                service: "Gmail",
-                auth: {
-                    user: "itplcc40@gmail.com",
-                    pass: "DevelP7@"
-                }
-            });
-
-            var mail = {
-                from: "Admin <ipsitaghosal1@gmail.com>",
-                to: req.body.email,
-                //to: 'ipsita.influxiq@gmail.com',
-                subject: 'Access code',
-
-                html: 'Access code is given -->  '+generatedcode
-            }
-
-            smtpTransport.sendMail(mail, function (error, response) {
-                // resp.send((response.message));
-                console.log('send');
-                smtpTransport.close();
-            });
-            resp.send(JSON.stringify({'status':'success','msg':req.body.email}));
-        }
-
-
-        if(items.length==0){
-            resp.send(JSON.stringify({'status':'error','msg':'Emailid invalid...'}));
-            return;
-        }
-
+        resp.send(JSON.stringify(items));
     });
 
+});
+app.get('/deleteperson', function (req, resp) {
+
+    var o_id = new mongodb.ObjectID('58f44da6520983ab4bb87ce0');
+
+    var collection = db.collection('person');
+    collection.deleteOne({_id: o_id}, function(err, results) {
+        if (err){
+            resp.send("failed");
+            throw err;
+        }
+        else {
+            resp.send("success");
+            //   db.close();
+        }
     });
 
-app.post('/emailverify',function(req,resp){
+});
+app.get('/updateperson',function (req,resp) {
+
+    var o_id = new mongodb.ObjectID('58f44db8520983ab4bb87ce2');
+    var collection = db.collection('person');
+    collection.update({_id: o_id}, {$set: {description:'Updated'}},function(err, results) {
+        if (err){
+            resp.send("failed");
+            throw err;
+        }
+        else {
+            resp.send("success");
+            //db.close();
+
+        }
+    });
+
+});
+app.post('/addcustomer', function (req, resp) {
 
     var crypto = require('crypto');
 
-    var collection = db.collection('users');
-
-    var o_id = new mongodb.ObjectID(req.body.id);
-
-    collection.update({_id:o_id}, {$set: {status:1}}, true, true);
-
-    collection.find({_id:o_id}).toArray(function(err, items) {
-
-        if (err) {
-            resp.send(JSON.stringify({'status':'error','id':0}));
-        } else {
-
-            resitem = items[0];
-
-
-            var time = Date.now();
-
-            var hash = crypto.createHmac('sha256',time.toString() )
-                .update('password')
-                .digest('hex');
-
-            var o_id = new mongodb.ObjectID(resitem._id);
-            db.collection('users').update({_id:o_id}, {$set: {password:hash}}, true, true);
-
-           // mailsend('useractivate',resitem.email,{});
-
-            resp.send(JSON.stringify({'status':'success','id':resitem._id,'password':hash,'time':time}));
-        }
-    });
-
-
-});
-
-
-//-------------------------------------------------------END------------------------------------------------
-app.post('/adminlogin', function (req, resp) {
-    var crypto = require('crypto');
     var secret = req.body.password;
     var hash = crypto.createHmac('sha256', secret)
         .update('password')
         .digest('hex');
-    var collection = db.collection('users');
-    //console.log(req.body.email+'====='+hash);
-    collection.find({ email:req.body.email }).toArray(function(err, items){
 
+    value1 = {fname: req.body.fname,lname: req.body.fname, phone: req.body.phone,zip: req.body.zip,username:req.body.username,password:hash,is_lead:1};
 
+    var collection = db.collection('customer');
 
-        console.log(items[0]); //admin_login details shown here
+    collection.insert([value1], function (err, result) {
+        if (err) {
+            resp.send(err);
+        } else {
+            resp.send('Inserted %d documents into the "users" collection. The documents inserted with "_id" are:', result.length, result);
 
-
-
-
-            if(items.length==0){
-                resp.send(JSON.stringify({'status':'error','msg':'Username invalid...'}));
-                return;
-            }
-
-
-         if(items.length>0 && items[0].password!=hash){
-                //console.log(items[0].password); //hex
-                //console.log(hash); //given password
-                //console.log(req.body.password);
-                resp.send(JSON.stringify({'status':'error','msg':'Password Doesnot match'}));
-                return;
-            }
-
-
-        if(items.length>0 && items[0].status!=1){
-            resp.send(JSON.stringify({'status':'error','msg':'You are Blocked..'}));
-            return;
-            }
-
-
-            if(items.length>0 && items[0].password==hash){
-                resp.send(JSON.stringify({'status':'success','msg':items[0]}));   //sending the items[0] through msg variable
-                return;
-            }
+        }
     });
 
 });
 
+app.post('/updatecustomer',function (req,resp) {
 
+    var collection = db.collection('customer');
+    collection.update({username: req.body.username}, {$set: {address:req.body.address,state:req.body.state,city:req.body.city,fname:req.body.fname,lname:req.body.lname,phone:req.body.phone,zip:req.body.zip}},function(err, results) {
+        if (err){
+            resp.send("failed");
+            throw err;
+        }
+        else {
+            resp.send("success");
+            //db.close();
+
+        }
+    });
+
+});
+
+app.get('/listexpert', function (req, resp) {
+
+
+    var collection = db.collection('addexpertarea');
+
+    collection.find().toArray(function(err, items) {
+
+        resp.send(JSON.stringify(items));
+    });
+
+});
+
+app.get('/listdealers', function (req, resp) {
+
+
+    var collection = db.collection('dealers');
+
+    collection.find().toArray(function(err, items) {
+
+        resp.send(JSON.stringify(items));
+    });
+
+});
+/*-----------------------------------EXAMPLES_END------------------------------------------*/
+
+
+/*--------------------------------------ADMIN_START--------------------------------------------*/
 
 app.post('/addadmin',function(req,resp){
     var collection = db.collection('users');
 
     var crypto = require('crypto');
 
-console.log("hello,this is the answer");
-console.log(req.body);
-
-     var secret = req.body.password;
+    /*console.log("hello,this is the answer");
+    console.log(req.body);
+*/
+    var secret = req.body.password;
     var hash = crypto.createHmac('sha256', secret)
         .update('password')
         .digest('hex');
+    var added_on=new Date();
+    /*if(req.body.is_active==true){
+        var is_active=1;  //1=>admin, 0=>user, 2=>aces, 3=>employee
+    }
+    else {
+        var is_active=0;
+    }*/
 
     collection.insert([{
         firstname: req.body.firstname,
@@ -449,15 +370,21 @@ console.log(req.body);
                     pass: "DevelP7@"
                 }
             });
-            var link='http://localhost:4200/#/emailverify/'+result.ops[0]._id;
+
+            //var mzsadielink='http://mzsadie.influxiq.com/#/';
+            //var link=mzsadielink+'emailverify/'+result.ops[0]._id;
+            var link='http://mzsadie.influxiq.com/#/emailverify/'+result.ops[0]._id;
+            var name=req.body.firstname+' '+req.body.lastname;
+            var email=req.body.email;
             var mail = {
                 from: "Admin <ipsitaghosal1@gmail.com>",
                 to: req.body.email,
                 //to: 'ipsita.influxiq@gmail.com',
-                subject: 'Welcome to Epiclyf',
+                subject: 'Welcome to Admin Management System',
+                html: '<p>Welcome '+name+' </p>'+'<P>We are please to let you know that you have been successfully registered as Admin.</p>'+'<P>Below is your login information:</p>'+'<p>Email id: '+email+'</p>'+'<p>Password: Protected due to security</p>'+'<p>Login Link: http://mzsadie.influxiq.com/#/login</p>' +
+                '<p>Please click on the link below to activate your account.</p><a href="'+link+'">Click Here</a>'
 
-
-                html: '<P>Below is your login information – Login Link: http://localhost:4200/#/admin_login</p><p>Please click on the link below to activate your account.</p><a href="'+link+'">Click Here</a>'
+               /* html: '<P>Below is your login information – Login Link: http://localhost:4200/#/login</p><p>Please click on the link below to activate your account.</p><a href="'+link+'">Click Here</a>'*/
             }
 
             smtpTransport.sendMail(mail, function (error, response) {
@@ -466,39 +393,45 @@ console.log(req.body);
                 smtpTransport.close();
             });
 
-           /* '/editadmin',item._id*/
+            /* '/editadmin',item._id*/
             console.log(result);
             resp.send(JSON.stringify({'status':'success','id':result.ops[0]._id}));
         }
     });
-/*
-
- var smtpTransport = mailer.createTransport("SMTP", {
- service: "Gmail",
- auth: {
- user: "itplcc40@gmail.com",
- pass: "DevelP7@"
- }
- });
-
- var mail = {
- from: "Admin <ipsitaghosal1@gmail.com>",
- to: req.body.email,
- //to: 'ipsita.influxiq@gmail.com',
- subject: 'Access code',
-
- html: 'Access code is given -->  '+generatedcode
- }
-
- smtpTransport.sendMail(mail, function (error, response) {
- // resp.send((response.message));
- console.log('send');
- smtpTransport.close();
- });
-*/
-
-
 });
+
+/*
+app.post('/addadmin', function (req, resp) {
+
+    var crypto = require('crypto');
+
+    var secret = req.body.password;
+    var hash = crypto.createHmac('sha256', secret)
+        .update('password')
+        .digest('hex');
+    var added_on=new Date();
+    if(req.body.is_active==true){
+        var is_active=1;  //1=>admin, 0=>user, 2=>aces, 3=>employee
+    }
+    else {
+        var is_active=0;
+    }
+
+    value1 = {username:req.body.username,password:hash,fname: req.body.fname,lname: req.body.lname,email:req.body.email,address:req.body.address,city:req.body.city,state:req.body.state,zip:req.body.zip, phone: req.body.phone,is_active:req.body.is_active,added_on:added_on};
+
+    var collection = db.collection('admin');
+
+    collection.insert([value1], function (err, result) {
+        if (err) {
+            resp.send(err);
+        } else {
+            resp.send('Inserted %d documents into the "users" collection. The documents inserted with "_id" are:', result.length, result);
+
+        }
+    });
+
+});*/
+
 
 app.get('/adminlist',function (req,resp) {
 
@@ -534,7 +467,7 @@ app.post('/admindetails',function(req,resp){
             resp.send(JSON.stringify({'status':'success','item':resitem}));
         }
     });
-   // resp.send(JSON.stringify({'status':'error','id':0}));
+    // resp.send(JSON.stringify({'status':'error','id':0}));
 
 });
 
@@ -608,75 +541,47 @@ app.post('/updateprofile',function(req,resp){
 
 
 
-
-
-
-/*app.post('/admindell',function(req,resp){
-    var collection = db.collection('users');
-
-    var o_id = new mongodb.ObjectID(req.body.id);
-
-   /!* collection.remove( {"_id": o_id});
-
-    resp.send(JSON.stringify({'status':'success'}));
-    *!/
-    /!*collection.deleteOne({_id: o_id}, function(err, results) {
-        if (err){
-            resp.send("failed");
-            throw err;
-        }
-        else {
-            resp.send("success");
-            //   db.close();
-        }
-    });*!/
-    resp.send('success');
-
-});*/
-
-
-
-
-
-app.post('/userstatcng',function(req,resp){
-    var collection = db.collection('users');
-
-    var o_id = new mongodb.ObjectID(req.body.id);
-
-    collection.update({_id:o_id}, {$set: {status:req.body.status}}, true, true);
-
-    resp.send(JSON.stringify({'status':'success'}));
-});
-
-
-
-
-
-
-
-/*---------------------------------END--------------------------------------------*/
-
-
-
-app.post('/adddealer', function (req, resp) {
-
+app.post('/adminlogin', function (req, resp) {
     var crypto = require('crypto');
-
     var secret = req.body.password;
     var hash = crypto.createHmac('sha256', secret)
         .update('password')
         .digest('hex');
+    var collection = db.collection('users');
+    //console.log(req.body.email+'====='+hash);
+    collection.find({ email:req.body.email }).toArray(function(err, items){
 
-    value1 = {fname: req.body.fname,lname: req.body.fname, phone: req.body.phone,zip: req.body.zip,username:req.body.username,password:hash,is_lead:1};
 
-    var collection = db.collection('dealers');
 
-    collection.insert([value1], function (err, result) {
-        if (err) {
-            resp.send(err);
-        } else {
-            resp.send('Inserted %d documents into the "users" collection. The documents inserted with "_id" are:', result.length, result);
+        console.log(items[0]); //admin_login details shown here
 
+
+
+
+        if(items.length==0){
+            resp.send(JSON.stringify({'status':'error','msg':'Username invalid...'}));
+            return;
+        }
+
+
+        if(items.length>0 && items[0].password!=hash){
+            //console.log(items[0].password); //hex
+            //console.log(hash); //given password
+            //console.log(req.body.password);
+            resp.send(JSON.stringify({'status':'error','msg':'Password Doesnot match'}));
+            return;
+        }
+
+
+        if(items.length>0 && items[0].status!=1){
+            resp.send(JSON.stringify({'status':'error','msg':'You are Blocked..'}));
+            return;
+        }
+
+
+        if(items.length>0 && items[0].password==hash){
+            resp.send(JSON.stringify({'status':'success','msg':items[0]}));   //sending the items[0] through msg variable
+            return;
         }
     });
 
@@ -684,129 +589,181 @@ app.post('/adddealer', function (req, resp) {
 
 
 
-app.post('/updatedealer',function (req,resp) {
 
-    var collection = db.collection('dealers');
-    collection.update({username: req.body.username}, {$set: {address:req.body.address,state:req.body.state,city:req.body.city,fname:req.body.fname,lname:req.body.lname,phone:req.body.phone,zip:req.body.zip}},function(err, results) {
-        if (err){
-            resp.send("failed");
-            throw err;
-        }
-        else {
-            resp.send("success");
-            //db.close();
 
+app.post('/forgetpassword', function (req, resp) {
+
+    var collection = db.collection('users');
+    //console.log(req.body.email);
+    collection.find({ email:req.body.email }).toArray(function(err, items) {
+
+        if(items.length>0){
+            var randomstring = require("randomstring");
+            var generatedcode=randomstring.generate();
+
+            //console.log(generatedcode);
+            var data = {
+                accesscode: generatedcode,
+            }
+
+            collection.update({ email:req.body.email}, {$set: data}, true, true);
+
+
+            var smtpTransport = mailer.createTransport("SMTP", {
+                service: "Gmail",
+                auth: {
+                    user: "itplcc40@gmail.com",
+                    pass: "DevelP7@"
+                }
+            });
+
+            var mail = {
+                from: "Admin <ipsitaghosal1@gmail.com>",
+                to: req.body.email,
+                //to: 'ipsita.influxiq@gmail.com',
+                subject: 'Access code',
+
+                html: 'Access code is given -->  '+generatedcode
+            }
+
+            smtpTransport.sendMail(mail, function (error, response) {
+                // resp.send((response.message));
+                console.log('send');
+                smtpTransport.close();
+            });
+            resp.send(JSON.stringify({'status':'success','msg':req.body.email}));
         }
+
+
+        if(items.length==0){
+            resp.send(JSON.stringify({'status':'error','msg':'Emailid invalid...'}));
+            return;
+        }
+
     });
 
 });
 
+app.post('/newpassword', function (req, resp) {
 
-
-
-
-app.post('/addadmin', function (req, resp) {
-
+  var collection = db.collection('users');
     var crypto = require('crypto');
-
     var secret = req.body.password;
     var hash = crypto.createHmac('sha256', secret)
         .update('password')
         .digest('hex');
-        var added_on=new Date();
-    if(req.body.is_active==true){
-       var is_active=1;
+//console.log("hello");
+    var data = {
+        password: hash
     }
-    else {
-        var is_active=0;
+    collection.update({email:req.body.email}, {$set: data}, true, true);
+    resp.send(JSON.stringify({'status': 'success', 'msg': ''}));
+});
+
+
+app.post('/resetpassword', function (req, resp) {
+    var collection = db.collection('users');
+    var crypto = require('crypto');
+    var secret = req.body.password;
+    var hash = crypto.createHmac('sha256', secret)
+        .update('password')
+        .digest('hex');
+//console.log("hello");
+    var data = {
+        password: hash
     }
+    console.log(data);
+    var o_id = new mongodb.ObjectID(req.body.userid);
+    console.log(req.body.userid);
+    collection.find({_id: o_id}).toArray(function (err, items) {
+        console.log(items.length);
+        if(items.length==0) {
+            resp.send(JSON.stringify({'status': 'error', 'msg': ''}));
+            return;
+            // console.log(1);
+        }
+        else{
+            collection.update({_id: o_id}, {$set: data}, true, true);
 
-    value1 = {username:req.body.username,password:hash,fname: req.body.fname,lname: req.body.lname,email:req.body.email,address:req.body.address,city:req.body.city,state:req.body.state,zip:req.body.zip, phone: req.body.phone,is_active:req.body.is_active,added_on:added_on};
-
-    var collection = db.collection('admin');
-
-    collection.insert([value1], function (err, result) {
-        if (err) {
-            resp.send(err);
-        } else {
-            resp.send('Inserted %d documents into the "users" collection. The documents inserted with "_id" are:', result.length, result);
-
+            resp.send(JSON.stringify({'status': 'success', 'msg': 'Password updated..'}));
         }
     });
 
 });
-/*app.get('/adminlist', function (req, resp) {
 
+
+app.post('/changepassword', function (req, resp) {
+    var cryptoold = require('crypto');
+    var secretold = req.body.oldpassword;
+    var hashold = cryptoold.createHmac('sha256', secretold)
+        .update('password')
+        .digest('hex');
+
+
+    var cryptonew = require('crypto');
+    var secretnew = req.body.password;
+    var hashnew = cryptonew.createHmac('sha256', secretnew)
+        .update('password')
+        .digest('hex');
+    var data = {
+        password: hashnew
+    }
+
+  var collection = db.collection('users');
+    var o_id = new mongodb.ObjectID(req.body.id);
+
+    collection.find({_id: o_id, password: hashold}).toArray(function (err, items) {
+       // console.log(items.length);
+
+        if(items.length==0) {
+            resp.send(JSON.stringify({'status': 'error', 'msg': 'Old password doesnot match'}));
+            return;
+           // console.log(1);
+        }
+        else {
+
+            collection.update({_id: o_id}, {$set: data}, true, true);
+            resp.send(JSON.stringify({'status': 'success', 'msg': 'Password updated..'}));
+        }
+    });
+});
+
+app.post('/emailverify',function(req,resp){
+
+    var crypto = require('crypto');
 
     var collection = db.collection('users');
 
-    collection.find().toArray(function(err, items) {
+    var o_id = new mongodb.ObjectID(req.body.id);
 
-        resp.send(JSON.stringify(items));
-    });
+    collection.update({_id:o_id}, {$set: {status:1}}, true, true);
 
-});*/
+    collection.find({_id:o_id}).toArray(function(err, items) {
 
+        if (err) {
+            resp.send(JSON.stringify({'status':'error','id':0}));
+        } else {
 
-
-/*---------------------------START--------------------------------------------------*/
-app.get('/testlist', function (req, resp) {
-
-
-    var collection = db.collection('test');
-
-    collection.find().toArray(function(err, items) {
-
-        resp.send(JSON.stringify(items));
-    });
-
-});
-app.get('/show', function (req, resp) {
+            resitem = items[0];
 
 
-    var collection = db.collection('person');
+            var time = Date.now();
 
-    collection.find().toArray(function(err, items) {
+            var hash = crypto.createHmac('sha256',time.toString() )
+                .update('password')
+                .digest('hex');
 
-        resp.send(JSON.stringify(items));
-    });
+            var o_id = new mongodb.ObjectID(resitem._id);
+            db.collection('users').update({_id:o_id}, {$set: {password:hash}}, true, true);
 
-});
-app.get('/deleteperson', function (req, resp) {
+            // mailsend('useractivate',resitem.email,{});
 
-    var o_id = new mongodb.ObjectID('58f44da6520983ab4bb87ce0');
-
-    var collection = db.collection('person');
-    collection.deleteOne({_id: o_id}, function(err, results) {
-        if (err){
-            resp.send("failed");
-            throw err;
-        }
-        else {
-            resp.send("success");
-            //   db.close();
+            resp.send(JSON.stringify({'status':'success','id':resitem._id,'password':hash,'time':time}));
         }
     });
 
-});
-app.get('/updateperson',function (req,resp) {
-
-    var o_id = new mongodb.ObjectID('58f44db8520983ab4bb87ce2');
-    var collection = db.collection('person');
-    collection.update({_id: o_id}, {$set: {description:'Updated'}},function(err, results) {
-        if (err){
-            resp.send("failed");
-            throw err;
-        }
-        else {
-            resp.send("success");
-            //db.close();
-
-        }
-    });
 
 });
-
 
 app.post('/deleteadmin', function (req, resp) {
 
@@ -827,61 +784,6 @@ app.post('/deleteadmin', function (req, resp) {
 
 
 });
-
-/*app.post('/adminlogin', function (req, resp) {
-
-    var resitem = {};
-
-    var crypto = require('crypto');
-
-    var secret = req.body.password;
-    var hash = crypto.createHmac('sha256', secret)
-        .update('password')
-        .digest('hex');
-
-    var collection = db.collection('users');
-
-    collection.find({ email:req.body.email , password: hash }).toArray(function(err, items) {
-        if(err){
-            resp.send(JSON.stringify({'status':'error','msg':'Database error occurred! Try again.'}));
-        }else{
-            if(items.length == 0){
-                resp.send(JSON.stringify({'status':'error','msg':'Your information is incorrect.'}));
-            }else{
-
-                resitem = items[0];
-
-                var accesscode = makeaccesscode();
-
-                db.collection('accesscodes').insert([{
-                    user_id: resitem._id,
-                    access_code: accesscode,
-                    status: 0,
-                    time: Math.floor(Date.now() / 1000),
-                }], function (err2, result2) {
-                    mailsend('userverification',resitem.email,{accesscode:accesscode});
-                });
-
-                if(resitem.status == 0){
-                    resp.send(JSON.stringify({'status':'error','msg':'This user is not activated.'}));
-                }else{
-                    resp.send(JSON.stringify({'status':'success','item':resitem}));
-                }
-            }
-        }
-
-
-
-    });
-
-
-
-
-
-});*/
-
-
-/*-----------------------------------END------------------------------------------------*/
 
 app.post('/adminstatuschange',function (req,resp) {
 
@@ -918,77 +820,169 @@ app.post('/admincheck',function(req,resp){
         ///dbresults.push(items);
     });
 })
+/*app.post('/adminlogin', function (req, resp) {
 
-app.post('/addcustomer', function (req, resp) {
+ var resitem = {};
 
-    var crypto = require('crypto');
+ var crypto = require('crypto');
 
-    var secret = req.body.password;
-    var hash = crypto.createHmac('sha256', secret)
-        .update('password')
-        .digest('hex');
+ var secret = req.body.password;
+ var hash = crypto.createHmac('sha256', secret)
+ .update('password')
+ .digest('hex');
 
-    value1 = {fname: req.body.fname,lname: req.body.fname, phone: req.body.phone,zip: req.body.zip,username:req.body.username,password:hash,is_lead:1};
+ var collection = db.collection('users');
 
-    var collection = db.collection('customer');
+ collection.find({ email:req.body.email , password: hash }).toArray(function(err, items) {
+ if(err){
+ resp.send(JSON.stringify({'status':'error','msg':'Database error occurred! Try again.'}));
+ }else{
+ if(items.length == 0){
+ resp.send(JSON.stringify({'status':'error','msg':'Your information is incorrect.'}));
+ }else{
 
-    collection.insert([value1], function (err, result) {
-        if (err) {
-            resp.send(err);
-        } else {
-            resp.send('Inserted %d documents into the "users" collection. The documents inserted with "_id" are:', result.length, result);
+ resitem = items[0];
 
+ var accesscode = makeaccesscode();
+
+ db.collection('accesscodes').insert([{
+ user_id: resitem._id,
+ access_code: accesscode,
+ status: 0,
+ time: Math.floor(Date.now() / 1000),
+ }], function (err2, result2) {
+ mailsend('userverification',resitem.email,{accesscode:accesscode});
+ });
+
+ if(resitem.status == 0){
+ resp.send(JSON.stringify({'status':'error','msg':'This user is not activated.'}));
+ }else{
+ resp.send(JSON.stringify({'status':'success','item':resitem}));
+ }
+ }
+ }
+ });
+
+
+
+ });*/
+/*app.get('/adminlist', function (req, resp) {
+
+
+ var collection = db.collection('users');
+
+ collection.find().toArray(function(err, items) {
+
+ resp.send(JSON.stringify(items));
+ });
+
+ });*/
+
+/*app.post('/admindell',function(req,resp){
+ var collection = db.collection('users');
+
+ var o_id = new mongodb.ObjectID(req.body.id);
+
+ /!* collection.remove( {"_id": o_id});
+
+ resp.send(JSON.stringify({'status':'success'}));
+ *!/
+ /!*collection.deleteOne({_id: o_id}, function(err, results) {
+ if (err){
+ resp.send("failed");
+ throw err;
+ }
+ else {
+ resp.send("success");
+ //   db.close();
+ }
+ });*!/
+ resp.send('success');
+
+ });*/
+/*--------------------------------------ADMIN_END--------------------------------------------*/
+
+
+/*--------------------------------------CHECK_MAIL_START--------------------------------------------*/
+app.get('/testemail4',function(req,resp){
+    var smtpTransport = mailer.createTransport("SMTP", {
+        service: "Gmail",
+        auth: {
+            user: "itplcc40@gmail.com",
+            pass: "DevelP7@"
         }
     });
 
-});
+    var mail = {
+        from: "Admin <ipsitaghosal1@gmail.com>",
+        to: 'ipsita.influxiq@gmail.com',
+        subject: 'password change',
+        //text: "Node.js New world for me",
+        html: 'Password has been changed'
+    }
 
-app.post('/updatecustomer',function (req,resp) {
-
-    var collection = db.collection('customer');
-    collection.update({username: req.body.username}, {$set: {address:req.body.address,state:req.body.state,city:req.body.city,fname:req.body.fname,lname:req.body.lname,phone:req.body.phone,zip:req.body.zip}},function(err, results) {
-        if (err){
-            resp.send("failed");
-            throw err;
-        }
-        else {
-            resp.send("success");
-            //db.close();
-
-        }
+    smtpTransport.sendMail(mail, function (error, response) {
+        // resp.send((response.message));
+        console.log('send');
+        smtpTransport.close();
     });
+});
 
+/*
+
+ var smtpTransport = mailer.createTransport("SMTP", {
+ service: "Gmail",
+ auth: {
+ user: "itplcc40@gmail.com",
+ pass: "DevelP7@"
+ }
+ });
+
+ var mail = {
+ from: "Admin <ipsitaghosal1@gmail.com>",
+ to: req.body.email,
+ //to: 'ipsita.influxiq@gmail.com',
+ subject: 'Access code',
+
+ html: 'Access code is given -->  '+generatedcode
+ }
+
+ smtpTransport.sendMail(mail, function (error, response) {
+ // resp.send((response.message));
+ console.log('send');
+ smtpTransport.close();
+ });
+ */
+
+/*--------------------------------------CHECK_MAIL_END--------------------------------------------*/
+
+
+app.post('/userstatcng',function(req,resp){
+    var collection = db.collection('users');
+
+    var o_id = new mongodb.ObjectID(req.body.id);
+
+    collection.update({_id:o_id}, {$set: {status:req.body.status}}, true, true);
+
+    resp.send(JSON.stringify({'status':'success'}));
 });
 
 
+/*app.post('/usercheck',function(req,resp){
+ var collection=db.collection('dealers');
+ var crypto = require('crypto');
+ var secret = req.body.password;
+ var hash = crypto.createHmac('sha256', secret)
+ .update('password')
+ .digest('hex');
 
+ collection.find({username:req.body.username,password:hash}).toArray(function(err, items) {
 
-
-//let link = this.serverUrl+'adminlist';
-
-app.get('/listexpert', function (req, resp) {
-
-
-    var collection = db.collection('addexpertarea');
-
-    collection.find().toArray(function(err, items) {
-
-        resp.send(JSON.stringify(items));
-    });
-
-});
-
-app.get('/listdealers', function (req, resp) {
-
-
-    var collection = db.collection('dealers');
-
-    collection.find().toArray(function(err, items) {
-
-        resp.send(JSON.stringify(items));
-    });
-
-});
+ // resp.send(JSON.stringify(items));
+ //db.close();
+ ///dbresults.push(items);
+ });
+ })*/
 
 /*-----------------------------------Aces_Work_Start---------------------------------*/
 
@@ -1012,7 +1006,7 @@ app.post('/addaces',function(req,resp){
         image: req.body.image,
         vivacityurl: req.body.vivacityurl,
         //added_time: Math.floor(Date.now() / 1000),
-        type:2 //1=>admin, 0=>user, 2=>aces
+        type:2 //1=>admin, 0=>user, 2=>aces, 3=>employee
     }], function (err, result) {
         if (err) {
             console.log('error'+err);
@@ -1045,22 +1039,7 @@ app.post('/editaces',function(req,resp){
     resp.send(JSON.stringify({'status':'success'}));
 });
 
-app.get('/aceslist',function (req,resp) {
 
-    var collection = db.collection('users');
-
-    collection.find({type: 2}).toArray(function(err, items) {
-
-        if (err) {
-            console.log(err);
-            resp.send(JSON.stringify({'res':[]}));
-        } else {
-            resp.send(JSON.stringify({'res':items}));
-        }
-
-    });
-
-});
 
 app.post('/acesdetails',function(req,resp){
 //console.log("admindetails from server.js called");
@@ -1125,28 +1104,298 @@ app.post('/deleteimage', function (req, resp) {
 
 });
 
+app.get('/aceslist',function (req,resp) {
 
+    var collection = db.collection('users');
+
+    collection.find({type: 2}).toArray(function(err, items) {
+
+        if (err) {
+            console.log(err);
+            resp.send(JSON.stringify({'res':[]}));
+        } else {
+            resp.send(JSON.stringify({'res':items}));
+        }
+
+    });
+
+});
 /*-----------------------------------Aces_Work_End---------------------------------*/
 
 
+/*-----------------------------------Employee_Work_Start---------------------------------*/
+app.post('/addemployee',function(req,resp){
+    //console.log("Hello");
+    var collection = db.collection('users');
 
-
-
-/*app.post('/usercheck',function(req,resp){
-    var collection=db.collection('dealers');
     var crypto = require('crypto');
+
     var secret = req.body.password;
     var hash = crypto.createHmac('sha256', secret)
         .update('password')
         .digest('hex');
+    var added_on=new Date();
+    collection.insert([{
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        password: hash,
+        designation: req.body.designation,
+        note: req.body.note,
+        //added_time: Math.floor(Date.now() / 1000),
+        type:3 //1=>admin, 0=>user, 2=>aces, 3=>employee
+    }], function (err, result) {
+        if (err) {
+            console.log('error'+err);
+            resp.send(JSON.stringify({'id':0}));
+        } else {
+            var smtpTransport = mailer.createTransport("SMTP", {
+                service: "Gmail",
+                auth: {
+                    user: "itplcc40@gmail.com",
+                    pass: "DevelP7@"
+                }
+            });
+            //var link='http://localhost:4200/#/emailverify/'+result.ops[0]._id;
+            var link='http://mzsadie.influxiq.com/#/emailverify/'+result.ops[0]._id;
+            var name=req.body.firstname+' '+req.body.lastname;
+            var email=req.body.email;
+            var mail = {
+                from: "Admin <ipsitaghosal1@gmail.com>",
+                to: req.body.email,
+                //to: 'ipsita.influxiq@gmail.com',
+                subject: 'Welcome to Employee Management System',
 
-    collection.find({username:req.body.username,password:hash}).toArray(function(err, items) {
 
-       // resp.send(JSON.stringify(items));
-        //db.close();
-        ///dbresults.push(items);
+                /*html: '<P>Below is your login information – Login Link: http://localhost:4200/#/login</p>' +
+                '<p>Please click on the link below to activate your account.</p><a href="'+link+'">Click Here</a>'*/
+                html: '<p>Welcome </p>'+name +'<P>We are please to let you know that you have been successfully registered as an Employee.</p>'+'<P>Below is your login information:</p>'+'<p>Email id: </p>'+email+'<p>Password: Protected due to security</p>'+'<p>Login Link: http://mzsadie.influxiq.com/#/login</p>' +
+                '<p>Please click on the link below to activate your account.</p><a href="'+link+'">Click Here</a>'
+
+
+
+            }
+
+            smtpTransport.sendMail(mail, function (error, response) {
+                // resp.send((response.message));
+                console.log('send');
+                smtpTransport.close();
+            });
+            resp.send(JSON.stringify({'id':result.ops[0]._id}));
+        }
+        //console.log("Hi");
     });
-})*/
+
+});
+
+
+app.get('/employeelist',function (req,resp) {
+
+    var collection = db.collection('users');
+
+    collection.find({type: 3}).toArray(function(err, items) {
+
+        if (err) {
+            console.log(err);
+            resp.send(JSON.stringify({'res':[]}));
+        } else {
+            resp.send(JSON.stringify({'res':items}));
+        }
+
+    });
+
+});
+
+app.post('/deleteemployee', function (req, resp) {
+
+    var o_id = new mongodb.ObjectID(req.body.id);
+
+    var collection = db.collection('users');
+    collection.deleteOne({_id: o_id}, function(err, results) {
+        if (err){
+            resp.send("failed");
+            throw err;
+        }
+        else {
+            resp.send("success");
+
+        }
+    });
+
+
+});
+
+app.post('/editemployee',function(req,resp){
+    var collection = db.collection('users');
+
+    var data = {
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        designation: req.body.designation,
+        note:req.body.note,
+    }
+
+    var o_id = new mongodb.ObjectID(req.body.id);
+
+    collection.update({_id:o_id}, {$set: data}, true, true);
+
+    resp.send(JSON.stringify({'status':'success'}));
+});
+
+app.post('/employeedetails',function(req,resp){
+//console.log("admindetails from server.js called");
+    var resitem = {};
+
+    var collection = db.collection('users');
+
+    var o_id = new mongodb.ObjectID(req.body._id);
+
+    collection.find({_id:o_id}).toArray(function(err, items) {
+
+        if (err) {
+            resp.send(JSON.stringify({'status':'error','id':0}));
+        } else {
+            resitem = items[0];
+
+            resp.send(JSON.stringify({'status':'success','item':resitem}));
+        }
+    });
+    // resp.send(JSON.stringify({'status':'error','id':0}));
+
+});
+/*-----------------------------------Employee_Work_End---------------------------------*/
+
+/*-----------------------------------URL_UPDATE_START---------------------------------*/
+/*app.get('/autourlupdate',function(req,resp){
+
+    var url = 'http://www.radiologyimagingcenters.com/client.list.do';            //we have to import data from this link
+
+    setTimeout(function () {
+        console.log("inside autourlupdate");
+        geturllist(url); //send the url to the function
+    },500)
+
+
+    resp.send(JSON.stringify({'status': 'success', 'msg': ''}));
+
+
+});*/
+
+function geturllist(url){
+
+    request(url, function(error2, response, html2){                    //before using this request declare this and install request using npm
+        if(!error2) {
+            var $ = cheerio.load(html2);                //assigning the html of full page to $ variable
+            var states;
+            states=$('#state').find('option').each(function () {             //show all values of state and bind every value to url using loop
+
+                var link1='http://www.radiologyimagingcenters.com/client.list.do?state='+$(this).attr('value');
+                setTimeout(function () {
+                    getpagedetail(link1);
+                },500);
+
+            });
+
+        }
+        else {
+            console.log("inside geturllist");
+            console.log('in error  :'+error2);
+        }
+
+    });
+}
+
+
+function getpagedetail(link1){
+
+    request(link1, function(error2, response, html2){
+
+        if(!error2) {
+            var $ = cheerio.load(html2);
+            var links;
+            links=$('table.table-condensed').find('tr').find('td').find('a').each(function () {    //from that link catch the table using the class
+
+                var link1='http://www.radiologyimagingcenters.com/'+$(this).attr('href'); //link of each a href tag
+                setTimeout(function () {
+                    getdetaildata(link1);
+                },500);
+
+            });
+
+        }
+        else{
+            console.log("inside getpagedetail");
+            console.log('in error  :'+error2);
+        }
+
+    });
+}
+
+function getdetaildata(link1) {
+
+    //console.log(link1);
+    request(link1, function(error2, response, html2) {
+        var value1={};
+
+        if (!error2) {
+            var $ = cheerio.load(html2);
+            var links;
+            console.log($('h1').html()); //heading of the page
+            value1['name']=null;
+            value1['name']=$('h1').html();
+            value1['url']=null;
+            value1['url']=link1;
+
+            links = $('form').find('label').each(function () { //inside the formm tag find label
+                console.log("label");
+                console.log($(this).text());
+                console.log("value");
+                console.log($(this).next().text());
+                value1[$(this).text()]=null;
+                value1[$(this).text()]=$(this).next().text();
+            });
+
+
+            var collection = db.collection('urls');
+
+            collection.insert([value1], function (err, result) {
+                if (err) {
+                    //resp.send(err);
+                } else {
+                    //resp.send('Inserted %d documents into the "users" collection. The documents inserted with "_id" are:', result.length, result);
+
+                }
+            });
+
+        }
+        else{
+            console.log("inside getdetaildata");
+            console.log('in error:'+error2);
+        }
+    });
+}
+
+
+app.get('/urllist',function (req,resp) {
+
+    var collection = db.collection('urls');
+
+    collection.find().toArray(function(err, items) {
+
+        if (err) {
+            console.log(err);
+            resp.send(JSON.stringify({'res':[]}));
+        } else {
+            resp.send(JSON.stringify(items));
+
+
+        }
+
+    });
+
+});
+/*-----------------------------------URL_UPDATE_END---------------------------------*/
+
 
 app.get('/getusastates',function (req,resp) {
 

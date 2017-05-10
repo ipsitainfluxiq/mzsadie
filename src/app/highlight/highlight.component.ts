@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-highlight',
-  templateUrl: './highlight.component.html',
+  //templateUrl: './highlight.component.html',
   styleUrls: ['./highlight.component.css'],
   template:
 
         `
-      {{nam.name}}
+      <!--{{nam.name}}-->
       {{names.length}}
       <h2>{{title}}</h2>
       <p class="alert alert-success" *ngIf="names.length > 2">Currently there are more than 2 names!</p>
@@ -35,10 +35,10 @@ export class HighlightComponent implements OnInit {
   ];
   public selectedName = {name : ""};
 
-  onNameClicked(nam) {
+     onNameClicked(nam) {
     this.selectedName = nam;
   }
-  onAddName(nam) {
+    onAddName(nam) {
     this.names.push({name: nam.value});
   }
   onDeleteName() {

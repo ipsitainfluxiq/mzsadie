@@ -1,0 +1,58 @@
+<div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 dashboard_right">
+  <div class="dashboard_right_wrapper">
+    <div class="dashboard1_div1 ">
+      <h4> Add Employee</h4>
+      <div class="dashboard1form">
+
+        <form role="form" novalidate [formGroup]="dataForm" (ngSubmit)="dosubmit(dataForm.value)">
+          <div class="form-group" ngClass="{{haserrorcls('firstname')}}">
+            <label>First Name</label>
+            <input type="text" class="form-control" placeholder="First Name" [formControl]="dataForm.controls['firstname']">
+            <div class="help-block" ngClass="{{showerrorcls('firstname')}}">First Name is required</div>
+          </div>
+          <div class="form-group" ngClass="{{haserrorcls('lastname')}}">
+            <label>Last Name</label>
+            <input type="text" class="form-control" placeholder="Last Name" [formControl]="dataForm.controls['lastname']">
+            <div class="help-block" ngClass="{{showerrorcls('lastname')}}">Last Name is required</div>
+          </div>
+          <div class="form-group" ngClass="{{haserrorcls('email')}}">
+            <label>Email</label>
+            <input type="email" class="form-control" placeholder="Email" [formControl]="dataForm.controls['email']">
+            <div class="help-block" ngClass="{{showerrorcls('email')}}">Email is required</div>
+            <div class="help-block" ngClass="{{showerrorcls('email','validemail')}}">Enter valid email id</div>
+          </div>
+          <div class="form-group" ngClass="{{haserrorcls('password')}}">
+            <label>Password</label>
+            <input type="password" class="form-control" placeholder="Password" [formControl]="dataForm.controls['password']">
+            <div class="help-block" ngClass="{{showerrorcls('password','required')}}">Password is required</div>
+            <div class="help-block" ngClass="{{showerrorcls('password','minlength')}}">Password must be minimum of 8 characters</div>
+          </div>
+          <div class="form-group" ngClass="{{haserrorcls('confpassword')}}">
+            <label>Confirm Password</label>
+            <input type="password" class="form-control" placeholder="Confirm Password"  [formControl]="dataForm.controls['confpassword']">
+            <div class="help-block" ngClass="{{showerrorcls('confpassword')}}">Confirm Password is required</div>
+            <div class="help-block" ngClass="{{showerrorcls('confpassword','match')}}">Password does not match</div>
+          </div>
+          <div class="form-group" ngClass="{{haserrorcls('designation')}}">
+            <label>Designation</label>
+            <input type="text" class="form-control" placeholder="Designation" [formControl]="dataForm.controls['designation']">
+            <div class="help-block" ngClass="{{showerrorcls('designation')}}">Designation is required</div>
+          </div>
+          <div class="form-group" ngClass="{{haserrorcls('note')}}">
+            <label>Note</label>
+            <ckeditor
+                    [formControl]="dataForm.controls['note']"
+                    [config]="{uiColor: '#99000'}"
+                    debounce="500">
+            </ckeditor>
+            <div class="help-block" ngClass="{{showerrorcls('note')}}">Note is required</div>
+          </div>
+
+
+
+          <input type="submit" value="Save" class="loginbtn2">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

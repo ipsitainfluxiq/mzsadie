@@ -39,7 +39,7 @@ export class AdminlistComponent implements OnInit {
     getAdminList(){
         var link ='http://influxiq.com:3001/adminlist';
         var data = {};
-        /* this._http.get(link)
+         this._http.get(link)
         .subscribe(res => {
           var result = res.json();
           console.log(result.item);
@@ -47,7 +47,7 @@ export class AdminlistComponent implements OnInit {
           //console.log(this.datalist);
         }, error => {
           console.log("Oooops!");
-        });*/
+        });
     }
     delConfirm(id){
         this.id = id;
@@ -69,11 +69,6 @@ export class AdminlistComponent implements OnInit {
             });
 
         },2000);*/
-
-
-
-
-
 
 
 

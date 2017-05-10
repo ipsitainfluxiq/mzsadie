@@ -1,5 +1,5 @@
 import {Component, NgZone, OnInit} from '@angular/core';
-import { FormGroup, Validators, FormControl,FormBuilder} from '@angular/forms';    //To add form import these
+import { FormGroup, Validators, FormControl,FormBuilder} from '@angular/forms';    // import these to add form
 import {Http} from "@angular/http";
 import { Router, ActivatedRoute, Params } from '@angular/router';
 declare var $:any;
@@ -12,7 +12,7 @@ declare var $:any;
 })
 export class AddacesComponent implements OnInit {
   private zone: NgZone;
-  private basicOptions: Object;
+  public basicOptions: Object;
   public progress: number = 0;
   private response: any = {};
 
@@ -66,7 +66,7 @@ export class AddacesComponent implements OnInit {
 
 
 
-   handleUpload(data: any): void
+   handleUpload(data: any): void //uploading the images and saving to particular folder
    {
 
      this.zone.run(() => {

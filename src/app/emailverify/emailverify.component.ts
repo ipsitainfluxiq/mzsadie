@@ -14,14 +14,16 @@ export class EmailverifyComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log("oninithello");
     this.route.params.subscribe(params => {
       this.id = params['id'];
       this.emailverify();
     },error=>{
-      this.router.navigate(['/admin_login']);
+      this.router.navigate(['/login']);
     });
   }
   emailverify(){
+    console.log("hi");
     var link = 'http://influxiq.com:3001/emailverify';
     var data = {id : this.id};
 
@@ -30,7 +32,7 @@ export class EmailverifyComponent implements OnInit {
         .subscribe(res => {
           var result = res.json();
 
-          //console.log(result);
+          console.log(result.id);
 
           this.router.navigate(['/resetpassword/'+result.id]);
 

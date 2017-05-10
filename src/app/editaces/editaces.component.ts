@@ -9,7 +9,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 })
 export class EditacesComponent implements OnInit {
   private zone: NgZone;
-  private basicOptions: Object;
+  public basicOptions: Object;
   private progress: number = 0;
   private response: any = {};
   public uploadedfilesrc:any;

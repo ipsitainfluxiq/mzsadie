@@ -64,6 +64,12 @@ import { Addadmin } from './addadmin.service';
 import { EmailverifyComponent } from './emailverify/emailverify.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 import { HighlightComponent } from './highlight/highlight.component';
+import { UrlcallComponent } from './urlcall/urlcall.component';
+import { AddemployeeComponent } from './addemployee/addemployee.component';
+import { EmployeelistComponent } from './employeelist/employeelist.component';
+import { EditemployeeComponent } from './editemployee/editemployee.component';
+
+import { EmployeedashboardComponent } from './employeedashboard/employeedashboard.component';
 
 @NgModule({
   declarations: [
@@ -120,6 +126,12 @@ import { HighlightComponent } from './highlight/highlight.component';
    EmailverifyComponent,
    ResetpasswordComponent,
    HighlightComponent,
+   UrlcallComponent,
+   AddemployeeComponent,
+   EmployeelistComponent,
+   EditemployeeComponent,
+
+   EmployeedashboardComponent,
     //ExampleService,
 
   ],
