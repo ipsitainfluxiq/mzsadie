@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import {Http} from "@angular/http";
 import {DomSanitizer} from "@angular/platform-browser";
-import {Accesslist} from "../aceslist.service";
+//import {Accesslist} from "../aceslist.service";
+import {Commonservices} from "../app.commonservices";
 declare var $:any;
 @Component({
   selector: 'app-aceslist',
   templateUrl: './aceslist.component.html',
   styleUrls: ['./aceslist.component.css'],
-    providers: [Accesslist],
+    //providers: [Accesslist],
+    providers: [Commonservices],
 })
 export class AceslistComponent implements OnInit {
   public datalist;
@@ -15,7 +17,7 @@ export class AceslistComponent implements OnInit {
   orderbyquery:any;
   orderbytype:any;
     //public ckeditorContent:any;
-  constructor(private _http: Http,private _sanitizer: DomSanitizer,private _aceslist: Accesslist) {
+  constructor(private _http: Http,private _sanitizer: DomSanitizer,private _commonservices: Commonservices/*private _aceslist: Accesslist*/) {
       this.orderbyquery='firstname';
       this.orderbytype=1;
   }
@@ -23,7 +25,8 @@ export class AceslistComponent implements OnInit {
 
   ngOnInit() {
     //this.getAcesList();
-      this._aceslist.getDetails().subscribe(res => {
+      //this._aceslist.getDetails().subscribe(res => {
+      this._commonservices.getDetailsAces().subscribe(res => {
           this.datalist = res;
           console.log(this.datalist.length);
       }, error => {
@@ -55,7 +58,7 @@ export class AceslistComponent implements OnInit {
   }
 
   acesdel(){
-      this._aceslist.DeleteUser(this.id).subscribe();
+      this._commonservices.DeleteAces(this.id).subscribe();
       $('#'+this.id).parent().remove();
 
    /* var link ='http://influxiq.com:3001/deleteaces';

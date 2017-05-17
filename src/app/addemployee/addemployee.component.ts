@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl,FormBuilder} from '@angular/forms';    // import these to add form
 import {Http} from "@angular/http";
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import {Commonservices} from "../app.commonservices";
 //declare var $:any;
 
 @Component({
   selector: 'app-addemployee',
   templateUrl: './addemployee.component.html',
-  styleUrls: ['./addemployee.component.css']
+  styleUrls: ['./addemployee.component.css'],
+  providers: [Commonservices]
 })
 export class AddemployeeComponent implements OnInit {
   public dataForm: FormGroup;
@@ -20,11 +22,18 @@ export class AddemployeeComponent implements OnInit {
   id:number;
   public is_error;
   public userdata: any;
-  constructor(fb: FormBuilder, private _http: Http, private router: Router,private route: ActivatedRoute) {
+  items:any;
+  serverUrl:any;
+  commonservices:Commonservices;
+  constructor(fb: FormBuilder, private _http: Http, private router: Router,private route: ActivatedRoute,  private _commonservices: Commonservices) {
     this.fb = fb;
+    this.commonservices=_commonservices;
+    this.items = _commonservices.getItems();
+    this.serverUrl = this.items[0].serverUrl;
   }
 
   ngOnInit() {
+
     this.isSubmit = false;
     this.isemailvalidate = false;
     this.isvivacity = false;
@@ -117,7 +126,8 @@ export class AddemployeeComponent implements OnInit {
     this.isSubmit = true;
     if (this.dataForm.valid && this.isemailvalidate && this.passmatchvalidate) {
       console.log("inside dataform");
-      var link = 'http://influxiq.com:3001/addemployee';
+      //var link = 'http://influxiq.com:3001/addemployee';
+      var link =this.serverUrl+'addemployee';
       var data = {
         firstname: formval.firstname,
         lastname: formval.lastname,

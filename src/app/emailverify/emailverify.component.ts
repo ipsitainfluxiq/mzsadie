@@ -1,16 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import {Http} from "@angular/http";
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import {Commonservices} from "../app.commonservices";
 
 @Component({
   selector: 'app-emailverify',
   templateUrl: './emailverify.component.html',
-  styleUrls: ['./emailverify.component.css']
+  styleUrls: ['./emailverify.component.css'],
+  providers: [Commonservices]
 })
 export class EmailverifyComponent implements OnInit {
   private id;
-  constructor(private _http: Http,private router: Router, private route: ActivatedRoute) {
 
+  items:any;
+  serverUrl:any;
+  commonservices:Commonservices;
+  constructor(private _http: Http,private router: Router, private route: ActivatedRoute, private _commonservices: Commonservices) {
+    this.commonservices=_commonservices;
+    this.items = _commonservices.getItems();
+    this.serverUrl = this.items[0].serverUrl;
   }
 
   ngOnInit() {
@@ -24,7 +32,8 @@ export class EmailverifyComponent implements OnInit {
   }
   emailverify(){
     console.log("hi");
-    var link = 'http://influxiq.com:3001/emailverify';
+    var link =this.serverUrl+'emailverify';
+    //var link = 'http://influxiq.com:3001/emailverify';
     var data = {id : this.id};
 
 

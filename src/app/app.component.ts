@@ -59,6 +59,5 @@ export class AppComponent {
       $(this).next().show(1000);
     });
   }
-
 }
 

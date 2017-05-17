@@ -3,10 +3,12 @@ import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {Http} from "@angular/http";
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
+import {Commonservices} from "../app.commonservices";
 @Component({
   selector: 'app-admin-login',
   templateUrl: './admin-login.component.html',
-  styleUrls: ['./admin-login.component.css']
+  styleUrls: ['./admin-login.component.css'],
+  providers: [Commonservices]
 })
 export class AdminLoginComponent implements OnInit {
   public dataForm:FormGroup;
@@ -16,10 +18,14 @@ export class AdminLoginComponent implements OnInit {
   public is_error;
   private userdata:CookieService;
   private userdetails;
-
-  constructor(fb: FormBuilder,private _http: Http,private router: Router,userdata:CookieService) {
+  items:any;
+  serverUrl:any;
+  commonservices:Commonservices;
+  constructor(fb: FormBuilder,private _http: Http,private router: Router,userdata:CookieService, private _commonservices: Commonservices) {
     this.fb = fb;
-
+    this.commonservices=_commonservices;
+    this.items = _commonservices.getItems();
+    this.serverUrl = this.items[0].serverUrl;
     this.userdata = userdata;
     //console.log(this.userdata);
     console.log(this.userdata);
@@ -67,8 +73,8 @@ export class AdminLoginComponent implements OnInit {
 
     if(this.dataForm.valid){
 
-
-      var link = 'http://influxiq.com:3001/adminlogin';
+      var link =this.serverUrl+'adminlogin';
+      //var link = 'http://influxiq.com:3001/adminlogin';
       var data = {email: formval.email,password: formval.password};
 
       this._http.post(link, data)

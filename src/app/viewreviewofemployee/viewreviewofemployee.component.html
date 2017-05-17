@@ -1,0 +1,28 @@
+<div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 dashboard_right">
+  <div class="dashboard_right_wrapper">
+    <div class="dashboard1_div1 table-responsive">
+      <h4>View Reviews</h4>
+      <div class="tablediv">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <th>#</th>
+            <th>Review</th>
+            <th>Employee Name</th>
+            <th>Reviewed By</th>
+            <th>Date</th>
+          </tr>
+
+          <tr *ngFor="let item of itemdetails; let i = index">
+            <td>{{i+1}}</td>
+            <td><div [innerHTML]="_sanitizer.bypassSecurityTrustHtml(item.review)" ></div>
+              <a [routerLink]="['/reply',item._id,item.employeeid]">Reply</a>
+            </td>
+            <td>{{item.Userdata[0].firstname}} {{item.Userdata[0].lastname}}</td>
+            <td>{{item.Userreviewdatadata[0].firstname}} {{item.Userreviewdatadata[0].lastname}}</td>
+            <td>{{item.time*1000 | date:"MM/dd/yyyy"}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

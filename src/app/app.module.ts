@@ -61,6 +61,7 @@ import { ExampleService } from './example.service';
 import { Accesslist } from './aceslist.service';
 import { Editadmin } from './editadmin.service';
 import { Addadmin } from './addadmin.service';
+import { Commonservices } from './app.commonservices';
 import { EmailverifyComponent } from './emailverify/emailverify.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 import { HighlightComponent } from './highlight/highlight.component';
@@ -70,6 +71,12 @@ import { EmployeelistComponent } from './employeelist/employeelist.component';
 import { EditemployeeComponent } from './editemployee/editemployee.component';
 
 import { EmployeedashboardComponent } from './employeedashboard/employeedashboard.component';
+import { ViewhistoryComponent } from './viewhistory/viewhistory.component';
+import { AddreviewComponent } from './addreview/addreview.component';
+import { ViewreviewComponent } from './viewreview/viewreview.component';
+import { ViewreviewofemployeeComponent } from './viewreviewofemployee/viewreviewofemployee.component';
+import { ViewlogindetailsComponent } from './viewlogindetails/viewlogindetails.component';
+import { ReplyComponent } from './reply/reply.component';
 
 @NgModule({
   declarations: [
@@ -132,6 +139,18 @@ import { EmployeedashboardComponent } from './employeedashboard/employeedashboar
    EditemployeeComponent,
 
    EmployeedashboardComponent,
+
+   ViewhistoryComponent,
+
+   AddreviewComponent,
+
+   ViewreviewComponent,
+
+   ViewreviewofemployeeComponent,
+
+   ViewlogindetailsComponent,
+
+   ReplyComponent,
     //ExampleService,
 
   ],

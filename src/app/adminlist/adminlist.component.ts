@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl,FormBuilder} from '@angular/forms';
 import {Http} from "@angular/http";
-import {Adminlist} from "../adminlist";
+//import {Adminlist} from "../adminlist";
+import {Commonservices} from "../app.commonservices";
 import { Router, ActivatedRoute, Params } from '@angular/router';
 declare var $:any;
 @Component({
   selector: 'app-adminlist',
   templateUrl: './adminlist.component.html',
   styleUrls: ['./adminlist.component.css'],
-    providers: [Adminlist],
+    //providers: [Adminlist],
+    providers: [Commonservices],
 })
 export class AdminlistComponent implements OnInit {
     public dataForm: FormGroup;
@@ -18,13 +20,15 @@ export class AdminlistComponent implements OnInit {
     public superAdmin;
     orderbyquery:any;
     orderbytype:any;
-    constructor(fb: FormBuilder ,private _http: Http,private _adminlist: Adminlist) {
+
+    constructor(fb: FormBuilder ,private _http: Http,private _commonservices: Commonservices/*private _adminlist: Adminlist*/) {
         this.orderbyquery='firstname';
         this.orderbytype=1;
     }
     profile = {};
     ngOnInit() {
-        this._adminlist.getUser().subscribe(res => {
+        //this._adminlist.getUser().subscribe(res => {
+        this._commonservices.getAdmin().subscribe(res => {
             this.datalist = res;
             console.log(this.datalist.length);
         }, error => {
@@ -36,7 +40,11 @@ export class AdminlistComponent implements OnInit {
         })
     }
 
-    getAdminList(){
+
+
+
+    /*getAdminList(){
+        //var link2=link1;
         var link ='http://influxiq.com:3001/adminlist';
         var data = {};
          this._http.get(link)
@@ -48,7 +56,7 @@ export class AdminlistComponent implements OnInit {
         }, error => {
           console.log("Oooops!");
         });
-    }
+    }*/
     delConfirm(id){
         this.id = id;
         //console.log(this.id);
@@ -57,7 +65,8 @@ export class AdminlistComponent implements OnInit {
 
     admindel(){
        console.log(this.datalist.length);
-        this._adminlist.DeleteUser(this.id).subscribe(); //Call deleteuser function of adminlist service and send the id
+        this._commonservices.DeleteAdminlist(this.id).subscribe();
+       //this._adminlist.DeleteUser(this.id).subscribe(); //Call deleteuser function of adminlist service and send the id
         $('#'+this.id).parent().remove();
         //this._adminlist.getUser().subscribe(data => this.datalist = data);
         /*setTimeout(() => {

@@ -3,10 +3,12 @@ import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {Http} from "@angular/http";
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
+import {Commonservices} from "../app.commonservices";
 @Component({
   selector: 'app-newpassword',
   templateUrl: './newpassword.component.html',
-  styleUrls: ['./newpassword.component.css']
+  styleUrls: ['./newpassword.component.css'],
+  providers: [Commonservices]
 })
 export class NewpasswordComponent implements OnInit {
   public dataForm:FormGroup;
@@ -17,11 +19,17 @@ export class NewpasswordComponent implements OnInit {
   private userdata: CookieService;
   public userdata2: any;
   coockieData:CookieService;
-  constructor(fb: FormBuilder,private _http: Http,private router: Router, userdata: CookieService) {
+  items:any;
+  serverUrl:any;
+  commonservices:Commonservices;
+  constructor(fb: FormBuilder,private _http: Http,private router: Router, userdata: CookieService, private _commonservices: Commonservices) {
     this.fb = fb;
     let userdata2: any;
     this.userdata2 = userdata.getObject('email');
     this.coockieData=this.userdata2;
+    this.commonservices=_commonservices;
+    this.items = _commonservices.getItems();
+    this.serverUrl = this.items[0].serverUrl;
   }
 
   ngOnInit() {
@@ -95,7 +103,8 @@ export class NewpasswordComponent implements OnInit {
     }
     this.isSubmit =true;
     if(this.dataForm.valid && this.passmatchvalidate){
-      var link= 'http://influxiq.com:3001/newpassword';
+      var link =this.serverUrl+'newpassword';
+     // var link= 'http://influxiq.com:3001/newpassword';
       var data = {email:this.userdata2, password: formval.password,confirmpassword: formval.confpassword,};
 
       this._http.post(link, data)

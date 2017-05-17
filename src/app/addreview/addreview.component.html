@@ -1,0 +1,27 @@
+<div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 dashboard_right">
+  <div class="dashboard_right_wrapper">
+    <div class="dashboard1_div1 ">
+      <h4> Add Review</h4>
+      <div class="dashboard1form">
+        <form role="form" novalidate [formGroup]="dataForm" (ngSubmit)="dosubmit(dataForm.value)">
+          <div class="form-group" ngClass="{{haserrorcls('review')}}">
+            <label>Review</label>
+            <ckeditor
+                    [formControl]="dataForm.controls['review']"
+                    [config]="{uiColor: '#99000'}"
+                    debounce="500">
+            </ckeditor>
+           <!-- <ckeditor
+                    [formControl]="dataForm.controls['review']"
+                    [config]="{uiColor: '#99000'}"
+                    (change)="onChange($event)"
+                    debounce="500">
+            </ckeditor>-->
+            <div class="help-block" ngClass="{{showerrorcls('review')}}">Review is required</div>
+          </div>
+          <input type="submit" value="Save" class="loginbtn2">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

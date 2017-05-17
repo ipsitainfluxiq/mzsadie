@@ -2,10 +2,12 @@ import { Component, NgZone, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl,FormBuilder} from '@angular/forms';    //To add form import these
 import {Http} from "@angular/http";
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import {Commonservices} from "../app.commonservices";
 @Component({
   selector: 'app-editaces',
   templateUrl: './editaces.component.html',
-  styleUrls: ['./editaces.component.css']
+  styleUrls: ['./editaces.component.css'],
+  providers: [Commonservices]
 })
 export class EditacesComponent implements OnInit {
   private zone: NgZone;
@@ -22,8 +24,14 @@ export class EditacesComponent implements OnInit {
   public userdata: any;
   id:number;
   public is_error;
-  constructor(fb: FormBuilder,private _http: Http,private router: Router, private route: ActivatedRoute) {
+  items:any;
+  serverUrl:any;
+  commonservices:Commonservices;
+  constructor(fb: FormBuilder,private _http: Http,private router: Router, private route: ActivatedRoute,  private _commonservices: Commonservices) {
     this.fb = fb;
+    this.commonservices=_commonservices;
+    this.items = _commonservices.getItems();
+    this.serverUrl = this.items[0].serverUrl;
   }
 
   ngOnInit() {
@@ -50,7 +58,8 @@ export class EditacesComponent implements OnInit {
     });
     this.zone = new NgZone({ enableLongStackTrace: false });
     this.basicOptions = {
-      url: 'http://influxiq.com:3001/uploads'
+      url: this.serverUrl+'uploads'
+      //url: 'http://influxiq.com:3001/uploads'
     };
   }
 
@@ -99,7 +108,8 @@ export class EditacesComponent implements OnInit {
   }
 
   getAcesList(){
-    var link = 'http://influxiq.com:3001/acesdetails';
+    var link =this.serverUrl+'acesdetails';
+    //var link = 'http://influxiq.com:3001/acesdetails';
     var data = {_id : this.id};
 //console.log(data);
     this._http.post(link, data)
@@ -140,7 +150,8 @@ export class EditacesComponent implements OnInit {
     //this.is_error=0;
     this.isSubmit = true;
     if(this.dataForm.valid){
-      var link= 'http://influxiq.com:3001/editaces';
+      var link =this.serverUrl+'editaces';
+     // var link= 'http://influxiq.com:3001/editaces';
       var data = {id: this.id,firstname: formval.firstname,lastname: formval.lastname,email: formval.email,bio: formval.bio,image: formval.image,vivacityurl: formval.vivacityurl};
       console.log(data);
       this._http.post(link, data)
@@ -155,9 +166,9 @@ export class EditacesComponent implements OnInit {
 
 
   deleteimage(){
-
+    var link =this.serverUrl+'deleteimage';
     //console.log(this.dataForm.controls['image']);
-    var link ='http://influxiq.com:3001/deleteimage';
+    //var link ='http://influxiq.com:3001/deleteimage';
     var data = {id:this.id,image:this.userdata.image};
     this._http.post(link, data)
         .subscribe(res => {

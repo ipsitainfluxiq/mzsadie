@@ -3,10 +3,12 @@ import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {Http} from "@angular/http";
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
+import {Commonservices} from "../app.commonservices";
 @Component({
   selector: 'app-forgetpassword',
   templateUrl: './forgetpassword.component.html',
-  styleUrls: ['./forgetpassword.component.css']
+  styleUrls: ['./forgetpassword.component.css'],
+  providers: [Commonservices]
 })
 
 export class ForgetpasswordComponent implements OnInit {
@@ -17,12 +19,17 @@ export class ForgetpasswordComponent implements OnInit {
   private userdata:CookieService;
   private userdetails;
   public is_error;
+  items:any;
+  serverUrl:any;
+  commonservices:Commonservices;
 
-
-  constructor(fb: FormBuilder, private _http: Http, private router: Router, userdata:CookieService) {
+  constructor(fb: FormBuilder, private _http: Http, private router: Router, userdata:CookieService, private _commonservices: Commonservices) {
     this.fb = fb;
     this.userdata = userdata;
     this.userdetails=this.userdata.getObject('email');
+    this.commonservices=_commonservices;
+    this.items = _commonservices.getItems();
+    this.serverUrl = this.items[0].serverUrl;
   }
 
   ngOnInit() {
@@ -80,7 +87,8 @@ export class ForgetpasswordComponent implements OnInit {
     this.isSubmit = true;
     if (this.dataForm.valid && this.isemailvalidate) {
       //console.log(formval.email);
-      var link = 'http://influxiq.com:3001/forgetpassword';
+      var link =this.serverUrl+'forgetpassword';
+      //var link = 'http://influxiq.com:3001/forgetpassword';
       var data = {email: formval.email};
       this._http.post(link, data)
           .subscribe(res => {

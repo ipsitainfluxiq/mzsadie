@@ -2,23 +2,31 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl,FormBuilder} from '@angular/forms';    //To add form import these
 import {Http} from "@angular/http";
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import {Editadmin} from "../editadmin.service";
+//import {Editadmin} from "../editadmin.service";
+import {Commonservices} from "../app.commonservices";
 
 @Component({
   selector: 'app-editadmin',
   templateUrl: './editadmin.component.html',
   styleUrls: ['./editadmin.component.css'],
-  providers: [Editadmin]
+  //providers: [Editadmin]
+  providers: [Commonservices]
 })
 export class EditadminComponent implements OnInit {
   public dataForm:FormGroup;
   private fb;
-
   private isSubmit;
-   id:number;
+  id:number;
 
-  constructor(fb: FormBuilder,private _http: Http,private router: Router, private route: ActivatedRoute, private _editadmin: Editadmin) {
+
+  items:any;
+  serverUrl:any;
+  commonservices:Commonservices;
+  constructor(fb: FormBuilder,private _http: Http,private router: Router, private route: ActivatedRoute, private _commonservices: Commonservices/*private _editadmin: Editadmin*/) {
     this.fb = fb;
+    this.commonservices=_commonservices;
+    this.items = _commonservices.getItems();
+    this.serverUrl = this.items[0].serverUrl;
   }
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -44,6 +52,10 @@ export class EditadminComponent implements OnInit {
     });
 
   }
+
+
+
+
   haserrorcls(cntrlname){
     if(!this.dataForm.controls[cntrlname].valid && this.isSubmit)
       return 'has-error';
@@ -60,8 +72,14 @@ export class EditadminComponent implements OnInit {
     return 'hide';
   }
 
+
   getUserdetails(){
-    var link = 'http://influxiq.com:3001/admindetails';
+
+
+     var link =this.serverUrl+'admindetails';
+
+
+    //var link = 'http://influxiq.com:3001/admindetails';
     var data = {_id : this.id};
 
     this._http.post(link, data)
@@ -96,7 +114,8 @@ export class EditadminComponent implements OnInit {
     this.isSubmit = true;
     //console.log(this.dataForm);
     if(this.dataForm.valid){
-      this._editadmin.editValue(this.dataForm,this.id).subscribe(res => {
+      //this._editadmin.editValue(this.dataForm,this.id).subscribe(res => {
+      this._commonservices.editValue(this.dataForm,this.id).subscribe(res => {
         //console.log(res);
         this.router.navigate(['/adminlist']);
       }, error => {

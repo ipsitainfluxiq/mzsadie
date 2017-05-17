@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl,FormBuilder} from '@angular/forms';    //To add form import these
 import {Http} from "@angular/http";
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import {Addadmin} from "../addadmin.service";
+//import {Addadmin} from "../addadmin.service";
+import {Commonservices} from "../app.commonservices";
 @Component({
   selector: 'app-addadmin',
   templateUrl: './addadmin.component.html',
   styleUrls: ['./addadmin.component.css'],
-    providers: [Addadmin]
+   // providers: [Addadmin]
+    providers: [Commonservices],
 })
 export class AddadminComponent implements OnInit {
     public dataForm: FormGroup;
@@ -17,7 +19,7 @@ export class AddadminComponent implements OnInit {
     private isemailvalidate;
     private passmatchvalidate;
 
-    constructor(fb: FormBuilder, private _http: Http, private router: Router, private _addadmin: Addadmin) {
+    constructor(fb: FormBuilder, private _http: Http, private router: Router, private _commonservices: Commonservices /*private _addadmin: Addadmin*/) {
         this.fb = fb;
     }
 
@@ -133,7 +135,8 @@ export class AddadminComponent implements OnInit {
            // this._addadmin.postUser(this.dataForm).subscribe(data => this.dataForm = data);
 
 
-            this._addadmin.postUser(this.dataForm).subscribe(res => {
+            //this._addadmin.postUser(this.dataForm).subscribe(res => {
+            this._commonservices.postUser(this.dataForm).subscribe(res => {
                 console.log(res);
                  this.router.navigate(['/adminlist']);
             }, error => {

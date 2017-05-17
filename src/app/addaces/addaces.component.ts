@@ -2,13 +2,15 @@ import {Component, NgZone, OnInit} from '@angular/core';
 import { FormGroup, Validators, FormControl,FormBuilder} from '@angular/forms';    // import these to add form
 import {Http} from "@angular/http";
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import {Commonservices} from "../app.commonservices";
 declare var $:any;
 
 
 @Component({
   selector: 'app-addaces',
   templateUrl: './addaces.component.html',
-  styleUrls: ['./addaces.component.css']
+  styleUrls: ['./addaces.component.css'],
+  providers: [Commonservices]
 })
 export class AddacesComponent implements OnInit {
   private zone: NgZone;
@@ -29,8 +31,14 @@ export class AddacesComponent implements OnInit {
   public imagename: any;
   public userdata: any;
   private minlength;
-  constructor(fb: FormBuilder, private _http: Http, private router: Router,private route: ActivatedRoute) {
+  items:any;
+  serverUrl:any;
+  commonservices:Commonservices;
+  constructor(fb: FormBuilder, private _http: Http, private router: Router,private route: ActivatedRoute, private _commonservices: Commonservices) {
     this.fb = fb;
+    this.commonservices=_commonservices;
+    this.items = _commonservices.getItems();
+    this.serverUrl = this.items[0].serverUrl;
   }
 
 
@@ -55,7 +63,8 @@ export class AddacesComponent implements OnInit {
 
     this.zone = new NgZone({ enableLongStackTrace: false });
     this.basicOptions = {
-      url: 'http://influxiq.com:3001/uploads'
+      //url: 'http://influxiq.com:3001/uploads'
+      url:this.serverUrl+'uploads'
     };
 
 /*    this.route.params.subscribe(params => {
@@ -233,7 +242,9 @@ console.log("test failed");
     this.isSubmit = true;
     if (this.dataForm.valid && this.isemailvalidate && this.passmatchvalidate && this.isvivacity) {
       //console.log("inside dataform");
-      var link = 'http://influxiq.com:3001/addaces';
+      var link =this.serverUrl+'addaces';
+
+     // var link = 'http://influxiq.com:3001/addaces';
       var data = {
         firstname: formval.firstname,
         lastname: formval.lastname,
@@ -255,8 +266,8 @@ console.log("test failed");
   }
 deleteimage(imagename:any){
     console.log(imagename);
-
-  var link ='http://influxiq.com:3001/deleteimage';
+  var link =this.serverUrl+'deleteimage';
+  //var link ='http://influxiq.com:3001/deleteimage';
   var data = {id:'',image:imagename};
   //console.log(data);
 

@@ -3,10 +3,12 @@ import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {Http} from "@angular/http";
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
+import {Commonservices} from "../app.commonservices";
 @Component({
   selector: 'app-updateprofile',
   templateUrl: './updateprofile.component.html',
-  styleUrls: ['./updateprofile.component.css']
+  styleUrls: ['./updateprofile.component.css'],
+  providers: [Commonservices]
 })
 export class UpdateprofileComponent implements OnInit {
 
@@ -16,11 +18,15 @@ export class UpdateprofileComponent implements OnInit {
   private isSubmit;
   private admindata:CookieService;
   public admindetails:any;
+  items:any;
+  serverUrl:any;
+  commonservices:Commonservices;
 
-
-  constructor(fb: FormBuilder,private _http: Http,private router: Router,admindata:CookieService) {
+  constructor(fb: FormBuilder,private _http: Http,private router: Router,admindata:CookieService, private _commonservices: Commonservices) {
     this.fb = fb;
-
+    this.commonservices=_commonservices;
+    this.items = _commonservices.getItems();
+    this.serverUrl = this.items[0].serverUrl;
     let admindata2: any;
     admindata2= admindata.getObject('userdetails');
 
@@ -69,8 +75,8 @@ export class UpdateprofileComponent implements OnInit {
 
 
   getAdminDetails(){
-
-    var link = 'http://influxiq.com:3001/admindetails';
+    var link =this.serverUrl+'admindetails';
+    //var link = 'http://influxiq.com:3001/admindetails';
     var data = {_id: this.adminid};
 
     this._http.post(link, data)
@@ -105,7 +111,8 @@ export class UpdateprofileComponent implements OnInit {
   dosubmit(formval){
     this.isSubmit = true;
     if(this.dataForm.valid){
-      var link= 'http://influxiq.com:3001/updateprofile';
+      var link =this.serverUrl+'updateprofile';
+      //var link= 'http://influxiq.com:3001/updateprofile';
       var data = {id: this.adminid,firstname: formval.firstname,lastname: formval.lastname,email: formval.email,password: formval.password,phone: formval.phone,address: formval.address,city: formval.city,state: formval.state,zip: formval.zip};
       console.log(data);
       this._http.post(link, data)

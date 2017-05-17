@@ -9,6 +9,8 @@
           <label>Search :</label><input type="text" #listFilter (keyup)="0">
         </div>
         <a [routerLink]="['/addemployee']" class="adadminlink">Add Employee</a>
+        <a [routerLink]="['/viewreview']" class="adadminlink">View Reviews</a>
+        <a [routerLink]="['/viewlogindetails']" class="adadminlink">View Login Details</a>
 
         <div class="clearfix"></div>
       </div>
@@ -30,11 +32,12 @@
             <td>{{item.email}}</td>
             <td>{{item.designation}}</td>
             <td><div [innerHTML]="_sanitizer.bypassSecurityTrustHtml(item.note)" ></div></td>
-
-
             <td>
               <a [routerLink]="['/editemployee',item._id]">Edit</a>
               <a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" (click)="delConfirm(item._id)">Delete</a>
+              <p><a [routerLink]="['/viewhistory',item._id]">View Login History</a></p>
+              <a [routerLink]="['/addreview',item._id]">Add Review</a>
+              <p><a [routerLink]="['/viewreviewofemployee',item._id]">View Reviews</a></p>
             </td>
           </tr>
         </table>

@@ -3,11 +3,12 @@ import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {Http} from "@angular/http";
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
-
+import {Commonservices} from "../app.commonservices";
 @Component({
   selector: 'app-changepassword',
   templateUrl: './changepassword.component.html',
-  styleUrls: ['./changepassword.component.css']
+  styleUrls: ['./changepassword.component.css'],
+  providers: [Commonservices]
 })
 export class ChangepasswordComponent implements OnInit {
   public dataForm:FormGroup;
@@ -18,11 +19,15 @@ export class ChangepasswordComponent implements OnInit {
   public admindetails:any;
   private passmatchvalidate;
   public is_error;
+  items:any;
+  serverUrl:any;
+  commonservices:Commonservices;
 
-
-  constructor(fb: FormBuilder,private _http: Http,private router: Router,admindata:CookieService) {
+  constructor(fb: FormBuilder,private _http: Http,private router: Router,admindata:CookieService, private _commonservices: Commonservices) {
     this.fb = fb;
-
+    this.commonservices=_commonservices;
+    this.items = _commonservices.getItems();
+    this.serverUrl = this.items[0].serverUrl;
     let admindata2: any;
     admindata2= admindata.getObject('userdetails');
 
@@ -110,7 +115,8 @@ export class ChangepasswordComponent implements OnInit {
     this.isSubmit =true;
     if(this.dataForm.valid && this.passmatchvalidate){
       //console.log(formval);
-      var link= 'http://influxiq.com:3001/changepassword';
+      var link =this.serverUrl+'changepassword';
+      //var link= 'http://influxiq.com:3001/changepassword';
       var data = {id: this.adminid,oldpassword: formval.oldpassword,password: formval.password,confirmpassword: formval.confpassword,};
 
       this._http.post(link, data)

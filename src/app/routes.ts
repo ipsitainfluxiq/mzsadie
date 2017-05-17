@@ -59,6 +59,12 @@ import {AddemployeeComponent} from "./addemployee/addemployee.component";
 import {EmployeelistComponent} from "./employeelist/employeelist.component";
 import {EditemployeeComponent} from "./editemployee/editemployee.component";
 import {EmployeedashboardComponent} from "./employeedashboard/employeedashboard.component";
+import {ViewhistoryComponent} from "./viewhistory/viewhistory.component";
+import {AddreviewComponent} from "./addreview/addreview.component";
+import {ViewreviewComponent} from "./viewreview/viewreview.component";
+import {ViewreviewofemployeeComponent} from "./viewreviewofemployee/viewreviewofemployee.component";
+import {ViewlogindetailsComponent} from "./viewlogindetails/viewlogindetails.component";
+import {ReplyComponent} from "./reply/reply.component";
 
 const appRoutes: Routes = [
     // { path: '/**',component: AppComponent},
@@ -118,6 +124,12 @@ const appRoutes: Routes = [
     { path: 'employeelist', component: EmployeelistComponent},
     { path: 'editemployee/:id', component: EditemployeeComponent},
     { path: 'employeedashboard', component: EmployeedashboardComponent},
+    { path: 'viewhistory/:id', component: ViewhistoryComponent},
+    { path: 'addreview/:id', component: AddreviewComponent},
+    { path: 'viewreview', component: ViewreviewComponent},
+    { path: 'viewreviewofemployee/:id', component: ViewreviewofemployeeComponent},
+    { path: 'viewlogindetails', component: ViewlogindetailsComponent},
+    { path: 'reply/:id/:employeeid', component: ReplyComponent},
 
    // { path: 'content', component: ContentComponent,outlet:'content'},
 ];

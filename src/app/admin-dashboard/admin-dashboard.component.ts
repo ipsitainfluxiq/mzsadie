@@ -3,12 +3,13 @@ import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {Http} from "@angular/http";
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
-
+import {Commonservices} from "../app.commonservices";
 
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
-  styleUrls: ['./admin-dashboard.component.css']
+  styleUrls: ['./admin-dashboard.component.css'],
+  providers: [Commonservices]
 })
 export class AdminDashboardComponent implements OnInit {
   private dataForm:FormGroup;
@@ -20,10 +21,15 @@ export class AdminDashboardComponent implements OnInit {
   private userdata:CookieService;
 
   public userdetails:any=[];    // declare userdetails as an array to fetch the object details
+  items:any;
+  serverUrl:any;
+  commonservices:Commonservices;
 
-
-  constructor(fb: FormBuilder,private _http: Http,private router: Router,userdata:CookieService) {
+  constructor(fb: FormBuilder,private _http: Http,private router: Router,userdata:CookieService, private _commonservices: Commonservices) {
     this.fb = fb;
+    this.commonservices=_commonservices;
+    this.items = _commonservices.getItems();
+    this.serverUrl = this.items[0].serverUrl;
     let userdata2: any;
     userdata2= userdata.getObject('userdetails');
 
@@ -45,7 +51,9 @@ export class AdminDashboardComponent implements OnInit {
     getUserDetails()
     {
       //console.log("called..");
-      var link = 'http://influxiq.com:3001/admindetails';
+
+      //var link = 'http://influxiq.com:3001/admindetails';
+      var link =this.serverUrl+'admindetails';
       var data = {_id: this.userid};
 
 

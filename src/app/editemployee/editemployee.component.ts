@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl,FormBuilder} from '@angular/forms';    //To add form import these
 import {Http} from "@angular/http";
 import { Router, ActivatedRoute} from '@angular/router';
+import {Commonservices} from "../app.commonservices";
 @Component({
   selector: 'app-editemployee',
   templateUrl: './editemployee.component.html',
-  styleUrls: ['./editemployee.component.css']
+  styleUrls: ['./editemployee.component.css'],
+  providers: [Commonservices]
 })
 export class EditemployeeComponent implements OnInit {
   public dataForm:FormGroup;
@@ -15,9 +17,14 @@ export class EditemployeeComponent implements OnInit {
   public userdata: any;
   id:number;
   public is_error;
-
-  constructor(fb: FormBuilder,private _http: Http,private router: Router, private route: ActivatedRoute) {
+  items:any;
+  serverUrl:any;
+  commonservices:Commonservices;
+  constructor(fb: FormBuilder,private _http: Http,private router: Router, private route: ActivatedRoute, private _commonservices: Commonservices) {
     this.fb = fb;
+    this.commonservices=_commonservices;
+    this.items = _commonservices.getItems();
+    this.serverUrl = this.items[0].serverUrl;
   }
 
   ngOnInit() {
@@ -60,7 +67,8 @@ export class EditemployeeComponent implements OnInit {
   }
 
   getEmployeeList(){
-    var link = 'http://influxiq.com:3001/employeedetails';
+    var link =this.serverUrl+'employeedetails';
+   // var link = 'http://influxiq.com:3001/employeedetails';
     var data = {_id : this.id};
 //console.log(data);
     this._http.post(link, data)
@@ -90,7 +98,8 @@ export class EditemployeeComponent implements OnInit {
     //this.is_error=0;
     this.isSubmit = true;
     if(this.dataForm.valid){
-      var link= 'http://influxiq.com:3001/editemployee';
+      var link =this.serverUrl+'editemployee';
+      //var link= 'http://influxiq.com:3001/editemployee';
       var data = {id: this.id,firstname: formval.firstname,lastname: formval.lastname,email: formval.email,designation: formval.designation,note: formval.note};
       console.log(data);
       this._http.post(link, data)

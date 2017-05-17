@@ -10,6 +10,7 @@ var cheerio = require('cheerio');
 var http = require('http').Server(app);
 var mailer = require("nodemailer");
 
+var mzsadielink='http://mzsadie.influxiq.com/#/';
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json({ parameterLimit: 10000000,
@@ -327,19 +328,19 @@ app.post('/addadmin',function(req,resp){
     var crypto = require('crypto');
 
     /*console.log("hello,this is the answer");
-    console.log(req.body);
-*/
+     console.log(req.body);
+     */
     var secret = req.body.password;
     var hash = crypto.createHmac('sha256', secret)
         .update('password')
         .digest('hex');
     var added_on=new Date();
     /*if(req.body.is_active==true){
-        var is_active=1;  //1=>admin, 0=>user, 2=>aces, 3=>employee
-    }
-    else {
-        var is_active=0;
-    }*/
+     var is_active=1;  //1=>admin, 0=>user, 2=>aces, 3=>employee
+     }
+     else {
+     var is_active=0;
+     }*/
 
     collection.insert([{
         firstname: req.body.firstname,
@@ -371,9 +372,8 @@ app.post('/addadmin',function(req,resp){
                 }
             });
 
-            //var mzsadielink='http://mzsadie.influxiq.com/#/';
             //var link=mzsadielink+'emailverify/'+result.ops[0]._id;
-            var link='http://mzsadie.influxiq.com/#/emailverify/'+result.ops[0]._id;
+            var link='http://localhost:4200/#/emailverify/'+result.ops[0]._id;
             var name=req.body.firstname+' '+req.body.lastname;
             var email=req.body.email;
             var mail = {
@@ -384,7 +384,7 @@ app.post('/addadmin',function(req,resp){
                 html: '<p>Welcome '+name+' </p>'+'<P>We are please to let you know that you have been successfully registered as Admin.</p>'+'<P>Below is your login information:</p>'+'<p>Email id: '+email+'</p>'+'<p>Password: Protected due to security</p>'+'<p>Login Link: http://mzsadie.influxiq.com/#/login</p>' +
                 '<p>Please click on the link below to activate your account.</p><a href="'+link+'">Click Here</a>'
 
-               /* html: '<P>Below is your login information – Login Link: http://localhost:4200/#/login</p><p>Please click on the link below to activate your account.</p><a href="'+link+'">Click Here</a>'*/
+                /* html: '<P>Below is your login information – Login Link: http://localhost:4200/#/login</p><p>Please click on the link below to activate your account.</p><a href="'+link+'">Click Here</a>'*/
             }
 
             smtpTransport.sendMail(mail, function (error, response) {
@@ -401,36 +401,36 @@ app.post('/addadmin',function(req,resp){
 });
 
 /*
-app.post('/addadmin', function (req, resp) {
+ app.post('/addadmin', function (req, resp) {
 
-    var crypto = require('crypto');
+ var crypto = require('crypto');
 
-    var secret = req.body.password;
-    var hash = crypto.createHmac('sha256', secret)
-        .update('password')
-        .digest('hex');
-    var added_on=new Date();
-    if(req.body.is_active==true){
-        var is_active=1;  //1=>admin, 0=>user, 2=>aces, 3=>employee
-    }
-    else {
-        var is_active=0;
-    }
+ var secret = req.body.password;
+ var hash = crypto.createHmac('sha256', secret)
+ .update('password')
+ .digest('hex');
+ var added_on=new Date();
+ if(req.body.is_active==true){
+ var is_active=1;  //1=>admin, 0=>user, 2=>aces, 3=>employee
+ }
+ else {
+ var is_active=0;
+ }
 
-    value1 = {username:req.body.username,password:hash,fname: req.body.fname,lname: req.body.lname,email:req.body.email,address:req.body.address,city:req.body.city,state:req.body.state,zip:req.body.zip, phone: req.body.phone,is_active:req.body.is_active,added_on:added_on};
+ value1 = {username:req.body.username,password:hash,fname: req.body.fname,lname: req.body.lname,email:req.body.email,address:req.body.address,city:req.body.city,state:req.body.state,zip:req.body.zip, phone: req.body.phone,is_active:req.body.is_active,added_on:added_on};
 
-    var collection = db.collection('admin');
+ var collection = db.collection('admin');
 
-    collection.insert([value1], function (err, result) {
-        if (err) {
-            resp.send(err);
-        } else {
-            resp.send('Inserted %d documents into the "users" collection. The documents inserted with "_id" are:', result.length, result);
+ collection.insert([value1], function (err, result) {
+ if (err) {
+ resp.send(err);
+ } else {
+ resp.send('Inserted %d documents into the "users" collection. The documents inserted with "_id" are:', result.length, result);
 
-        }
-    });
+ }
+ });
 
-});*/
+ });*/
 
 
 app.get('/adminlist',function (req,resp) {
@@ -471,6 +471,37 @@ app.post('/admindetails',function(req,resp){
 
 });
 
+
+
+app.post('/getreply', function (req, resp) {
+
+    var resitem = {};
+
+    var collection = db.collection('reviewmanager');
+
+    var o_id = new mongodb.ObjectID(req.body._id);
+
+    collection.find({_id:o_id}).toArray(function(err, items) {
+
+        if (err) {
+            resp.send(JSON.stringify({'status':'error','id':0}));
+        } else {
+            resitem = items[0];
+
+            resp.send(JSON.stringify({'status':'success','item':resitem}));
+        }
+    });
+/*    var o_id=new mongodb.ObjectID(req.query.id);
+    console.log(req.query);
+    var collection = db.collection('reviewmanager');
+    collection.find({_id:o_id}).toArray(function(err, items) {
+        resp.send(JSON.stringify(items));
+        console.log(items);
+    });*/
+});
+
+
+
 app.post('/accesscodecheck', function (req, resp) {
     var collection = db.collection('users');
 
@@ -494,7 +525,6 @@ app.post('/accesscodecheck', function (req, resp) {
     });
 
 });
-
 
 
 app.post('/editadmin',function(req,resp){
@@ -540,7 +570,6 @@ app.post('/updateprofile',function(req,resp){
 });
 
 
-
 app.post('/adminlogin', function (req, resp) {
     var crypto = require('crypto');
     var secret = req.body.password;
@@ -548,15 +577,10 @@ app.post('/adminlogin', function (req, resp) {
         .update('password')
         .digest('hex');
     var collection = db.collection('users');
-    //console.log(req.body.email+'====='+hash);
+
     collection.find({ email:req.body.email }).toArray(function(err, items){
 
-
-
-        console.log(items[0]); //admin_login details shown here
-
-
-
+        //console.log(items[0]); //admin_login details shown here
 
         if(items.length==0){
             resp.send(JSON.stringify({'status':'error','msg':'Username invalid...'}));
@@ -578,18 +602,77 @@ app.post('/adminlogin', function (req, resp) {
             return;
         }
 
-
         if(items.length>0 && items[0].password==hash){
-            resp.send(JSON.stringify({'status':'success','msg':items[0]}));   //sending the items[0] through msg variable
+
+            var ip = req.headers['x-forwarded-for'] ||
+                req.connection.remoteAddress ||
+                req.socket.remoteAddress ||
+                req.connection.socket.remoteAddress;
+            console.log(ip);
+            console.log(items[0].type);
+            if(ip != ''){
+
+                var collection = db.collection('ipaddress');
+                collection.insert([{
+                    mailid: req.body.email,
+                    ipaddress: ip,
+                    time: Math.floor(Date.now() / 1000),
+                }], function (err2, result2) {
+
+                });
+            }
+
+            resp.send(JSON.stringify({'status':'success','msg':items[0]/*, 'ipadd':ip*/}));   //sending the items[0] through msg variable
             return;
+
         }
     });
 
 });
 
+app.get('/ipaddress', function (req, resp) {
+    var collection = db.collection('ipaddress');
+    //collection.drop(function(err, items) {
+    collection.find().toArray(function(err, items) {
 
+        if (err) {
+            console.log(err);
+            resp.send(JSON.stringify({'res':[]}));
+        } else {
+            resp.send(JSON.stringify({'res':items}));
+        }
 
+    });
+});
+app.get('/users', function (req, resp) {
+    var collection = db.collection('users');
+    //collection.drop(function(err, items) {
+    collection.find().toArray(function(err, items) {
 
+        if (err) {
+            console.log(err);
+            resp.send(JSON.stringify({'res':[]}));
+        } else {
+            resp.send(JSON.stringify({'res':items}));
+        }
+
+    });
+});
+
+app.get('/reviewmanager', function (req, resp) {
+    var collection = db.collection('reviewmanager');
+    //collection.drop(function(err, items) {
+    collection.find().toArray(function(err, items) {
+
+        if (err) {
+            console.log(err);
+            resp.send(JSON.stringify({'res':[]}));
+        } else {
+            resp.send(JSON.stringify({'res':items}));
+        }
+
+    });
+});
 
 app.post('/forgetpassword', function (req, resp) {
 
@@ -646,7 +729,7 @@ app.post('/forgetpassword', function (req, resp) {
 
 app.post('/newpassword', function (req, resp) {
 
-  var collection = db.collection('users');
+    var collection = db.collection('users');
     var crypto = require('crypto');
     var secret = req.body.password;
     var hash = crypto.createHmac('sha256', secret)
@@ -709,16 +792,16 @@ app.post('/changepassword', function (req, resp) {
         password: hashnew
     }
 
-  var collection = db.collection('users');
+    var collection = db.collection('users');
     var o_id = new mongodb.ObjectID(req.body.id);
 
     collection.find({_id: o_id, password: hashold}).toArray(function (err, items) {
-       // console.log(items.length);
+        // console.log(items.length);
 
         if(items.length==0) {
             resp.send(JSON.stringify({'status': 'error', 'msg': 'Old password doesnot match'}));
             return;
-           // console.log(1);
+            // console.log(1);
         }
         else {
 
@@ -1087,14 +1170,14 @@ app.post('/deleteimage', function (req, resp) {
     //console.log(data);
     if (req.body.id != ''){
         var o_id = new mongodb.ObjectID(req.body.id);
-    var collection = db.collection('users');
+        var collection = db.collection('users');
 
-    var data = {
-        image: ''
+        var data = {
+            image: ''
+        }
+
+        collection.update({_id: o_id}, {$set: data}, true, true);
     }
-
-    collection.update({_id: o_id}, {$set: data}, true, true);
-}
 
     var fs = require('fs');
     var filePath = "/home/influxiq/public_html/projects/mzsadie/uploads/" +req.body.image; // Path set //
@@ -1124,6 +1207,8 @@ app.get('/aceslist',function (req,resp) {
 
 
 /*-----------------------------------Employee_Work_Start---------------------------------*/
+
+
 app.post('/addemployee',function(req,resp){
     //console.log("Hello");
     var collection = db.collection('users');
@@ -1156,8 +1241,10 @@ app.post('/addemployee',function(req,resp){
                     pass: "DevelP7@"
                 }
             });
-            //var link='http://localhost:4200/#/emailverify/'+result.ops[0]._id;
-            var link='http://mzsadie.influxiq.com/#/emailverify/'+result.ops[0]._id;
+
+
+            //var link=mzsadielink+'emailverify/'+result.ops[0]._id;
+            var link='http://localhost:4200/#/emailverify/'+result.ops[0]._id;
             var name=req.body.firstname+' '+req.body.lastname;
             var email=req.body.email;
             var mail = {
@@ -1168,7 +1255,7 @@ app.post('/addemployee',function(req,resp){
 
 
                 /*html: '<P>Below is your login information – Login Link: http://localhost:4200/#/login</p>' +
-                '<p>Please click on the link below to activate your account.</p><a href="'+link+'">Click Here</a>'*/
+                 '<p>Please click on the link below to activate your account.</p><a href="'+link+'">Click Here</a>'*/
                 html: '<p>Welcome </p>'+name +'<P>We are please to let you know that you have been successfully registered as an Employee.</p>'+'<P>Below is your login information:</p>'+'<p>Email id: </p>'+email+'<p>Password: Protected due to security</p>'+'<p>Login Link: http://mzsadie.influxiq.com/#/login</p>' +
                 '<p>Please click on the link below to activate your account.</p><a href="'+link+'">Click Here</a>'
 
@@ -1199,6 +1286,7 @@ app.get('/employeelist',function (req,resp) {
             console.log(err);
             resp.send(JSON.stringify({'res':[]}));
         } else {
+            console.log(items.length);
             resp.send(JSON.stringify({'res':items}));
         }
 
@@ -1242,6 +1330,7 @@ app.post('/editemployee',function(req,resp){
     resp.send(JSON.stringify({'status':'success'}));
 });
 
+
 app.post('/employeedetails',function(req,resp){
 //console.log("admindetails from server.js called");
     var resitem = {};
@@ -1263,23 +1352,370 @@ app.post('/employeedetails',function(req,resp){
     // resp.send(JSON.stringify({'status':'error','id':0}));
 
 });
+
+
+
+
+
+
+
+app.post('/getlogindetails', function (req, resp) {
+    var resitem = {};
+    var resitem1 = {};
+    var o_id = new mongodb.ObjectID(req.body._id);
+    var collection = db.collection('users');
+    //console.log(o_id);
+    collection.find({_id:o_id}).toArray(function(err, items) {
+        resitem = items[0].email;
+
+        var collection = db.collection('ipaddress');
+        collection.find({mailid:resitem}).toArray(function(err, items) {
+            if (err) {
+                resp.send(JSON.stringify({'status':'error','id':0}));
+            } else {
+                resitem1 = items;
+                //console.log(resitem1);
+                //console.log("server");
+                resp.send(JSON.stringify({'status':'success','msg':resitem1}));
+                return;
+            }
+        });
+    });
+});
+
+
+app.post('/addreviewdetails',function(req,resp) {
+/*
+     collection.find({employeeid:o_idadmin}).toArray(function(err, items) {
+
+     if (err) {
+     resp.send(JSON.stringify({'status':'error','id':0}));
+     } else {
+     resitem = items;
+     //resitem1 = items[0].reviewedby;
+     console.log("hi");
+     console.log(resitem);
+     resp.send(JSON.stringify({'status':'success','item':resitem}));
+     }
+     });
+     */
+    var collection1 = db.collection('users');
+    var o_idadmin = new mongodb.ObjectID(req.body._idadmin);
+    /*    collection1.find({_id:o_idadmin}).toArray(function(err, items) {
+     resitem2 = items;
+     resitem3 = items[0].firstname+' '+items[0].lastname;
+     console.log("name");
+     console.log(resitem3);
+
+     // console.log(resitem1);
+     });*/
+
+
+    var collection = db.collection('reviewmanager');
+    var data = {
+        review:req.body.review,
+    }
+    collection.insert([{
+        review:req.body.review,
+        //reviewedby: req.body._idadmin,
+        //employeeid: req.body._idemp,
+        reviewedby:  new mongodb.ObjectId(req.body._idadmin),
+        employeeid:  new mongodb.ObjectId(req.body._idemp),
+
+
+
+        //employeename: resitem3,
+        time: Math.floor(Date.now() / 1000),
+        parent: 0,
+    }], function (err, result) {
+        if (err) {
+            console.log('error'+err);
+            resp.send(JSON.stringify({'id':0}));
+        } else {
+            resp.send(JSON.stringify({'id':result.ops[0]._id}));
+        }
+    });
+});
+app.post('/addreplydetails',function(req,resp) {
+
+    var collection1 = db.collection('users');
+    var o_idadmin = new mongodb.ObjectID(req.body._idadmin);
+    var collection = db.collection('reviewmanager');
+    var data = {
+        review:req.body.reply,
+    }
+    /*console.log("hi");
+    console.log(req.body.employeeid);*/
+    collection.insert([{
+        review:req.body.reply,
+        reviewedby:  new mongodb.ObjectId(req.body._idadmin),
+        employeeid: new mongodb.ObjectId(req.body.employeeid),
+        time: Math.floor(Date.now() / 1000),
+        parent: new mongodb.ObjectId(req.body._idrev),
+    }], function (err, result) {
+        if (err) {
+            console.log('error'+err);
+            resp.send(JSON.stringify({'id':0}));
+        } else {
+            resp.send(JSON.stringify({'id':result.ops[0]._id}));
+        }
+    });
+});
+
+app.get('/reviewdetail', function (req, resp) {
+    //var collection = db.collection('users');
+    var collection = db.collection('reviewmanager');
+    //collection.drop(function(err, items) {
+    collection.find().toArray(function(err, items) {
+        if (err) {
+            console.log(err);
+            resp.send(JSON.stringify({'res':[]}));
+        } else {
+            resp.send(JSON.stringify({'res':items}));
+        }
+
+    });
+});
+
+
+
+app.get('/getreviewofemployee', function (req, resp) {
+    var resitem = {};
+    var resitem1 = {};
+    var o_id=new mongodb.ObjectID(req.query.id);
+    var parentvalue=0;
+   console.log(req.query);
+
+    var collection=db.collection('reviewmanager').aggregate([
+        { "$match": { "employeeid": o_id } },
+        { "$match": { "parent": parentvalue } },
+        {
+            $lookup : {
+                from: "users",
+                localField: "employeeid",
+                foreignField: "_id",
+                as: "Userdata"
+            }
+        },
+
+        {
+            $lookup : {
+                from: "users",
+                localField: "reviewedby",
+                foreignField: "_id",
+                as: "Userreviewdatadata"
+            }
+        },
+
+    ]);
+    console.log("inside server");
+    collection.toArray(function(err, items) {
+        resp.send(JSON.stringify(items));
+    });
+});
+
+
+
+
+app.get('/getreviewdetailsbyemployeeid', function (req, resp) {
+    var resitem = {};
+    var resitem1 = {};
+    //var collection = db.collection('reviewmanager');
+    var o_id = new mongodb.ObjectID(req.body._id);
+
+    var collection=db.collection('reviewmanager').aggregate([
+        //{ "$unwind": "$employeeid" },
+        { "$match": { "employeeid": "59143a2012d0999d53b0a12b" } },
+        {
+            $lookup : {
+                from: "users",
+                localField: "new mongodb.ObjectID(employeeid)",
+                foreignField: "new mongodb.ObjectID(_id)",
+                as: "Userdata"
+            }
+        },
+        // Unwind the result arrays ( likely one or none )
+        { "$unwind": "$Userdata" },
+        {$match:{"Userdata._id":new mongodb.ObjectID('59143a2012d0999d53b0a12b')}},
+        {
+            $lookup : {
+                from: "users",
+                localField: "new mongodb.ObjectID(reviewedby)",
+                foreignField: "new mongodb.ObjectID(_id)",
+                as: "reviewedbydata"
+            }
+        },
+        { "$unwind": "$reviewedbydata" },
+
+        
+        //{ $out: 'reviewmanager' }
+        // Group back to arrays
+       // { "$group": {
+           // "_id": "$_id",
+            //"employeeid": { "$push": "$employeeid" },
+            //"Userdata": { "$push": "$Userdata" }
+        //}},
+
+
+    ]);
+    console.log("inside server");
+
+    collection.toArray(function(err, items) {
+        console.log(JSON.stringify(items));
+
+        resp.send(JSON.stringify(items));
+
+    });
+});
+
+
+/*app.get('/getreviewdetails', function (req, resp) {
+
+    //var collection = db.collection('reviewmanager');
+
+    //var o_id = new mongodb.ObjectID(req.body._id);
+
+    var collection=db.collection('reviewmanager').aggregate([
+        //{ "$unwind": "$employeeid" },
+        //{ "$match": { "employeeid": "59143a2012d0999d53b0a12b" } },
+        { "$match": { "parent": 0 } },
+
+        {
+            $lookup : {
+                from: "users",
+                localField: "employeeid",
+                foreignField: "_id",
+                as: "Userdata"
+            }
+        },
+
+        // Unwind the result arrays ( likely one or none )
+        //{ "$unwind": "$Userreviewdata" },
+
+        {
+            $lookup : {
+                from: "users",
+                localField: "reviewedby",  //localfield of reviewmanager db
+                foreignField: "_id",       //foreignfield of users db
+                as: "Userreviewdatadata"
+            }
+        },
+        {
+            $lookup : {
+                from: "reviewmanager",
+                localField: "_id",
+                foreignField: "parent",
+                as: "Reviewdata"
+            }
+        },
+
+
+        /!*{
+            $lookup : {
+                from: "users",
+                localField: "new mongodb.ObjectID(reviewedby)",
+                foreignField: "new mongodb.ObjectID(_id)",
+                as: "reviewedbydata"
+            }
+        },
+        { "$unwind": "$reviewedbydata" },*!/
+
+        //{$match:{"Userdata._id":new mongodb.ObjectID('59143a2012d0999d53b0a12b')}}
+
+        //{ $out: 'reviewmanager' }
+        // Group back to arrays
+       // { "$group": {
+           // "_id": "$_id",
+            //"employeeid": { "$push": "$employeeid" },
+            //"Userdata": { "$push": "$Userdata" }
+        //}},
+
+        { "$unwind": "$Userreviewdatadata" },
+        { "$unwind": "$Userdata" },
+       /!* { "$unwind": "$Reviewdata" },*!/
+    ]);
+    console.log("inside server");
+/!*    collection.toArray(function(err, items) {
+        resp.send(JSON.stringify(items));
+
+    });*!/
+
+    collection.toArray(function(err, items) {
+            resp.send(JSON.stringify(items));
+            //console.log(items);
+
+    });
+
+});*/
+app.get('/getreviewdetails', function (req, resp) {
+
+    var collection=db.collection('reviewmanager').aggregate([
+        {
+            $lookup : {
+                from: "users",
+                localField: "employeeid",
+                foreignField: "_id",
+                as: "Userdata"
+            }
+        },
+        {
+            $lookup : {
+                from: "users",
+                localField: "reviewedby",
+                foreignField: "_id",
+                as: "Userreviewdatadata"
+            }
+        },
+        { "$unwind": "$Userreviewdatadata" },
+        { "$unwind": "$Userdata" },
+    ]);
+    console.log("inside server");
+    collection.toArray(function(err, items) {
+        resp.send(JSON.stringify(items));
+    });
+});
+
+
+app.get('/viewlogindetails', function (req, resp) {
+    var collection1 = db.collection('users');
+    //collection1.find({type: 3}).toArray(function(err, items) {
+        var collection = db.collection('users').aggregate([
+            { "$match": { "type": 3 } },
+            {
+                $lookup: {
+                    from: "ipaddress",
+                    localField: "email",
+                    foreignField: "mailid",
+                    as: "Userlogindata"
+                }
+            },
+            { "$unwind": "$Userlogindata" },
+        ]);
+        collection.toArray(function (err, items) {
+            resp.send(JSON.stringify(items));
+
+        });
+    //});
+});
+
 /*-----------------------------------Employee_Work_End---------------------------------*/
 
 /*-----------------------------------URL_UPDATE_START---------------------------------*/
 /*app.get('/autourlupdate',function(req,resp){
 
-    var url = 'http://www.radiologyimagingcenters.com/client.list.do';            //we have to import data from this link
+ var url = 'http://www.radiologyimagingcenters.com/client.list.do';            //we have to import data from this link
 
-    setTimeout(function () {
-        console.log("inside autourlupdate");
-        geturllist(url); //send the url to the function
-    },500)
-
-
-    resp.send(JSON.stringify({'status': 'success', 'msg': ''}));
+ setTimeout(function () {
+ console.log("inside autourlupdate");
+ geturllist(url); //send the url to the function
+ },500)
 
 
-});*/
+ resp.send(JSON.stringify({'status': 'success', 'msg': ''}));
+
+
+ });*/
+
 
 function geturllist(url){
 
