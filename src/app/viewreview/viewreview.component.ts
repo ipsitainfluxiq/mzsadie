@@ -67,11 +67,12 @@ export class ViewreviewComponent implements OnInit {
     this._http.get(link)
         .subscribe(res => {
           var result = res.json();
-          console.log(result);
+          //console.log(result);
           let x;
           this.allreviewdata=result;
           for(x in result){
             if(result[x].parent==0){
+
               this.itemdetails.push(result[x]);
               if(typeof (this.replies[result[x]._id])== 'undefined')this.replies[result[x]._id]=0;
             }
@@ -87,6 +88,8 @@ export class ViewreviewComponent implements OnInit {
               }
               //console.log(this.replies[result[x]._id]);
               //console.log(result[x]._id);
+              /*console.log("hi");
+              console.log(this.replies[result[x].parent]);*/
             }
           }
           console.log('replies');
