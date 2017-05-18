@@ -65,6 +65,8 @@ import {ViewreviewComponent} from "./viewreview/viewreview.component";
 import {ViewreviewofemployeeComponent} from "./viewreviewofemployee/viewreviewofemployee.component";
 import {ViewlogindetailsComponent} from "./viewlogindetails/viewlogindetails.component";
 import {ReplyComponent} from "./reply/reply.component";
+import {ViewlogoutdetailsComponent} from "./viewlogoutdetails/viewlogoutdetails.component";
+import {ViewlogouthistoryComponent} from "./viewlogouthistory/viewlogouthistory.component";
 
 const appRoutes: Routes = [
     // { path: '/**',component: AppComponent},
@@ -130,6 +132,8 @@ const appRoutes: Routes = [
     { path: 'viewreviewofemployee/:id', component: ViewreviewofemployeeComponent},
     { path: 'viewlogindetails', component: ViewlogindetailsComponent},
     { path: 'reply/:id/:employeeid', component: ReplyComponent},
+    { path: 'viewlogoutdetails/:id', component: ViewlogoutdetailsComponent},
+    { path: 'viewlogouthistory', component: ViewlogouthistoryComponent},
 
    // { path: 'content', component: ContentComponent,outlet:'content'},
 ];

@@ -77,6 +77,8 @@ import { ViewreviewComponent } from './viewreview/viewreview.component';
 import { ViewreviewofemployeeComponent } from './viewreviewofemployee/viewreviewofemployee.component';
 import { ViewlogindetailsComponent } from './viewlogindetails/viewlogindetails.component';
 import { ReplyComponent } from './reply/reply.component';
+import { ViewlogoutdetailsComponent } from './viewlogoutdetails/viewlogoutdetails.component';
+import { ViewlogouthistoryComponent } from './viewlogouthistory/viewlogouthistory.component';
 
 @NgModule({
   declarations: [
@@ -151,6 +153,10 @@ import { ReplyComponent } from './reply/reply.component';
    ViewlogindetailsComponent,
 
    ReplyComponent,
+
+   ViewlogoutdetailsComponent,
+
+   ViewlogouthistoryComponent,
     //ExampleService,
 
   ],

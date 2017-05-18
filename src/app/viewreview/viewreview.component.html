@@ -10,8 +10,9 @@
             <th>Employee Name</th>
             <th>Reviewed By</th>
             <th>Date</th>
-            <th>Length of replies agains the comment</th>
+            <!--<th>Length of replies against the comment</th>-->
             <th>Show Replies</th>
+            <th>Add Reply</th>
             <!--<th>Object/Array</th>-->
           </tr>
 
@@ -23,9 +24,10 @@
             <td>{{item.Userdata.firstname}} {{item.Userdata.lastname}}</td>
             <td>{{item.Userreviewdatadata.firstname}} {{item.Userreviewdatadata.lastname}}</td>
             <td>{{item.time*1000 | date:"MM/dd/yyyy"}}</td>
-            <td >{{replies[item._id]}}  //{{item._id}}</td>
+            <!--<td >{{replies[item._id]}}  //{{item._id}}</td>-->
             <!--<td><span *ngIf="item.Reviewdata.length>0">{{item.Reviewdata.length}}</span></td>-->
-            <td><a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" (click)="showreplies(item._id)">Show Replies</a></td>
+            <td><a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" (click)="showreplies(item._id)">Show Replies [{{replies[item._id]}}]</a></td>
+            <td><a [routerLink]="['/reply',item._id,item.employeeid]">Reply</a></td>
             <!--<td>{{item.Reviewdata}}</td>-->
           </tr>
         </table>

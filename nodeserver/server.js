@@ -579,15 +579,11 @@ app.post('/adminlogin', function (req, resp) {
     var collection = db.collection('users');
 
     collection.find({ email:req.body.email }).toArray(function(err, items){
-
         //console.log(items[0]); //admin_login details shown here
-
         if(items.length==0){
             resp.send(JSON.stringify({'status':'error','msg':'Username invalid...'}));
             return;
         }
-
-
         if(items.length>0 && items[0].password!=hash){
             //console.log(items[0].password); //hex
             //console.log(hash); //given password
@@ -595,40 +591,60 @@ app.post('/adminlogin', function (req, resp) {
             resp.send(JSON.stringify({'status':'error','msg':'Password Doesnot match'}));
             return;
         }
-
-
         if(items.length>0 && items[0].status!=1){
             resp.send(JSON.stringify({'status':'error','msg':'You are Blocked..'}));
             return;
         }
-
         if(items.length>0 && items[0].password==hash){
-
             var ip = req.headers['x-forwarded-for'] ||
                 req.connection.remoteAddress ||
                 req.socket.remoteAddress ||
                 req.connection.socket.remoteAddress;
-            console.log(ip);
-            console.log(items[0].type);
-            if(ip != ''){
-
+                console.log(ip);
+                console.log(items[0].type);
+                if(ip != ''){
                 var collection = db.collection('ipaddress');
                 collection.insert([{
                     mailid: req.body.email,
                     ipaddress: ip,
                     time: Math.floor(Date.now() / 1000),
+                    type:0, //login
                 }], function (err2, result2) {
 
                 });
             }
-
             resp.send(JSON.stringify({'status':'success','msg':items[0]/*, 'ipadd':ip*/}));   //sending the items[0] through msg variable
             return;
 
         }
     });
-
 });
+
+
+app.post('/updateipaddress', function (req, resp) {
+    var collection = db.collection('ipaddress');
+    collection.find({ email:req.body.email }).toArray(function(err, items){
+        var ip = req.headers['x-forwarded-for'] ||
+            req.connection.remoteAddress ||
+            req.socket.remoteAddress ||
+            req.connection.socket.remoteAddress;
+
+            collection.insert([{
+                mailid: req.body.email,
+                ipaddress: ip,
+                time: Math.floor(Date.now() / 1000),
+                type:1, //logout
+            }], function (err2, result2) {
+
+            });
+
+        resp.send(JSON.stringify({'status':'success','msg':items[0]/*, 'ipadd':ip*/}));   //sending the items[0] through msg variable
+        return;
+    });
+});
+
+
+
 
 app.get('/ipaddress', function (req, resp) {
     var collection = db.collection('ipaddress');
@@ -1353,30 +1369,73 @@ app.post('/employeedetails',function(req,resp){
 
 });
 
+app.get('/viewlogindetails', function (req, resp) {
+    var collection1 = db.collection('users');
+    var collection = db.collection('users').aggregate([
+
+        { "$match": { "type": 3 } },
+        {
+            $lookup: {
+                from: "ipaddress",
+                localField: "email",
+                foreignField: "mailid",
+                as: "Userlogindata"
+            }
+        },
+        /*{$match:{"Userlogindata._id":new mongodb.ObjectID('591d68b3957b8c55328d5cc3')}},*/
+        { "$unwind": "$Userlogindata" },
+        {$match:{"Userlogindata.type":0}},
 
 
+    ]);
+    collection.toArray(function (err, items) {
+        resp.send(JSON.stringify(items));
+
+    });
+});
 
 
+app.get('/viewlogouthistory', function (req, resp) {
+    var collection1 = db.collection('users');
+    var collection = db.collection('users').aggregate([
+        { "$match": { "type": 3 } },
 
+        {
+            $lookup: {
+                from: "ipaddress",
+                localField: "email",
+                foreignField: "mailid",
+                as: "Userlogindata"
+            }
+        },
+        { "$unwind": "$Userlogindata" },
+        {$match:{"Userlogindata.type":1}},
+    ]);
+    collection.toArray(function (err, items) {
+        resp.send(JSON.stringify(items));
+
+    });
+});
 
 app.post('/getlogindetails', function (req, resp) {
     var resitem = {};
-    var resitem1 = {};
     var o_id = new mongodb.ObjectID(req.body._id);
+    var o_type= req.body.type;
+    console.log(o_type);
+    console.log(o_id);
     var collection = db.collection('users');
-    //console.log(o_id);
+
     collection.find({_id:o_id}).toArray(function(err, items) {
         resitem = items[0].email;
-
+        console.log(resitem);
         var collection = db.collection('ipaddress');
-        collection.find({mailid:resitem}).toArray(function(err, items) {
+        collection.find({mailid: resitem, type: o_type}).toArray(function (err, items) {
             if (err) {
-                resp.send(JSON.stringify({'status':'error','id':0}));
+                console.log("under error");
+                resp.send(JSON.stringify({'status': 'error', 'id': 0}));
             } else {
-                resitem1 = items;
-                //console.log(resitem1);
-                //console.log("server");
-                resp.send(JSON.stringify({'status':'success','msg':resitem1}));
+                console.log(items);
+                resp.send(JSON.stringify({'status': 'success', 'msg': items}));
                 return;
             }
         });
@@ -1479,40 +1538,7 @@ app.get('/reviewdetail', function (req, resp) {
 
 
 
-app.get('/getreviewofemployee', function (req, resp) {
-    var resitem = {};
-    var resitem1 = {};
-    var o_id=new mongodb.ObjectID(req.query.id);
-    var parentvalue=0;
-   console.log(req.query);
 
-    var collection=db.collection('reviewmanager').aggregate([
-        { "$match": { "employeeid": o_id } },
-        { "$match": { "parent": parentvalue } },
-        {
-            $lookup : {
-                from: "users",
-                localField: "employeeid",
-                foreignField: "_id",
-                as: "Userdata"
-            }
-        },
-
-        {
-            $lookup : {
-                from: "users",
-                localField: "reviewedby",
-                foreignField: "_id",
-                as: "Userreviewdatadata"
-            }
-        },
-
-    ]);
-    console.log("inside server");
-    collection.toArray(function(err, items) {
-        resp.send(JSON.stringify(items));
-    });
-});
 
 
 
@@ -1676,27 +1702,42 @@ app.get('/getreviewdetails', function (req, resp) {
 });
 
 
-app.get('/viewlogindetails', function (req, resp) {
-    var collection1 = db.collection('users');
-    //collection1.find({type: 3}).toArray(function(err, items) {
-        var collection = db.collection('users').aggregate([
-            { "$match": { "type": 3 } },
-            {
-                $lookup: {
-                    from: "ipaddress",
-                    localField: "email",
-                    foreignField: "mailid",
-                    as: "Userlogindata"
-                }
-            },
-            { "$unwind": "$Userlogindata" },
-        ]);
-        collection.toArray(function (err, items) {
-            resp.send(JSON.stringify(items));
+app.get('/getreviewofemployee', function (req, resp) {
+    var resitem = {};
+    var resitem1 = {};
+    var o_id=new mongodb.ObjectID(req.query.id);
+    var parentvalue=0;
+    console.log(req.query);
 
-        });
-    //});
+    var collection=db.collection('reviewmanager').aggregate([
+        { "$match": { "employeeid": o_id } },
+        { "$match": { "parent": parentvalue } },
+        {
+            $lookup : {
+                from: "users",
+                localField: "employeeid",
+                foreignField: "_id",
+                as: "Userdata"
+            }
+        },
+
+        {
+            $lookup : {
+                from: "users",
+                localField: "reviewedby",
+                foreignField: "_id",
+                as: "Userreviewdatadata"
+            }
+        },
+
+    ]);
+    console.log("inside server");
+    collection.toArray(function(err, items) {
+        resp.send(JSON.stringify(items));
+    });
 });
+
+
 
 /*-----------------------------------Employee_Work_End---------------------------------*/
 

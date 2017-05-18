@@ -11,6 +11,8 @@
         <a [routerLink]="['/addemployee']" class="adadminlink">Add Employee</a>
         <a [routerLink]="['/viewreview']" class="adadminlink">View Reviews</a>
         <a [routerLink]="['/viewlogindetails']" class="adadminlink">View Login Details</a>
+        <a [routerLink]="['/viewlogouthistory']" class="adadminlink">View Logout Details</a>
+
 
         <div class="clearfix"></div>
       </div>
@@ -36,6 +38,7 @@
               <a [routerLink]="['/editemployee',item._id]">Edit</a>
               <a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" (click)="delConfirm(item._id)">Delete</a>
               <p><a [routerLink]="['/viewhistory',item._id]">View Login History</a></p>
+              <p><a [routerLink]="['/viewlogoutdetails',item._id]">View Logout History</a>
               <a [routerLink]="['/addreview',item._id]">Add Review</a>
               <p><a [routerLink]="['/viewreviewofemployee',item._id]">View Reviews</a></p>
             </td>

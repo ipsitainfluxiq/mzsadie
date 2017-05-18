@@ -10,9 +10,21 @@
             <th>Employee Name</th>
             <th>Reviewed By</th>
             <th>Date</th>
+            <th>Number of Replies</th>
+            <!--<th>Show replies</th>-->
           </tr>
-
           <tr *ngFor="let item of itemdetails; let i = index">
+            <td>{{i+1}}</td>
+            <td><div [innerHTML]="_sanitizer.bypassSecurityTrustHtml(item.review)" ></div>
+              <a [routerLink]="['/reply',item._id,item.employeeid]">Reply</a>
+            </td>
+            <td>{{item.Userdata.firstname}} {{item.Userdata.lastname}}</td>
+            <td>{{item.Userreviewdatadata.firstname}} {{item.Userreviewdatadata.lastname}}</td>
+            <td>{{item.time*1000 | date:"MM/dd/yyyy"}}</td>
+            <!--<td >{{replies[item._id]}}  //{{item._id}}</td>-->
+            <td><a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" (click)="showreplies(item._id)">Show Replies [{{replies[item._id]}}]</a></td>
+          </tr>
+         <!-- <tr *ngFor="let item of itemdetails; let i = index">
             <td>{{i+1}}</td>
             <td><div [innerHTML]="_sanitizer.bypassSecurityTrustHtml(item.review)" ></div>
               <a [routerLink]="['/reply',item._id,item.employeeid]">Reply</a>
@@ -20,8 +32,43 @@
             <td>{{item.Userdata[0].firstname}} {{item.Userdata[0].lastname}}</td>
             <td>{{item.Userreviewdatadata[0].firstname}} {{item.Userreviewdatadata[0].lastname}}</td>
             <td>{{item.time*1000 | date:"MM/dd/yyyy"}}</td>
-          </tr>
+            <td><a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" (click)="showreplies(item._id)">Show Replies</a></td>
+          </tr>-->
+
         </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog"  id="myModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 dashboard_right">
+        <div class="dashboard_right_wrapper">
+          <div class="dashboard1_div1 table-responsive">
+            <h4></h4>
+            <div class="tablediv">
+              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <th>#</th>
+                 <!-- <th>Reviewed by</th>-->
+                  <th>Time</th>
+                  <th>Replies</th>
+                </tr>
+                <tr *ngFor="let items of reviewdata; let i = index">
+                  <td>{{i+1}}</td>
+                  <!--<td>{{items.Userreviewdatadata.firstname}} {{items.Userreviewdatadata.lastname}}</td>-->
+                  <td>{{items.time*1000 | date:"MM/dd/yyyy"}}</td>
+                  <td><div [innerHTML]="_sanitizer.bypassSecurityTrustHtml(items.review)" ></div></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -4,12 +4,12 @@ import { Router, ActivatedRoute} from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
 import {Commonservices} from "../app.commonservices";
 @Component({
-  selector: 'app-viewhistory',
-  templateUrl: './viewhistory.component.html',
-  styleUrls: ['./viewhistory.component.css'],
+  selector: 'app-viewlogoutdetails',
+  templateUrl: './viewlogoutdetails.component.html',
+  styleUrls: ['./viewlogoutdetails.component.css'],
   providers: [Commonservices],
 })
-export class ViewhistoryComponent implements OnInit {
+export class ViewlogoutdetailsComponent implements OnInit {
   id:number;
   public userdata2;
   coockieData:CookieService;
@@ -36,8 +36,7 @@ export class ViewhistoryComponent implements OnInit {
   }
   getloginhistory(){
     var link =this.serverUrl+'getlogindetails';
-    //var link = 'http://influxiq.com:3001/getlogindetails';
-    var data = {_id : this.id, type: 0};
+    var data = {_id : this.id, type: 1};
 
     this._http.post(link, data)
         .subscribe(res => {

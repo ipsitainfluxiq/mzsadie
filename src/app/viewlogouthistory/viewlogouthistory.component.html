@@ -1,24 +1,23 @@
 <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 dashboard_right">
   <div class="dashboard_right_wrapper">
     <div class="dashboard1_div1 table-responsive">
-      <h4>View Login History</h4>
+      <h4>View Login Details</h4>
       <div class="tablediv">
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
           <tr>
             <th>#</th>
-            <th>Ip Adress</th>
+            <th>Name</th>
+            <th>Mail Id</th>
+            <th>Ip Address</th>
             <th>Date</th>
-            <th>Login Time</th>
-            <!--<th>Logout Time</th>-->
           </tr>
 
           <tr *ngFor="let item of itemdetails; let i = index">
             <td>{{i+1}}</td>
-            <td>{{item.ipaddress}}</td>
-            <!--<td>{{item.time}}</td>-->
-            <td>{{item.time*1000 | date:"MM/dd/yyyy"}}</td>
-            <td>{{item.time*1000 | date:"h:mma"}}</td>
-           <!-- <td>{{item.logouttime*1000 | date:"h:mma"}}</td>-->
+            <td>{{item.firstname}} {{item.lastname}}</td>
+            <td>{{item.email}}</td>
+            <td>{{item.Userlogindata.ipaddress}}</td>
+            <td>{{item.Userlogindata.time*1000 | date:"MM/dd/yyyy"}}</td>
           </tr>
         </table>
       </div>

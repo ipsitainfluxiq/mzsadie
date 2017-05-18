@@ -70,6 +70,8 @@ export class ViewreviewComponent implements OnInit {
           //console.log(result);
           let x;
           this.allreviewdata=result;
+          console.log("hi");
+          console.log(this.allreviewdata);
           for(x in result){
             if(result[x].parent==0){
 
@@ -101,6 +103,7 @@ export class ViewreviewComponent implements OnInit {
   showreplies(id:any){
     /*this.reviewdata = reviewdata;
     console.log(this.reviewdata);*/
+    console.log(id);
     this.reviewdata=[];
     let x;
     for(x in this.allreviewdata) {
