@@ -79,6 +79,7 @@ import { ViewlogindetailsComponent } from './viewlogindetails/viewlogindetails.c
 import { ReplyComponent } from './reply/reply.component';
 import { ViewlogoutdetailsComponent } from './viewlogoutdetails/viewlogoutdetails.component';
 import { ViewlogouthistoryComponent } from './viewlogouthistory/viewlogouthistory.component';
+import { EmployeeloginouttimeComponent } from './employeeloginouttime/employeeloginouttime.component';
 
 @NgModule({
   declarations: [
@@ -157,6 +158,8 @@ import { ViewlogouthistoryComponent } from './viewlogouthistory/viewlogouthistor
    ViewlogoutdetailsComponent,
 
    ViewlogouthistoryComponent,
+
+   EmployeeloginouttimeComponent,
     //ExampleService,
 
   ],

@@ -1120,6 +1120,8 @@ app.post('/addaces',function(req,resp){
 });
 
 
+
+
 app.post('/editaces',function(req,resp){
     var collection = db.collection('users');
 
@@ -1393,6 +1395,155 @@ app.get('/viewlogindetails', function (req, resp) {
 
     });
 });
+
+
+
+
+app.get('/settimein', function (req, resp) {
+    var o_id=new mongodb.ObjectID(req.query.id);
+    console.log("is this id?");
+console.log(o_id);
+    var collection1 = db.collection('users');
+    var collection = db.collection('users').aggregate([
+        { "$match": { "type": 3 } },
+        {
+            $lookup: {
+                from: "ipaddress",
+                localField: "email",
+                foreignField: "mailid",
+                as: "Userlogindata"
+            }
+        },
+
+        { "$unwind": "$Userlogindata" },
+        {$match:{"Userlogindata.type":0}},
+        {$match:{"Userlogindata._id":o_id}},
+
+    ]);
+    collection.toArray(function (err, items) {
+        console.log(items);
+        resp.send(JSON.stringify(items));
+
+
+    });
+});
+
+app.get('/settimeout', function (req, resp) {
+    var o_id=new mongodb.ObjectID(req.query.id);
+    console.log("is this id?");
+console.log(o_id);
+    var collection1 = db.collection('users');
+    var collection = db.collection('users').aggregate([
+        { "$match": { "type": 3 } },
+        {
+            $lookup: {
+                from: "ipaddress",
+                localField: "email",
+                foreignField: "mailid",
+                as: "Userlogindata"
+            }
+        },
+
+        { "$unwind": "$Userlogindata" },
+        {$match:{"Userlogindata.type":1}},
+        {$match:{"Userlogindata._id":o_id}},
+
+    ]);
+    collection.toArray(function (err, items) {
+        console.log(items);
+        resp.send(JSON.stringify(items));
+
+
+    });
+});
+
+app.post('/setouttimeofemployee',function(req,resp){
+
+    var collection = db.collection('settimeofemployee');
+
+    collection.insert([{
+
+        indate: req.body.indate,
+        intime: req.body.intime,
+        id:  new mongodb.ObjectId(req.body.id),
+        type: 1 //logout_time
+
+    }], function (err, result) {
+        if (err) {
+            //console.log('error'+err);
+            resp.send(JSON.stringify({'status':'error','id':0}));
+        } else {
+            //console.log(result);
+            resp.send(JSON.stringify(result));
+        }
+    });
+
+});
+
+app.post('/setintimeofemployee',function(req,resp){
+
+    var collection = db.collection('settimeofemployee');
+
+    collection.insert([{
+
+        indate: req.body.indate,
+        intime: req.body.intime,
+        id:  new mongodb.ObjectId(req.body.id),
+        type: 0 //login_time
+
+    }], function (err, result) {
+        if (err) {
+            //console.log('error'+err);
+            resp.send(JSON.stringify({'status':'error','id':0}));
+        } else {
+            //console.log(result);
+            resp.send(JSON.stringify(result));
+        }
+    });
+
+});
+
+app.get('/settimeofemployee', function (req, resp) {
+    var collection = db.collection('settimeofemployee');
+    //collection.drop(function(err, items) {
+    collection.find().toArray(function(err, items) {
+
+        if (err) {
+            console.log(err);
+            resp.send(JSON.stringify({'res':[]}));
+        } else {
+            resp.send(JSON.stringify(items));
+        }
+
+    });
+});
+
+
+
+
+app.get('/viewloginouttime', function (req, resp) {
+   // var collection = db.collection('settimeofemployee');
+
+    var collection = db.collection('users').aggregate([
+        { "$match": { "type": 3 } },
+
+        {
+            $lookup: {
+                from: "settimeofemployee",
+                localField: "_id",
+                foreignField: "id",
+                as: "Userloginouttime"
+            }
+        },
+        { "$unwind": "$Userloginouttime" },
+    ]);
+    collection.toArray(function (err, items) {
+        resp.send(JSON.stringify(items));
+
+    });
+});
+
+
 
 
 app.get('/viewlogouthistory', function (req, resp) {

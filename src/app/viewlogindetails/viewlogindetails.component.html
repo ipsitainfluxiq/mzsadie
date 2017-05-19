@@ -10,6 +10,7 @@
             <th>Mail Id</th>
             <th>Ip Address</th>
             <th>Date</th>
+            <th>Set In Time</th>
           </tr>
 
           <tr *ngFor="let item of itemdetails; let i = index">
@@ -17,13 +18,43 @@
             <td>{{item.firstname}} {{item.lastname}}</td>
             <td>{{item.email}}</td>
             <td>{{item.Userlogindata.ipaddress}}</td>
-           <!-- <td><span *ngIf="item.Userlogindata.length>0">{{item.Userlogindata[0].ipaddress}}</span></td>-->
 
+           <!-- <td><span *ngIf="item.Userlogindata.length>0">{{item.Userlogindata[0].ipaddress}}</span></td>-->
            <!-- <td><div [innerHTML]="_sanitizer.bypassSecurityTrustHtml(item.review)" ></div></td>-->
           <!-- <td >{{item.Userlogindata[1].ipaddress}}</td>-->
+
             <td>{{item.Userlogindata.time*1000 | date:"MM/dd/yyyy"}}</td>
+            <!--<td><input type="button" value="Set In Time" data-toggle="modal" data-target="#myModal" (click)="details(item.Userlogindata)"></td>-->
+            <td><input type="button" value="Set In Time" data-toggle="modal" data-target="#myModal" (click)="details(item.Userlogindata._id)"></td>
           </tr>
         </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" tabindex="-1" role="dialog"  id="myModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closemodal()">Close &times;</button>
+      </div>
+      <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 dashboard_right">
+        <div class="dashboard_right_wrapper">
+          <div class="dashboard1_div1 table-responsive">
+            <div *ngIf="data">
+              <div>{{data[0].firstname}}{{data[0].lastname}}</div>
+              <div>
+                <label>Date</label>
+                <input type="text" [(ngModel)]="indate"></div>
+              <div>
+                <label>Time</label>
+                <input type="text" [(ngModel)]="intime"></div>
+            </div>
+            <input type="submit" value="Set Login Time" class="loginbtn2" (click)="submitvalue()">
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -126,14 +126,32 @@ export class Commonservices{
     /*---------------------------------------------------END_Addadmin-----------------------------------------------*/
     /*---------------------------------------------------START_TIME-----------------------------------------------*/
 
-   /* convertunixtodate(unix_tm:any) {
-        var dt = new Date(unix_tm);
+    convertunixtodate(unix_tm:any) {
+        var tmnew= unix_tm*1000;
+        var dt = new Date(tmnew);
         var month = dt.getMonth()+1;
         return  month+'/'+dt.getDate()+'/'+dt.getFullYear() ;
 
     }
+    convertunixtotime(unix_tm:any){
+        var tmnew= unix_tm*1000;
+        var dt = new Date(tmnew);
+        var month = dt.getMonth()+1;
+        var hours = dt.getHours();
+        var minutes = dt.getMinutes();
+        var ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12;
+        minutes = minutes < 10 ? 0+ minutes : minutes;
+        var strTime = hours + ':' + minutes + ' ' + ampm;
+        return strTime;
+
+      //  return  dt.getHours()+' : '+dt.getMinutes()+' : '+dt.getSeconds() ;
+    }
     convertunixtodatetime(unix_tm:any) {
-        var dt = new Date(unix_tm);
+        var tmnew= unix_tm*1000;
+        var dt = new Date(tmnew);
+      /*  var dt = new Date(unix_tm);*/
         var month = dt.getMonth()+1;
         return  month+'/'+dt.getDate()+'/'+dt.getFullYear()+' '+dt.getHours()+' : '+dt.getMinutes()+' : '+dt.getSeconds() ;
 
@@ -148,11 +166,11 @@ export class Commonservices{
         minutes = minutes < 10 ? 0+ minutes : minutes;
         var strTime = hours + ':' + minutes + ' ' + ampm;
         return strTime;
-        /!*  var dt = new Date();
+        /*/!*  var dt = new Date();
          // var month = dt.getMonth()+1;
-         return  dt.getHours()+' : '+dt.getMinutes();*!/
+         return  dt.getHours()+' : '+dt.getMinutes();*!/*/
 
-    }*/
+    }
     /*---------------------------------------------------END_TIME-----------------------------------------------*/
 
 
