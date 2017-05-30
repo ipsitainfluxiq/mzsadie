@@ -80,6 +80,8 @@ import { ReplyComponent } from './reply/reply.component';
 import { ViewlogoutdetailsComponent } from './viewlogoutdetails/viewlogoutdetails.component';
 import { ViewlogouthistoryComponent } from './viewlogouthistory/viewlogouthistory.component';
 import { EmployeeloginouttimeComponent } from './employeeloginouttime/employeeloginouttime.component';
+import { CardioComponent } from './cardio/cardio.component';
+import { GeneraldoctorComponent } from './generaldoctor/generaldoctor.component';
 
 @NgModule({
   declarations: [
@@ -160,6 +162,10 @@ import { EmployeeloginouttimeComponent } from './employeeloginouttime/employeelo
    ViewlogouthistoryComponent,
 
    EmployeeloginouttimeComponent,
+
+   CardioComponent,
+
+   GeneraldoctorComponent,
     //ExampleService,
 
   ],

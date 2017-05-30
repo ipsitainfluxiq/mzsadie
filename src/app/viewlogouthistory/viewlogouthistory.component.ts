@@ -48,9 +48,11 @@ export class ViewlogouthistoryComponent implements OnInit {
           console.log("Oooops!");
         });
   }
-    details(id: any){
-        //console.log(id);
-        var link =this.serverUrl+'settimeout?id='+id;
+    details(id: any, empid: any){
+        console.log(id);
+        console.log("employee id -->");
+        console.log(empid);
+        var link =this.serverUrl+'settimeout?id='+id+"&emp="+empid;
         console.log(link);
         this._http.get(link)
             .subscribe(res => {
@@ -61,12 +63,26 @@ export class ViewlogouthistoryComponent implements OnInit {
                 console.log(this.data);
                 this.indate = this._commonservices.convertunixtodate(this.data[0].Userlogindata.time);
                 this.intime = this._commonservices.convertunixtotime(this.data[0].Userlogindata.time);
+                $('#myModal').modal('show');
 
-                console.log(this.intime);
+                //console.log(this.intime);
 
             }, error => {
                 console.log("Oooops!");
             });
+
+/*            var link1=this.serverUrl+'settimeoutt?emp='+empid;
+            this._http.get(link1)
+            .subscribe(res => {
+                var result = res.json();
+                console.log("result of one object");
+                console.log(result);
+
+            }, error => {
+                console.log("Oooops!");
+            });*/
+
+
     }
     submitvalue(){
       console.log(this.data[0]._id);

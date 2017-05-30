@@ -37,7 +37,7 @@ export class AceslistComponent implements OnInit {
       })
   }
 
-/*  getAcesList(){
+  getAcesList(){
     var link ='http://influxiq.com:3001/aceslist';
     var data = {};
 
@@ -50,7 +50,7 @@ export class AceslistComponent implements OnInit {
         }, error => {
           console.log("Oooops!");
         });
-  }*/
+  }
 
   delConfirm(id){
     this.id = id;

@@ -19,7 +19,7 @@
             <td>{{item.email}}</td>
             <td>{{item.Userlogindata.ipaddress}}</td>
             <td>{{item.Userlogindata.time*1000 | date:"MM/dd/yyyy"}}</td>
-            <td><input type="button" value="Set Out Time" data-toggle="modal" data-target="#myModal" (click)="details(item.Userlogindata._id)"></td>
+            <td><input type="button" value="Set Out Time" data-toggle="modal"  (click)="details(item.Userlogindata._id, item._id)"></td>
           </tr>
         </table>
       </div>

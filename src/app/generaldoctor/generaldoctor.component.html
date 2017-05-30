@@ -1,0 +1,26 @@
+<div class="tablediv">
+  <button (click)="exportcsv()">CLick</button>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <th>#</th>
+      <th>DOCNAME</th>
+      <th>MEDICALSPECIALITY</th>
+      <th>DOCPHONE</th>
+      <th>DOCADDRESS</th>
+      <th>AVAILABLESERVICE</th>
+      <th>DOCABOUT</th>
+      <!--<th>PHONEURL</th>-->
+    </tr>
+
+    <tr *ngFor="let item of datalist; let i = index">
+      <td>{{i+1}}</td>
+      <td>{{item.docname}}</td>
+      <td>{{item.medicalspeciality}}</td>
+      <td>{{item.docphone}}</td>
+      <td><div [innerHTML]="_sanitizer.bypassSecurityTrustHtml(item.docaddress)" ></div></td>
+      <td>{{item.availableService}}</td>
+      <td>{{item.docabout}}</td>
+     <!-- <td><a target="_blank" href="{{item._id}}">Click</a></td>-->
+    </tr>
+  </table>
+</div>

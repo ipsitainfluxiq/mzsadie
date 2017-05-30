@@ -449,6 +449,11 @@ app.get('/adminlist',function (req,resp) {
     });
 
 });
+
+
+
+
+
 app.post('/admindetails',function(req,resp){
 //console.log("admindetails from server.js called");
     var resitem = {};
@@ -642,7 +647,6 @@ app.post('/updateipaddress', function (req, resp) {
         return;
     });
 });
-
 
 
 
@@ -1428,11 +1432,24 @@ console.log(o_id);
     });
 });
 
+app.get('/settimeoutt', function (req, resp) {
+    var emp_id=new mongodb.ObjectID(req.query.emp);
+     var collection = db.collection('settimeofemployee');
+     collection.find({id:emp_id,outtime:""}).toArray(function(err, items) {
+     resitem = items;
+     console.log("Show all values of that id");
+     console.log(resitem);
+     resp.send(JSON.stringify(items));
+     });
+});
+
 app.get('/settimeout', function (req, resp) {
     var o_id=new mongodb.ObjectID(req.query.id);
-    console.log("is this id?");
-console.log(o_id);
-    var collection1 = db.collection('users');
+    var emp_id=new mongodb.ObjectID(req.query.emp);
+/*    console.log(o_id);
+    console.log("empid??");
+    console.log(emp_id);*/
+
     var collection = db.collection('users').aggregate([
         { "$match": { "type": 3 } },
         {
@@ -1450,11 +1467,13 @@ console.log(o_id);
 
     ]);
     collection.toArray(function (err, items) {
-        console.log(items);
+        //console.log(items);
         resp.send(JSON.stringify(items));
 
 
     });
+
+
 });
 
 app.post('/setouttimeofemployee',function(req,resp){
@@ -1483,11 +1502,14 @@ app.post('/setouttimeofemployee',function(req,resp){
 app.post('/setintimeofemployee',function(req,resp){
 
     var collection = db.collection('settimeofemployee');
-
+    console.log("serverjs date");
+var datee=req.body.indate;
+console.log(datee);
     collection.insert([{
 
         indate: req.body.indate,
         intime: req.body.intime,
+        outtime: "",
         id:  new mongodb.ObjectId(req.body.id),
         type: 0 //login_time
 
@@ -1520,29 +1542,42 @@ app.get('/settimeofemployee', function (req, resp) {
 
 
 
-
 app.get('/viewloginouttime', function (req, resp) {
-   // var collection = db.collection('settimeofemployee');
+    // var collection = db.collection('settimeofemployee');
 
-    var collection = db.collection('users').aggregate([
-        { "$match": { "type": 3 } },
+    var collection = db.collection('settimeofemployee').aggregate([
+        /* { "$match": { "type": 3 } },*/
+        {$match:{"type":0}},
 
         {
             $lookup: {
+                from: "users",
+                localField: "id",
+                foreignField: "_id",
+                as: "userdetail"
+            },
+        },
+        {
+            $lookup: {
                 from: "settimeofemployee",
-                localField: "_id",
+                localField: "id",
                 foreignField: "id",
-                as: "Userloginouttime"
+                as: "Userloginouttimedetails"
             }
         },
-        { "$unwind": "$Userloginouttime" },
+        { "$unwind": "$userdetail" },
+        { "$unwind": "$Userloginouttimedetails" },
+        {$match:{"userdetail.type":3}},
+        //{$match:{"Userloginouttimedetails.id":'id'}},
+        {$match:{"Userloginouttimedetails.type":1}},
+
+        /*        { "$unwind": "$Userloginouttime1" },*/
     ]);
     collection.toArray(function (err, items) {
         resp.send(JSON.stringify(items));
 
     });
 });
-
 
 
 
@@ -2022,6 +2057,506 @@ app.get('/urllist',function (req,resp) {
     });
 
 });
+
+app.get('/cardiophonenull',function (req,resp) {
+    var collection = db.collection('cardiologist');
+
+    collection.find({docphone:null}).toArray(function(err, items) {
+
+        if (err) {
+            console.log(err);
+            resp.send(JSON.stringify({'res':[]}));
+        } else {
+            resp.send(JSON.stringify(items.length));
+        }
+
+    });
+});
+
+app.get('/generaldoctorphonenull',function (req,resp) {
+    var collection = db.collection('generaldoctorlist');
+
+    collection.find({docphone:null}).toArray(function(err, items) {
+
+        if (err) {
+            console.log(err);
+            resp.send(JSON.stringify({'res':[]}));
+        } else {
+            resp.send(JSON.stringify(items.length));
+        }
+
+    });
+});
+
+app.get('/generaldoctorlist',function (req,resp) {
+    var collection = db.collection('generaldoctorlist');
+
+    collection.find().toArray(function(err, items) {
+
+        if (err) {
+            console.log(err);
+            resp.send(JSON.stringify({'res':[]}));
+        } else {
+            resp.send(JSON.stringify(items.length));
+        }
+
+    });
+});
+
+
+app.get('/cardiologist', function (req, resp) {
+
+    //var collection = db.collection('generaldoctorlist');
+    var collection = db.collection('cardiologist');
+    collection.find().toArray(function (err, items) {
+
+        if (err) {
+            console.log(err);
+            resp.send(JSON.stringify({'res':[]}));
+        } else {
+
+            resp.send(JSON.stringify(items.length));
+        }
+
+    });
+});
+
+var state;
+
+app.get('/gplist',function(req,resp){
+    var c=generateRange(1,0,0);
+    console.log(c[0]);
+    var url = 'http://www.wellness.com/find/cardiologist';
+    //var url ='http://www.wellness.com/find/general%20practitioner';
+    var mainurl = 'http://www.wellness.com/';
+    var statecityarr=new Array();
+    var statecity=new Object();
+    var state;
+    request(url, function(error2, response, html2){
+        if(!error2) {
+            var $ = cheerio.load(html2);
+            //var states;
+
+            $('.find-item-container').eq(c[0]).each(function () {
+
+                state=$(this).find('a').find('h2').html();
+                // console.log($(this).find('ul').find('li').length);
+                $(this).find('ul').find('li').each(function () {
+                    //console.log($(this).html());
+                    statecity.state=state;
+                    statecity.city=$(this).find('a').html();
+                    statecity.listurl=mainurl+$(this).find('a').attr('href');
+                    statecityarr.push(statecity);
+                    //console.log(statecity);
+                    fetchdata(statecity,1);
+                    fetchdata(statecity,2);
+                    fetchdata(statecity,3);
+                    fetchdata(statecity,4);
+                    fetchdata(statecity,5);
+                    fetchdata(statecity,6);
+                    fetchdata(statecity,7);
+                    fetchdata(statecity,8);
+                    fetchdata(statecity,9);
+                    fetchdata(statecity,10);
+                    fetchdata(statecity,11);
+                    fetchdata(statecity,12);
+                    fetchdata(statecity,13);
+                    fetchdata(statecity,14);
+                    fetchdata(statecity,15);
+                    fetchdata(statecity,16);
+                    fetchdata(statecity,17);
+                    fetchdata(statecity,18);
+                })
+
+                //console.log($(this).find('h2').html());
+                //console.log(JSON.stringify(statecityarr));
+
+
+            });
+
+        }
+        else {
+            console.log("inside geturllist");
+            console.log('in error  :'+error2);
+        }
+
+    });
+
+    setTimeout(function () {
+        resp.send(JSON.stringify(statecityarr));
+    },3000);
+
+
+
+});
+var urlcounter=0;
+
+function  fetchdata(obj,pageno) {
+
+//console.log(obj);
+    var mainurl = 'http://wellness.com';
+    var url=obj.listurl;
+    if(pageno>1) url=obj.listurl+'/'+pageno;
+    request(url, function(error2, response, html2) {                    //before using this request declare this and install request using npm
+        if (!error2) {
+            var $ = cheerio.load(html2);                //assigning the html of full page to $ variable
+            //var states;
+
+            $('.categories-list').find('li').each(function () {             //show all values of state and bind every value to url using loop
+
+
+                var actualurl=(mainurl+$(this).attr('onclick').toString().replace("parent.location=","").replace("'","").replace("'",""));
+                //console.log($(this).html());
+                //console.log(JSON.stringify(statecityarr));
+
+                setTimeout(function () {
+                    if(urlcounter<50000000)fetchdoctordata(obj,actualurl);
+                    urlcounter++;
+                    //fetchdoctordata(obj,actualurl);
+                },2500);
+
+            });
+
+        }
+        else {
+            console.log("inside fetchdata");
+            console.log('in error  :' + error2);
+        }
+    });
+
+}
+
+function  fetchdocdata(obj,actualurl) {
+
+    //console.log(obj);
+    console.log(urlcounter++);
+    //console.log(actualurl);
+    var mainurl = 'http://www.wellness.com/';
+    var url=mainurl+'#referrer';
+    obj._id=url;
+    console.log(url);
+    /* var collection = db.collection('generaldoctorurllist');
+
+     collection.insert([obj], function (err, result) {
+     if (err) {
+     //resp.send(err);
+     console.log("in error -- :"+err);
+     } else {
+     console.log('insert completed');
+     //resp.send('Inserted %d documents into the "users" collection. The documents inserted with "_id" are:', result.length, result);
+
+     }
+     });*/
+    //if(pageno>1) url=obj.listurl+'/'+pageno;
+    request(url, function(error3, response, html3) {                    //before using this request declare this and install request using npm
+        if (!error3) {
+            var $ =cheerio.load(html3);                //assigning the html of full page to $ variable
+            //var states;
+            console.log(html3);
+            console.log($('.listing-org-name').text());
+            obj.docname=$('.listing-org-name').text();
+            obj.docphone=$('.office-phone').text();
+            obj.docaddress=$('.office-address').text();
+            obj.docabout=$('.listing-about').text();
+            obj.docservice=$('.availableService').text();
+            obj.docsadditionalservice=$('.additional-services-textç').text();
+            obj.docurl=actualurl;
+            //obj._id=actualurl;
+
+            /* var collection = db.collection('gendoclist');
+
+             collection.find({_id: actualurl}).toArray(function(err, items) {
+
+             if (err) {
+             console.log(err);
+             //resp.send(JSON.stringify({'res':[]}));
+             } else {
+             //resp.send(JSON.stringify({'res':items}));
+             console.log(items.length);
+             if(items.length==0) savedocdata(obj);
+             }
+
+             });*/
+            console.log(obj);
+            savedocdata(obj);
+
+
+
+
+        }
+        else {
+            console.log("inside fetchdocdata");
+
+            console.log('in error  :' + error3);
+        }
+    });
+
+}
+
+var objg=new Object();
+function  fetchdoctordata(obj,actualurl) {
+
+    objg=obj;
+    var url = actualurl;
+    var url = 'http://influxiq.com:3001/particulardocdata?url='+url+'&state='+obj.state+'&city='+obj.city;
+    //var url = 'http://localhost:3001/particulardocdata?url='+url+'&state='+obj.state+'&city='+obj.city;
+    console.log(url);
+    request(url, function(error2, response, html2){
+        if(!error2) {
+            var $ = cheerio.load(html2);
+        }
+        else {
+            console.log("inside particulardocdata");
+            console.log('in error  :'+error2);
+        }
+
+    });
+
+}
+
+function savedocdata(obj) {
+    //var collection = db.collection('generaldoctorlist');
+    var collection = db.collection('cardiologist');
+
+    collection.insert([obj], function (err, result) {
+        if (err) {
+            //resp.send(err);
+            console.log("in error -- :"+err);
+        } else {
+            console.log('insert completed');
+            //resp.send('Inserted %d documents into the "users" collection. The documents inserted with "_id" are:', result.length, result);
+        }
+    });
+
+}
+
+
+var updatecounter=0;
+app.get('/particulardocdata',function(req,resp){
+    var url = req.query.url;
+    console.log(url);
+    var mainurl = 'http://www.wellness.com/';
+    request(url, function(error2, response, html2){
+        if(!error2) {
+            var $ = cheerio.load(html2);
+            //obj=req.query.obj;
+            var obj=new Object();
+            obj.docnamehead=$("h1[itemprop='name']").html();
+            obj.docname=$('.listing-org-name').html();
+            obj.docphone=$("h4[itemprop='telephone']").html();
+            obj.medicalspeciality=$("h2[itemprop='MedicalSpecialty']").html();
+            obj.availableService=$("span[itemprop='availableService']").html();
+            obj.alumniOf=$("span[itemprop='alumniOf']").html();
+            obj.fax=$("span[itemprop='fax']").html();
+            obj.training=$("span[itemprop='alumniOf']").parent().next().find('span').eq(1).html();
+            obj.docaddress=$('.office-address').html();
+            obj.docabout=$('.listing-about').html();
+            //obj.docservice=$('.availableService').html();
+            obj.phoneurl=$('#directions_tab').find('a').attr('href');
+            obj.docsadditionalservice=$('.additional-services-textç').html();
+            obj._id=url;
+            obj.state=req.query.state;
+            obj.city=req.query.city;
+            //console.log(obj);
+            //var collection = db.collection('generaldoctorlist');
+            var collection = db.collection('cardiologist');
+            collection.insert([obj], function (err, result) {
+                if (err) {
+                    //resp.send(err);
+                    console.log("in error -- :"+err);
+                } else {
+                    console.log('insert completed');
+                    console.log(result);
+                    updatephone(mainurl,obj);
+                    //resp.send('Inserted %d documents into the "users" collection. The documents inserted with "_id" are:', result.length, result);
+                }
+            })
+
+        }
+        else {
+            console.log("inside particulardocdata");
+            console.log('in error  :'+error2);
+        }
+
+    });
+
+    setTimeout(function () {
+        resp.send((url));
+    },3000);
+
+});
+
+
+
+app.get('/updatedocphone', function (req, resp) {
+    updategeneraldoctor('http://www.wellness.com/');
+
+
+    var collection = db.collection('cardiologist');
+    collection.find({$and:[   {docphone:null}, {"phoneurl": {$ne: null}}]  }).limit(1).toArray(function (err, items){
+        if (err) {
+            console.log(err);
+            resp.send(JSON.stringify({'res':[]}));
+        } else {
+            var mainurl = 'http://www.wellness.com/';
+            var obj=new Object();
+            for(x in items) {
+
+                obj._id=items[x]._id;
+                obj.phoneurl=items[x].phoneurl;
+                console.log("show objects");
+                console.log(obj);
+                updatephone(mainurl,obj);
+                /*setTimeout(function () {
+
+                    updatephone(mainurl,obj);
+                },5000);*/
+            }
+            setInterval(function () {
+                updatecardiodocphone(mainurl);
+            },5000);
+
+            resp.send(JSON.stringify(obj));
+        }
+
+    });
+});
+
+function updatecardiodocphone(mainurl){
+    var collection = db.collection('cardiologist');
+        collection.find({$and:[   {docphone:null}, {"phoneurl": {$ne: null}}]  }).limit(1).toArray(function (err, items){
+        if (err) {
+            console.log(err);
+            resp.send(JSON.stringify({'res':[]}));
+        } else {
+            var mainurl = 'http://www.wellness.com/';
+            var obj=new Object();
+            for(x in items) {
+
+
+                obj._id=items[x]._id;
+                obj.phoneurl=items[x].phoneurl;
+                console.log("show objects");
+                console.log(obj);
+                updatephone(mainurl,obj);
+            }
+
+            resp.send(JSON.stringify(obj));
+        }
+
+    });
+}
+
+
+function updategeneraldoctor(mainurl) {
+        var collection = db.collection('generaldoctorlist');
+        collection.find({$and:[   {docphone:null}, {"phoneurl": {$ne: null}}]  }).limit(1).toArray(function (err, items){
+        if (err) {
+            console.log(err);
+            resp.send(JSON.stringify({'res':[]}));
+        } else {
+            var obj=new Object();
+            for(x in items) {
+                obj._id=items[x]._id;
+                obj.phoneurl=items[x].phoneurl;
+                console.log("updtgenerldoctr");
+                console.log(obj);
+                updatephoneforgeneral(mainurl,obj);
+                setInterval(function () {
+
+                },5000);
+
+                console.log(mainurl);
+            }
+
+           /* resp.send(JSON.stringify(items));*/
+        }
+
+    });
+}
+
+function updatephone(mainurl,obj) {
+
+    request(mainurl+obj.phoneurl, function(error21, response1, html21){
+        if(!error21) {
+
+            var $ = cheerio.load(html21);
+            //var states;
+            console.log('in doc update phone ... ');
+
+            var docphone=$("span[itemprop='telephone']").html();
+            var fax=$("span[itemprop='faxNumber']").html();
+            console.log(docphone);
+            //console.log("objects are");
+            //console.log(obj);
+            console.log(updatecounter++);
+            //var collection = db.collection('generaldoctorlist');
+            var collection = db.collection('cardiologist');
+            collection.update({_id: obj._id}, {$set: {docphone:docphone}},function(err, results) {
+                if (err){
+                    console.log('updateerror');
+                    resp.send("failed");
+                    throw err;
+                }
+                else {
+                    console.log("update successfull");
+                }
+            });
+
+        }
+        else {
+            console.log("inside particulardocdata");
+            console.log('in error  :'+error21);
+        }
+
+    });
+
+}
+
+function updatephoneforgeneral(mainurl,obj) {
+
+    request(mainurl+obj.phoneurl, function(error21, response1, html21){
+        if(!error21) {
+
+            var $ = cheerio.load(html21);
+            console.log('in doc update phone ... ');
+            var docphone=$("span[itemprop='telephone']").html();
+            var fax=$("span[itemprop='faxNumber']").html();
+            console.log(docphone);
+            console.log(updatecounter++);
+            var collection = db.collection('generaldoctorlist');
+            collection.update({_id: obj._id}, {$set: {docphone:docphone}},function(err, results) {
+                if (err){
+                    console.log('updateerror');
+                    resp.send("failed");
+                    throw err;
+                }
+                else {
+                    console.log("update successfull");
+                }
+            });
+        }
+        else {
+            console.log("inside particulardocdata");
+            console.log('in error  :'+error21);
+        }
+    });
+}
+
+
+function generateRange(pCount, pMin, pMax) {
+    min = pMin < pMax ? pMin : pMax;
+    max = pMax > pMin ? pMax : pMin;
+    var resultArr = [], randNumber;
+    while ( pCount > 0) {
+        randNumber = Math.round(min + Math.random() * (max - min));
+        if (resultArr.indexOf(randNumber) == -1) {
+            resultArr.push(randNumber);
+            pCount--;
+        }
+    }
+    return resultArr;
+}
 /*-----------------------------------URL_UPDATE_END---------------------------------*/
 
 

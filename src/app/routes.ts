@@ -68,6 +68,8 @@ import {ReplyComponent} from "./reply/reply.component";
 import {ViewlogoutdetailsComponent} from "./viewlogoutdetails/viewlogoutdetails.component";
 import {ViewlogouthistoryComponent} from "./viewlogouthistory/viewlogouthistory.component";
 import {EmployeeloginouttimeComponent} from "./employeeloginouttime/employeeloginouttime.component";
+import {CardioComponent} from "./cardio/cardio.component";
+import {GeneraldoctorComponent} from "./generaldoctor/generaldoctor.component";
 
 const appRoutes: Routes = [
     // { path: '/**',component: AppComponent},
@@ -136,6 +138,8 @@ const appRoutes: Routes = [
     { path: 'viewlogoutdetails/:id', component: ViewlogoutdetailsComponent},
     { path: 'viewlogouthistory', component: ViewlogouthistoryComponent},
     { path: 'employeeloginouttime', component: EmployeeloginouttimeComponent},
+    { path: 'cardio', component: CardioComponent},
+    { path: 'generaldoctor', component: GeneraldoctorComponent},
 
    // { path: 'content', component: ContentComponent,outlet:'content'},
 ];

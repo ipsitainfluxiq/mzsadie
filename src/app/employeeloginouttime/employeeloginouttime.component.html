@@ -14,17 +14,12 @@
 
           <tr *ngFor="let item of itemdetails; let i = index">
             <td>{{i+1}}</td>
-            <td>{{item.firstname}} {{item.lastname}}</td>
-            <td>{{item.Userloginouttime.indate}}</td>
+            <td>{{item.userdetail.firstname}} {{item.userdetail.lastname}}</td>
+            <td>{{item.indate}}</td>
             <!--<td ngIf="{{item.Userloginouttime.type}}=1">{{item.Userloginouttime.intime}}</td>-->
+            <td>{{item.intime}}</td>
+            <td>{{item.Userloginouttimedetails.intime}}</td>
 
-
-
-            <td *ngIf="item.Userloginouttime.type == '1' ">{{item.Userloginouttime.intime}}</td>
-
-
-
-           <!-- <td *ngIf="item.Userloginouttime.type == '0' ">{{item.Userloginouttime.intime}}</td>-->
           </tr>
         </table>
       </div>

@@ -1,0 +1,32 @@
+<div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 dashboard_right">
+    <div class="dashboard_right_wrapper">
+        <div class="dashboard1_div1 table-responsive">
+            <div class="tablediv">
+                <button (click)="exportcsv()">CLick</button>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <th>#</th>
+                        <!--<th>DOCNAMEHEAD</th>-->
+                        <th>DOCNAME</th>
+                        <th>MEDICAL SPCIALITY</th>
+                        <th>DOCPHONE</th>
+                        <th>DOCADDRESS</th>
+                        <th>DOCABOUT</th>
+                        <th>AVAILABLE SERVICES</th>
+                    </tr>
+
+                    <tr *ngFor="let item of datalist; let i = index">
+                        <td>{{i+1}}</td>
+                        <!--<td>{{item.docnamehead}}</td>-->
+                        <td>{{item.docname}}</td>
+                        <td>{{item.medicalspeciality}}</td>
+                        <td>{{item.docphone}}</td>
+                        <td><div [innerHTML]="_sanitizer.bypassSecurityTrustHtml(item.docaddress)" ></div></td>
+                        <td>{{item.docabout}}</td>
+                        <td>{{item.availableService}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

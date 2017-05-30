@@ -16,6 +16,7 @@ export class AdminLeftsidebarComponent implements OnInit {
     this.coockieData=userdetails;
     this.userdata2 = userdetails.getObject('userdetails');
     this.name= this.userdata2.firstname+" "+this.userdata2.lastname;
+
   }
 
   ngOnInit() {
